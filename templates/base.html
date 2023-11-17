@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glitz Events Planners</title>
+    <link rel="shortcut icon" href="{% static 'images\logo\glitzeventicon.png'%}" type="image/x-icon" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
+   <style>
+    .navbar{
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color:red;
+      z-index: 1;
+      padding-left: 5rem;
+      padding-right: 5rem;
+      height: 160px;
+    }
+    .navbar-nav{
+      margin: 0 auto;
+      font-size: 20px;
+    }
+    li{
+      font-size: 16px;
+      color: black;
+      font-weight: 500;
+    }
+    @media (max-width:992px) {
+      .navbar{
+        background-color: red;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+    body{
+      background-color: #E6E6FA;
+    }
+   </style>
+</head>
+<body>
+ 
+  <div class="">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#"><img src="https://cied.eu/assets/images/logo/ciedLogo.svg" alt=""></a>
+
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+            <circle cx="30" cy="30" r="29" fill="white" stroke="white" stroke-width="2"/>
+            </svg>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle text-light ml-2" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle text-light  ml-2" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+         
+        </form>
+      </div>
+    </nav>
+    
+    {% block content %}
+    
+
+    {% endblock %}
+  </div>
+</body>
+</html>
