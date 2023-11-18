@@ -14,7 +14,7 @@
     
 
    <style>
-    .navbar{
+    .base .navbar{
       position: absolute;
       width: 100%;
       top: 0;
@@ -23,12 +23,20 @@
       z-index: 1;
       padding-left: 5rem;
       padding-right: 5rem;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
     }
-    .navbar-nav{
+    @media (max-width:992px) {
+      .base .navbar{
+      padding-left: 2rem;
+      padding-right: 2rem;
+      }
+    }
+    .base .navbar-nav{
       margin: 0 auto;
       font-size: 20px;
     }
-    li{
+    .base li{
       font-size: 16px;
       color: black;
       font-weight: 500;
@@ -41,13 +49,24 @@
       }
     }
     body{
-      background-color: #E6E6FA;
+      background-color: white;
+    }
+
+    #footer{
+      margin-top: 7rem;
+      color: white;
+    }
+    #footer li{
+      color: white;
+    }
+    #footer ul{
+      list-style-type: none
     }
    </style>
 </head>
 <body>
  
-  <div class="">
+  <div class="base">
     <nav class="navbar navbar-expand-lg navbar-light">
       <a class="navbar-brand" href="#"><img src="{% static 'images\logo\glitzlogo.png'%}" alt=""></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,29 +75,14 @@
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="">HOME <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contactus">ABOUT US</a>
-          </li>
           
-          <li class="nav-item">
-            <a class="nav-link" href="#ourservice">SERVICE</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#user_events">OUR EVENTS</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#footer">CONTACT</a>
-          </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <a href="" class="btn btn-light my-2 my-sm-0" style="background-color:transparent; border: none;" type="submit">SIGN UP</a>
+          <img class="rounded-circle article-img  ml-2" id="log" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="static\images\static_image\Group 182.svg" id="img" width="40" height="40">
 
-          <a href="" class=" my-2 my-sm-0 pt-2 pb-2 pl-4 pr-4 btn" style="background-color:#622E92; border: none; color: white;">LOG IN</a>
+          <img class="rounded-circle article-img ml-2" id="log" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="static\images\static_image\Group 183.svg" id="img" width="40" height="40">
+
+          <img class="rounded-circle article-img  ml-2" id="log" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="static\images\static_image\Group 184.svg" id="img" width="40" height="40">
         </form>
       </div>
     </nav>
@@ -87,6 +91,92 @@
     
 
     {% endblock %}
+
+    <div style="background-color: red;">
+      <div class="container p-5" id="footer">
+        <div class="row">
+          <div class="col-sm-12">
+  
+            <div class="row">
+              <div class="col-sm-6 ">
+                <div class="row">
+                  <div class="col-sm-12">
+                   <h1>LOGO</h1>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-sm-12">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut ullam inventore maiores similique cupiditate a illum eligendi laborum enim, dicta consectetur provident sint, debitis sapiente, odit voluptate assumenda quis minus!
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-sm-6" style="text-align: left;">
+  
+                <div class="row">
+                  <div class="col-sm-3">
+
+                  </div>
+                  
+                  <div class="col-sm-3 mt-3">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h6>Main Links</h6>
+                      </div>
+                    </div>
+  
+  
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <ul>
+                          <li>Link1</li>
+                          <li>Link1</li>
+                          <li>Link1</li>
+                          <li>Link1</li>
+                          <li>Link1</li>
+  
+                        </ul>
+                      </div>
+                    </div>
+                    
+                  </div>
+  
+                  <div class="col-sm-3 mt-3">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h6>Main Links</h6>
+                      </div>
+                    </div>
+  
+  
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <ul>
+                          <li>Link1</li>
+                          <li>Link1</li>
+                          <li>Link1</li>
+                          <li>Link1</li>
+                          <li>Link1</li>
+  
+                        </ul>
+                      </div>
+                    </div>
+                    
+                  </div>
+
+                  <div class="col-sm-3">
+                    
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      
+    </div>
   </div>
 </body>
 </html>

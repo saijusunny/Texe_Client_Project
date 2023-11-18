@@ -55,6 +55,50 @@
         line-height: normal;
         letter-spacing: 1.2px;
     }
+    #category select{
+      font-weight: bolder;
+      background-color: transparent;
+      border: none;
+      text-decoration: none;
+      border-bottom: 2px solid transparent; /* Initial border style */
+      transition: border-bottom 0.3s ease; /* Smooth transition for the border */
+      outline: none; /* Remove default focus outline */
+    }
+    #category select:hover{
+      color: red;
+      border-bottom: 2px solid red; 
+      outline: none;
+    }
+    #category select:active{
+      color: red; 
+      background-color: red;
+      border-bottom: 2px solid red;
+      outline: none;
+    }
+    #category select:after{
+      color: red; 
+      outline: none;
+      border-bottom: 2px solid red;
+    }
+    #category select:focus {
+      color: red; 
+      outline: none;
+      border-bottom: 2px solid red; /* Change border color on focus/clicked */
+    }
+
+    #products{
+      height: 30rem;
+    }
+
+    @media (max-width:992px) {
+      #products{
+      height: 36rem;
+      }
+      
+      
+    }
+
+
 </style>
 <div>
     
@@ -74,7 +118,7 @@
                     </div>   
                     <section id="pro" >
                       <div class=" " data-aos="fade-up">
-                        <div class="row g-4 py-1">
+                        <div class="row g-4 py-1  p-3">
                           <div class="owl-carousel owl-theme owl_views">
                        
                             <a href="" class="stretched-link">
@@ -123,75 +167,186 @@
         </div>
     </div>
     </div>
+
+    <!-- middle Banner -->
    <div>
-    <img src="static/images/static_image/banner.jpeg" class="w-100" alt="">
+    <img src="static\images\static_image\middle.png" class="w-100" alt="">
 
    </div>
 
-    
+   
+   <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="category" data-aos="fade-up">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div id="product" data-aos="fade-up">
-
-                    <div class="row" style="margin-top: 1rem;">
-                      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; ">
-                        <h2 style="font-weight: bold;">Our Productdsffs</h2>
-                      </div>
-                    </div>   
-                    <section id="pro" >
-                      <div class=" " data-aos="fade-up">
-                        <div class="row g-4 py-1">
-                          <div class="owl-carousel owl-theme owl_views">
-                       
-                            <a href="" class="stretched-link">
-                            <div class="item mb-4">
-                              <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48;">
-                                <img src="static\images\static_image\trend1.png" alt="{{i.category_name}}" class="card-img-top">
-                                <div class="card-body">
-                                  <h6 alt="{{i.category_name}}" style="font-weight: bolder;font-size: 18px;">fgdfgd</h6>
-                                </div>
-                              </div>
-                            </div>
-                            </a>
-                            <a href="" class="stretched-link">
-                            <div class="item mb-4">
-                                <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48;">
-                                <img src="static\images\static_image\trend1.png" alt="{{i.category_name}}" class="card-img-top">
-                                <div class="card-body">
-                                    <h6 alt="{{i.category_name}}" style="font-weight: bolder;font-size: 18px;">fgdfgd</h6>
-                                </div>
-                                </div>
-                            </div>
-                            </a>
-
-                            <a href="" class="stretched-link">
-                            <div class="item mb-4">
-                                <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48;">
-                                <img src="static\images\static_image\trend1.png" alt="{{i.category_name}}" class="card-img-top">
-                                <div class="card-body">
-                                    <h6 alt="{{i.category_name}}" style="font-weight: bolder;font-size: 18px;">fgdfgd</h6>
-                                </div>
-                                </div>
-                            </div>
-                            </a>
-
-
-
-                        
-                            <!--  -->  
-                          </div>
-                          
+                <div class="row" style="margin-top: 1rem;">
+                  <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; ">
+                    <h2 style="font-weight: bold;">Product Categories</h2>
+                  </div>
+                </div>   
+                <section id="pro" >
+                  <div class=" " data-aos="fade-up">
+                    <div class="row g-4 py-1 p-5">
+                      <div class="owl-carousel owl-theme owl_nav">
+                   
+                        <div class="item mb-4">
+                          <select name="" id="cat_item" class="form-control" onchange="myFunction(this.value)">
+                            <option value="tshirt" >T-Shirtss</option>
+                          </select>
                         </div>
+
+                        <div class="item mb-4">
+                          <select name="" id="" class="form-control">
+                            <option value="">Hoodies</option>
+                          </select>
+                        </div>
+
+                         
+                        <div class="item mb-4">
+                          <select name="" id="" class="form-control">
+                            <option value="">Baby Clothes</option>
+                          </select>
+                        </div>
+                         
+                        <div class="item mb-4">
+                          <select name="" id="" class="form-control">
+                            <option value="">Jersey</option>
+                          </select>
+                        </div>
+
+                        <div class="item mb-4">
+                          <select name="" id="" class="form-control">
+                            <option value="">Uniforms</option>
+                          </select>
+                        </div>
+
+                         
+                        <div class="item mb-4">
+                          <select name="" id="" class="form-control">
+                            <option value="">Sports Wears</option>
+                          </select>
+                        </div>
+
                       </div>
-                    </section>
                     
-            </div>
+                      
+                    </div>
+                  </div>
+                </section>
+                
         </div>
     </div>
+  </div>
+
+
+  <div id="t-shirt" data-aos="fade-up">
+    <div class=" " data-aos="fade-up">
+      <div class="row pl-3 pr-3">
+        <div class="owl-carousel owl-theme owl_views_arrival">
+
+         
+          <div class="item">
+            <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
+              <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
+              <div class="card-body">
+        
+                <div class="row">
+                  <div class="col-sm-10">
+                    <p class="card-title" style="text-align: left;">Name Of Product</p>
+                  </div>
+                  <div class="col-sm-2" style="text-align: right;" id="image">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  -->  
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 </div>
+   
+
+    
+
+   <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="static\images\static_image\image 1.png" class="w-100 mt-3" alt="">
+      </div>
+      <div class="col-md-6">
+        <img src="static\images\static_image\image 2.png" class="w-100 mt-3" alt="">
+      </div>
+    </div>
+   </div>
+
+</div>
+
+<!-- script for show cat -->
+
+<script>
+  function myFunction(val) {
+  alert("The input value has changed. The new value is: " + val);
+}
+
+</script>
+<script>
+  $('.owl_views_arrival').owlCarousel({
+      loop:true,
+      margin:10,
+      nav:true,
+      dots: true,
+      autoplay: true,
+      mouseDrag: true,
+      touchDrag: true,
+      navText: ["<i class='fa fa-long-arrow-left text-danger mr-3' style='font-size: 25px; margin-top:-100px'></i>", "<i class='fa fa-long-arrow-right  text-danger' style='font-size: 25px;margin-top:-100px'></i>"],
+    
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:4
+        }
+    }
+    })
+</script>
+
+
+<script>
+  $(document).ready(function(){
+    $(".owl_nav").owlCarousel({
+      loop: false,
+      margin: 10,
+      autoplay: false,
+      nav: false,
+      dots: false,
+      responsive:{
+        0:{
+          items:1
+        },
+        600:{
+          items:5
+        },
+        1000:{
+          items:5
+        }
+      },
+      navText: ['<button type="button" role="presentation" class="owl-prev"><span aria-label="Previous">‹</span></button>', '<button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button>']
+    });
+  });
+</script>
 
 
 <script>
