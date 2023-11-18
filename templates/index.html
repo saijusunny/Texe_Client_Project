@@ -191,40 +191,49 @@
                       <div class="owl-carousel owl-theme owl_nav">
                    
                         <div class="item mb-4">
-                          <select name="" id="cat_item" class="form-control" onchange="myFunction(this.value)">
-                            <option value="tshirt" >T-Shirtss</option>
+                          <select class="form-control" onclick="showSelectedValue(this.value)">
+                            <option disabled selected>T-shirt</option>
+                            <option value="tshirt">T-shirt</option>
+                            <option value="hoodies">Hoodies</option>
+                      
                           </select>
                         </div>
 
                         <div class="item mb-4">
-                          <select name="" id="" class="form-control">
-                            <option value="">Hoodies</option>
-                          </select>
-                        </div>
-
-                         
-                        <div class="item mb-4">
-                          <select name="" id="" class="form-control">
-                            <option value="">Baby Clothes</option>
-                          </select>
-                        </div>
-                         
-                        <div class="item mb-4">
-                          <select name="" id="" class="form-control">
-                            <option value="">Jersey</option>
-                          </select>
-                        </div>
-
-                        <div class="item mb-4">
-                          <select name="" id="" class="form-control">
-                            <option value="">Uniforms</option>
+                          <select class="form-control" onclick="showSelectedValue(this.value)">
+                            <option disabled selected>Hoodies</option>
+                            <option value="hoodies">Hoodies</option>
+                            
                           </select>
                         </div>
 
                          
                         <div class="item mb-4">
-                          <select name="" id="" class="form-control">
-                            <option value="">Sports Wears</option>
+                          <select class="form-control" onclick="showSelectedValue(this.value)">
+                            <option disabled selected>Baby Clothes</option>
+                            <option value="baby_clothes">Baby Clothes</option>
+                          </select>
+                        </div>
+                         
+                        <div class="item mb-4">
+                          <select class="form-control" onclick="showSelectedValue(this.value)">
+                            <option disabled selected>Jersey</option>
+                            <option value="jersey">Jersey</option>
+                          </select>
+                        </div>
+
+                        <div class="item mb-4">
+                          <select class="form-control" onclick="showSelectedValue(this.value)">
+                            <option disabled selected>Uniforms</option>
+                            <option value="uniforms" >Uniforms</option>
+                          </select>
+                        </div>
+
+                         
+                        <div class="item mb-4">
+                          <select class="form-control" onclick="showSelectedValue(this.value)">
+                            <option disabled selected>Sports Wears</option>
+                            <option value="sports_wears">Sports Wears</option>
                           </select>
                         </div>
 
@@ -240,6 +249,8 @@
   </div>
 
 
+  
+
   <div id="t-shirt" data-aos="fade-up">
     <div class=" " data-aos="fade-up">
       <div class="row pl-3 pr-3">
@@ -253,7 +264,39 @@
         
                 <div class="row">
                   <div class="col-sm-10">
-                    <p class="card-title" style="text-align: left;">Name Of Product</p>
+                    <p class="card-title" style="text-align: left;">t-shirt</p>
+                  </div>
+                  <div class="col-sm-2" style="text-align: right;" id="image">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  -->  
+        </div>
+        
+      </div>
+    </div>
+  </div>
+<!-- hoodies -->
+  <div id="hoodies" data-aos="fade-up" style="display: none;">
+    <div class=" " data-aos="fade-up">
+      <div class="row pl-3 pr-3">
+        <div class="owl-carousel owl-theme owl_views_arrival">
+
+         
+          <div class="item">
+            <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
+              <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
+              <div class="card-body">
+        
+                <div class="row">
+                  <div class="col-sm-10">
+                    <p class="card-title" style="text-align: left;">hoodies</p>
                   </div>
                   <div class="col-sm-2" style="text-align: right;" id="image">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
@@ -272,10 +315,150 @@
     </div>
   </div>
 
-</div>
-   
 
-    
+<!-- baby_clothes -->
+
+<div id="baby_clothes" data-aos="fade-up" style="display: none;">
+  <div class=" " data-aos="fade-up">
+    <div class="row pl-3 pr-3">
+      <div class="owl-carousel owl-theme owl_views_arrival">
+
+       
+        <div class="item">
+          <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
+            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
+            <div class="card-body">
+      
+              <div class="row">
+                <div class="col-sm-10">
+                  <p class="card-title" style="text-align: left;">baby_clothes</p>
+                </div>
+                <div class="col-sm-2" style="text-align: right;" id="image">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  -->  
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- jersey -->
+
+<div id="jersey" data-aos="fade-up" style="display: none;">
+  <div class=" " data-aos="fade-up">
+    <div class="row pl-3 pr-3">
+      <div class="owl-carousel owl-theme owl_views_arrival">
+
+       
+        <div class="item">
+          <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
+            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
+            <div class="card-body">
+      
+              <div class="row">
+                <div class="col-sm-10">
+                  <p class="card-title" style="text-align: left;">jersey</p>
+                </div>
+                <div class="col-sm-2" style="text-align: right;" id="image">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  -->  
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<!-- uniforms -->
+
+<div id="uniforms" data-aos="fade-up" style="display: none;">
+  <div class=" " data-aos="fade-up">
+    <div class="row pl-3 pr-3">
+      <div class="owl-carousel owl-theme owl_views_arrival">
+
+       
+        <div class="item">
+          <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
+            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
+            <div class="card-body">
+      
+              <div class="row">
+                <div class="col-sm-10">
+                  <p class="card-title" style="text-align: left;">uniforms</p>
+                </div>
+                <div class="col-sm-2" style="text-align: right;" id="image">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  -->  
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<!-- sports_wears -->
+
+<div id="sports_wears" data-aos="fade-up" style="display: none;">
+  <div class=" " data-aos="fade-up">
+    <div class="row pl-3 pr-3">
+      <div class="owl-carousel owl-theme owl_views_arrival">
+
+       
+        <div class="item">
+          <div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
+            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
+            <div class="card-body">
+      
+              <div class="row">
+                <div class="col-sm-10">
+                  <p class="card-title" style="text-align: left;">sports_wears</p>
+                </div>
+                <div class="col-sm-2" style="text-align: right;" id="image">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  -->  
+      </div>
+      
+    </div>
+  </div>
+
+
+</div>
+
 
    <div class="container">
     <div class="row">
@@ -291,13 +474,57 @@
 </div>
 
 <!-- script for show cat -->
-
 <script>
-  function myFunction(val) {
-  alert("The input value has changed. The new value is: " + val);
-}
+  function showSelectedValue(val) {
 
+  if (val=="tshirt"){
+    document.getElementById("t-shirt").style.display="block";
+    document.getElementById("hoodies").style.display="none"; 
+    document.getElementById("baby_clothes").style.display="none";
+    document.getElementById("jersey").style.display="none";
+    document.getElementById("uniforms").style.display="none";
+    document.getElementById("sports_wears").style.display="none";
+
+  } else if(val=="hoodies"){
+    document.getElementById("t-shirt").style.display="none";
+    document.getElementById("hoodies").style.display="block";
+    document.getElementById("baby_clothes").style.display="none";
+    document.getElementById("jersey").style.display="none";
+    document.getElementById("uniforms").style.display="none";
+    document.getElementById("sports_wears").style.display="none";
+  }else if(val=="baby_clothes"){
+    document.getElementById("t-shirt").style.display="none";
+    document.getElementById("hoodies").style.display="none";
+    document.getElementById("baby_clothes").style.display="block";
+    document.getElementById("jersey").style.display="none";
+    document.getElementById("uniforms").style.display="none";
+    document.getElementById("sports_wears").style.display="none";
+  }else if(val=="jersey"){
+    document.getElementById("t-shirt").style.display="none";
+    document.getElementById("hoodies").style.display="none";
+    document.getElementById("baby_clothes").style.display="none";
+    document.getElementById("jersey").style.display="block";
+    document.getElementById("uniforms").style.display="none";
+    document.getElementById("sports_wears").style.display="none";
+  }else if(val=="uniforms"){
+    document.getElementById("t-shirt").style.display="none";
+    document.getElementById("hoodies").style.display="none";
+    document.getElementById("baby_clothes").style.display="none";
+    document.getElementById("jersey").style.display="none";
+    document.getElementById("uniforms").style.display="block";
+    document.getElementById("sports_wears").style.display="none";
+  }
+  else if(val=="sports_wears"){
+    document.getElementById("t-shirt").style.display="none";
+    document.getElementById("hoodies").style.display="none";
+    document.getElementById("baby_clothes").style.display="none";
+    document.getElementById("jersey").style.display="none";
+    document.getElementById("uniforms").style.display="none";
+    document.getElementById("sports_wears").style.display="block";
+  }
+}
 </script>
+
 <script>
   $('.owl_views_arrival').owlCarousel({
       loop:true,
