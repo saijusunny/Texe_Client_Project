@@ -12,4 +12,8 @@ def signup(request):
 def login(request):
     return render(request, 'login.html')
 
+def product_view(request):
+    return render(request, 'user/product_view.html')
+
+
 
