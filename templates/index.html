@@ -14,22 +14,40 @@
 <style>
     /* Customize navigation buttons */
 
-    .custom-nav2 {
+    .custom-nav3{
       
       position: absolute;
+      margin-top: -45px;
+      transform: translateY(-50%);
+      font-size: 24px;
+      cursor: pointer;
+      color: #333; /* Customize the color */
+    }
+    .custom-nav3.prev3 {
+      left: 90%;
+    }
+
+    .custom-nav3.next3 {
+      right:2%
+    }
+
+    .custom-nav2 {
       margin-top: 510px;
+      position: absolute;
+     
       transform: translateY(-50%);
       font-size: 24px;
       cursor: pointer;
       color: #333; /* Customize the color */
     }
     .custom-nav2.prev2 {
-      margin-left: 35%;
+      margin-left: 38%;
     }
 
     .custom-nav2.next2 {
-      margin-left: 44%;
+      margin-left: 41%;
     }
+
 
     @media (max-width:992px) {
       .custom-nav2 {
@@ -47,6 +65,10 @@
 
     .custom-nav2.next2 {
       margin-left: 48%;
+    }
+    .custom-nav3{
+      
+      display: none;
     }
     }
 
@@ -94,7 +116,7 @@
       letter-spacing: 1.2px;
     }
     .trend_lg{
-      margin-left: 50px;
+      margin-left: 10px;
     }
     
 
@@ -124,6 +146,7 @@
     }
     .trend_lg{
       margin-left: 0px;
+      display: none;
     }
   
 
@@ -303,6 +326,23 @@
                                   </div>
                                 </div>
                             </div>
+
+                            <div class="item mb-4">
+                              <div class="card border-0 " >
+                              <img src="static\images\static_image\trend1.png" alt="{{i.category_name}}" class="card-img-top">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    More
+                                  
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="margin-left:67%" class="bi bi-heart" viewBox="0 0 16 16">
+                                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                    </svg>
+                                  </div>
+                                </div>
+                              </div>
+                              </div>
+                          </div>
                          
 
 
@@ -310,6 +350,13 @@
                         
                             <!--  -->  
                           </div>
+
+                          <div class="custom-nav3 prev3 ml-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                          </svg></div>
+                          <div class="custom-nav3 next3 ml-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                          </svg></div>
                           
                         </div>
                       </div>
@@ -338,7 +385,7 @@
                   </div>
                 </div>   
                 <section id="pro" >
-                  <div class=" pt-3 pl-5 pr-5" data-aos="fade-up">
+                  <div class=" pt-3 pl-5 pr-5 mr-2 ml-2" data-aos="fade-up">
                     <div class="row g-4 py-1">
                       <div class="owl-carousel owl-theme owl_nav">
                    
@@ -396,10 +443,10 @@
                     </div>
                   </div>
                 </section>
-                <div class="custom-nav prev ml-2 btn p-2" style="background-color: red; color: white; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+                <div class="custom-nav prev ml-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                 </svg></div>
-                <div class="custom-nav next mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <div class="custom-nav next mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                 </svg></div>
                 
@@ -449,10 +496,10 @@
           <!-- Add more items as needed -->
         </div>
 
-        <div class="custom-nav2 prev2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+        <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
         </svg></div>
-        <div class="custom-nav2 next2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
         </svg></div>
         
@@ -499,10 +546,10 @@
           <!-- Add more items as needed -->
         </div>
 
-        <div class="custom-nav2 prev2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+        <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
         </svg></div>
-        <div class="custom-nav2 next2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
         </svg></div>
         
@@ -551,10 +598,10 @@
         <!-- Add more items as needed -->
       </div>
 
-      <div class="custom-nav2 prev2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+      <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
       </svg></div>
-      <div class="custom-nav2 next2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+      <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
       </svg></div>
       
@@ -603,10 +650,10 @@
           <!-- Add more items as needed -->
         </div>
 
-        <div class="custom-nav2 prev2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+        <div class="custom-nav2 prev2  mr-2 pl-2 pr-" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
         </svg></div>
-        <div class="custom-nav2 next2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
         </svg></div>
       
@@ -656,10 +703,10 @@
           <!-- Add more items as needed -->
         </div>
 
-        <div class="custom-nav2 prev2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+        <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
         </svg></div>
-        <div class="custom-nav2 next2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
         </svg></div>
       
@@ -709,10 +756,10 @@
           <!-- Add more items as needed -->
         </div>
 
-        <div class="custom-nav2 prev2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+        <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
         </svg></div>
-        <div class="custom-nav2 next2  mr-2 btn p-2" style="background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
         </svg></div>
       
@@ -729,11 +776,11 @@
 
    <div class="container mt-5">
     <div class="row">
-      <div class="col-sm-6" style="text-align: left;">
-        <img src="static\images\static_image\image 1.png" class="w-100 mt-3" alt="">
+      <div class="col-sm-6 " style="text-align: left;">
+        <img src="static\images\static_image\image 1.png" class="w-100 mt-5" alt="">
       </div>
       <div class="col-sm-6" >
-        <img src="static\images\static_image\image 2.png" style="left: 0;" class="w-100 mt-3" alt="">
+        <img src="static\images\static_image\image 2.png" style="left: 0;" class="w-100 mt-5" alt="">
       </div>
     </div>
    </div>
@@ -902,28 +949,40 @@
 </script>
 
 
-
-
 <script>
-$('.owl_views').owlCarousel({
-    loop:true,
-    margin:10,
-    autoplay: true,
-    nav:true,
-    navigation: true,
-    navigationText: ["<i class='fa fa-long-arrow-left text-danger mr-3' style='font-size: 25px; margin-top:-100px'></i>", "<i class='fa fa-long-arrow-right  text-danger' style='font-size: 25px;margin-top:-100px'></i>"], 
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:4
-        }
-    }
-})
+  $(document).ready(function(){
+    $('.owl_views').owlCarousel({
+      loop:true,
+      margin:10,
+      autoplay: true,
+      nav:false,
+      navigation: true,
+      dots:false,
+      responsive:{
+          0:{
+              items:1
+          },
+          600:{
+              items:3
+          },
+          1000:{
+              items:4
+          }
+      }
+    });
 
+    // Custom navigation
+    $('.custom-nav3.next3').click(function() {
+      $('.owl_views').trigger('next.owl.carousel');
+    });
+
+    $('.custom-nav3.prev3').click(function() {
+      $('.owl_views').trigger('prev.owl.carousel');
+    });
+  });
 </script>
+
+
+
+
 {% endblock %}
