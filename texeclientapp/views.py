@@ -14,6 +14,18 @@ def login(request):
 
 def product_view(request):
     return render(request, 'user/product_view.html')
+    
+def all_item(request):
+    return render(request, 'user/all_item.html')
+
+def cust(request):
+    return render(request, 'user/cust.html')
+
+def cart(request):
+    return render(request, 'user/cart.html')
+
+def whistle(request):
+    return render(request, 'user/whistle.html')
 
 
 
