@@ -55,6 +55,8 @@
       color: black;
       font-weight: 500;
     }
+
+    
     @media (max-width:992px) {
       .navbar{
         background-color: rgb(255, 255, 255);
@@ -105,11 +107,11 @@
           {% if user %}
           <div class="dropdown" >
             {% if user.profile == "static\images\static_image\icon.svg"%}
-            <img class="rounded-circle article-img dropdown-toggle ml-2" id="log" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{% static 'images\static_image\icon.svg'%}" id="img" width="40" height="40">
+            <img class="rounded-circle article-img dropdown-toggle ml-2" id="log" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{% static 'images\static_image\icon.svg'%}" id="img" width="40" height="40">
             
               
             {%else%}
-            <img class="rounded-circle article-img dropdown-toggle bg-dark ml-2" id="log" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{{user.profile.url}}" id="img" width="40" height="40">
+            <img class="rounded-circle article-img dropdown-toggle bg-dark ml-2" id="log" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{{user.profile.url}}" id="img" width="40" height="40">
             {%endif%}
             
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="float: left;background-image: linear-gradient(-45deg,#ffffff, #ffffff);width: 50px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); ">
