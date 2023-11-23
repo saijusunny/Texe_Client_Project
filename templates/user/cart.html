@@ -29,7 +29,7 @@
                             <h5>Quant trident shirts</h5>
                             <div class="d-flex flex-row">
                             <div class="mt-1">
-                                <span>$499</span><span class="ml-4 text-muted"><strike>$999</strike></span><br>
+                                <span>$<input type="text" value="499" style="border: none; " class="w-25" readonly id="amount"></span><span class="ml-4 text-muted"><strike>$999</strike></span><br>
                             </div>
                             
             
@@ -43,7 +43,7 @@
                                     <div class="col-sm-3 mt-1">
                                         <span><span class="">Color : <button class="btn btn-outline-dark" style="width: 30px; height: 30px; background-color: mediumblue;"></button></span></span>
                                     </div>
-                                    <div class="col-sm-6 mt-3">
+                                    <div class="col-sm-6 mt-1">
                                         <span class="">Meterial : Cotton</span>
                                     </div>
                                 </div>
@@ -80,6 +80,8 @@
                     </div>
                   </div>
                 </div>
+
+                
             
               
 
@@ -95,7 +97,7 @@
                         <p>Price : </p>
                     </div>
                     <div class="col-sm-4">
-                        <p>$200</p>
+                        <p>$<input type="text" value="0" style="border: none; background-color: transparent; " class="w-75" readonly id="price"></p>
                     </div>
                 </div>
 
@@ -104,7 +106,7 @@
                         <p>Delivery Charge : </p>
                     </div>
                     <div class="col-sm-4">
-                        <p>$200</p>
+                        <p>$<input type="number" value="0" style="border: none; background-color: transparent; " class="w-75" id="delivery" onchange="delivery()"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -118,13 +120,13 @@
                         <p>Total : </p>
                     </div>
                     <div class="col-sm-4">
-                        <p>$200</p>
+                        <p>$<input type="text" value="0" style="border: none; background-color: transparent;" class="w-75" readonly id="sum"></p>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <input type="submit" class="form-control btn btn-danger" style="background-color:red; color:white">
+                        <input type="submit" class="form-control btn btn-danger" style="background-color:red; color:white" value="Place Order">
                     </div>
                 </div>
             </div>
@@ -133,23 +135,74 @@
     
 </div>
 
-
 <script>
-    
+  
+    function calc_total() {
+       
+          var price = document.getElementById(`price`).value
+          var qty = document.getElementById(`numberInput`).value
+          var delivery = document.getElementById(`delivery`).value
+          document.getElementById(`sum`).value=parseFloat(qty)*parseFloat(price)
+          console.log(price)
+          console.log(parseFloat(qty)*parseFloat(price))
+          
+          total = 0;
+          $('.tot_item').each(function () {
+              total += parseFloat($(this).val()) ;
+              
+          });
+          
+          console.log(total)
+  
+          $('#total').val((total).toFixed(2));
+  
+      }
+  </script>
+<script>
+    function delivery(){
+        var qty = document.getElementById('numberInput').value;
+        var amount = document.getElementById('amount').value;
+        
+        var delivery = document.getElementById("delivery").value;
+     
+        document.getElementById("price").value=parseInt(qty)*parseInt(amount)
+        var price = document.getElementById("price").value;
+        
+        document.getElementById("sum").value=parseInt(parseInt(qty)*parseInt(amount))+parseInt(delivery)
+    }
+
+
     function increment() {
        
         var numberInput = document.getElementById('numberInput');
         numberInput.value = parseInt(numberInput.value) + 1;
-        var tot=document.getElementsByClassName('qty')[].value;
-        document.write(tot)
+        var qty = document.getElementById('numberInput').value;
+        var amount = document.getElementById('amount').value;
+        
+        var delivery = document.getElementById("delivery").value;
+     
+        document.getElementById("price").value=parseInt(qty)*parseInt(amount)
+        var price = document.getElementById("price").value;
+        
+        document.getElementById("sum").value=parseInt(parseInt(qty)*parseInt(amount))+parseInt(delivery)
+        
     }
-
+    
+    
     function decrement() {
         var numberInput = document.getElementById('numberInput');
         var value = parseInt(numberInput.value) - 1;
         // Ensure the value doesn't go below 0
         numberInput.value = value < 0 ? 0 : value;
-        qty();
+        var qty = document.getElementById('numberInput').value;
+        var amount = document.getElementById('amount').value;
+        
+        var delivery = document.getElementById("delivery").value;
+     
+        document.getElementById("price").value=parseInt(qty)*parseInt(amount)
+        var price = document.getElementById("price").value;
+        
+        document.getElementById("sum").value=parseInt(parseInt(qty)*parseInt(amount))+parseInt(delivery)
     }
  
 </script>

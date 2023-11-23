@@ -158,7 +158,15 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-danger form-control" style="background-color: red; color: white;" value="Add to Cart">
+                            {% if user%}
+                            <a href="{% url 'login'%}">
+                                <input type="submit" class="btn btn-danger form-control" style="background-color: red; color: white;" value="Add to Cart">
+                            </a>
+                            {%else%}
+                            <a href="{% url 'cart'%}">
+                                <input type="submit" class="btn btn-danger form-control" style="background-color: red; color: white;" value="Add to Cart">
+                            </a>
+                            {%endif%}
                         </div>
                     </div>
                 </div>
