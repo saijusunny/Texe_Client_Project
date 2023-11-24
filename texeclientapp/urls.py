@@ -24,6 +24,15 @@ urlpatterns = [
     path('ex_add_event',views.ex_add_event, name='ex_add_event'),
     path('ex_update',views.ex_update, name='ex_update'),
     path('ex_remove',views.ex_remove, name='ex_remove'),
-
-    
+    path('create_banner',views.create_banner, name='create_banner'),
+    path('save_banner',views.save_banner, name='save_banner'),
+    path('edit_banner/<int:id>',views.edit_banner, name='edit_banner'),
+    path('category_management',views.category_management, name='category_management'),
+    path('edit_category/<int:id>',views.edit_category, name='edit_category'),
+    path('admin_subcategory',views.admin_subcategory, name='admin_subcategory'),
+    path('admin_category',views.admin_category, name='admin_category'),
+    path('admin_save_category',views.admin_save_category, name='admin_save_category'),
+    path('ad_category_list',views.ad_category_list, name='ad_category_list'),
+    path('delete_cat/<int:id>',views.delete_cat, name='delete_cat'),
+    path('edit_subcategory/<int:id>',views.edit_subcategory, name='edit_subcategory'),
 ]

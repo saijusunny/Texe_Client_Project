@@ -284,22 +284,132 @@ def admin_home(request):
     return render(request, "admin/admin_home.html")
 
 def create_banner(request):
-    banners = banner.objects.all()
+    banners = banner.objects.all().last
     
     context={
         "banners":banners,
     }
+    
+    return render(request,"admin/create_banner.html",context)
+def save_banner(request):
     if request.method=="POST":
         ban=banner()
         ban.top_banner = request.FILES.get("main_banner", None)
         ban.top_link = request.POST.get("main_banner_link", None)
-        ban.middle_banner =  request.POST.get("middile_banner", None)
+        ban.middle_banner =  request.FILES.get("middile_banner", None)
         ban.middle_link = request.POST.get("middle_banner_link", None)
-        ban.bottom_banner1 =  request.POST.get("last_banner1", None)
+        ban.bottom_banner1 =  request.FILES.get("last_banner1", None)
         ban.bottom_link1 = request.POST.get("bottom_banner_link1", None)
-        ban.bottom_banner2 =  request.POST.get("last_banner2", None)
+        ban.bottom_banner2 =  request.FILES.get("last_banner2", None)
         ban.bottom_link2 = request.POST.get("bottom_banner_link2", None)
-    return render(request,"admin/create_banner.html",context)
+        ban.save()
+        return redirect("admin_home")
+    return redirect("create_banner")
+
+def edit_banner(request,id):
+    if request.method=="POST":
+        ban=banner.objects.get(id=id)
+        ban.top_banner = request.FILES.get("main_banner", None)
+        ban.top_link = request.POST.get("main_banner_link", None)
+        ban.middle_banner =  request.FILES.get("middile_banner", None)
+        ban.middle_link = request.POST.get("middle_banner_link", None)
+        ban.bottom_banner1 =  request.FILES.get("last_banner1", None)
+        ban.bottom_link1 = request.POST.get("bottom_banner_link1", None)
+        ban.bottom_banner2 =  request.FILES.get("last_banner2", None)
+        ban.bottom_link2 = request.POST.get("bottom_banner_link2", None)
+        ban.save()
+        return redirect("admin_home")
+    return redirect("create_banner")
+
+
+def category_management(request):
+    return render(request, 'admin/category_management.html')
+
+
+def admin_category(request):
+    cat_all=category.objects.all()
+    return render(request,'admin/create_category.html',{'cat_all':cat_all})
+
+def admin_save_category(request):
+    
+    if request.method == 'POST':
+        category_name = request.POST.get('category_name', None)
+
+        categorys = category(
+            category_name = category_name,
+        )
+        categorys.save()
+
+        
+        return redirect('admin_category')
+
+    return redirect('admin_category')
+
+def admin_subcategory(request):
+    
+    if request.method == 'POST':
+        category_id = request.POST.get('category_name', None)
+        cat=category.objects.get(id=category_id)
+        subcat = request.POST.getlist('subcat[]')
+        print(subcat)
+        if subcat:
+            mappeds = zip(subcat)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_category.objects.get_or_create(subcategory=ele[0], category=cat)
+        else: 
+            pass
+
+
+        return redirect('admin_home')
+
+    return redirect('admin_category')
+
+def edit_category(request,id):
+    if request.method == 'POST':
+        cat=category.objects.get(id=id)
+        
+        cat.category_name = request.POST.get('category_name',None)
+       
+       
+        cat.save()
+        return redirect('ad_category_list')
+
+    return redirect('ad_category_list')
+
+def edit_subcategory(request,id):
+    
+    if request.method == 'POST':
+        category_id = request.POST.get('category_name', None)
+        cat=category.objects.get(id=id)
+        subcat = request.POST.getlist('subcat[]')
+        dels=sub_category.objects.filter(category=id).delete()
+
+        if subcat:
+            mappeds = zip(subcat)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_category.objects.get_or_create(subcategory=ele[0], category=cat)
+        else: 
+            pass
+
+
+        return redirect('ad_category_list')
+
+    return redirect('ad_category_list')
+
+def ad_category_list(request):
+    cat=category.objects.all()
+    cat_sub = sub_category.objects.all()
+    return render(request, 'admin/ad_category_list.html', {'cat': cat,'cat_sub':cat_sub})
+
+def delete_cat(request,id):
+    cat=category.objects.get(id=id)
+    cat.delete()
+    cat_sub = sub_category.objects.filter(category=id).delete()
+    return redirect('ad_category_list')
 
 def ex_all_events(request):
     all_events = Events.objects.all()
@@ -312,7 +422,7 @@ def ex_all_events(request):
         })
     return JsonResponse(out, safe=False)
  
- 
+
 def ex_add_event(request):
     pass
  

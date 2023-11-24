@@ -28,3 +28,11 @@ class banner(models.Model):
     bottom_link2 = models.CharField(max_length=250, null=True, blank=True)
 
 
+class category(models.Model):
+    category_name=  models.CharField(max_length=255,blank=True,null=True)
+    def _str_(self):
+        return self.category_name
+
+class sub_category(models.Model):
+    subcategory=  models.CharField(max_length=255,blank=True,null=True)
+    category=models.ForeignKey(category, on_delete=models.SET_NULL, null=True, blank=True)

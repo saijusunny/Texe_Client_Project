@@ -15,7 +15,7 @@
 <div class="row p-3" style="padding-top: 10rem;">
     <div class="container2 col-sm-6 p-5" style="background-color:#191c24; text-align: left; border-radius: 10px;">
     {%if banners%}
-    <form action="" method="POST" enctype="multipart/form-data" style="text-align: left;">
+    <form action="{% url 'edit_banner' banners.id %}" method="POST" enctype="multipart/form-data" style="text-align: left;">
         {% csrf_token %}
         <div class="row mb-4">
         <div class="col-sm-12"style="border-radius: 10px;">
@@ -30,45 +30,45 @@
             <form action="" class="mt-5 pt-5" method="POST" enctype="multipart/form-data">
               
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Top Banner :</label>
-                    <input type="file" class="form-control text-light" name="main_banner" id=""><br>
+                    <label for="exampleInputEmail1">Top Banner (resalution: 1728*572) :</label>
+                    <input type="file" class="form-control text-light" name="main_banner" id="" value="{{banners.top_banner.url}}" required><br>
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Top Banner Link :</label>
-                    <input type="text" class="form-control text-light" name="main_banner_link" id=""><br>
+                    <input type="text" class="form-control text-light" name="main_banner_link" id="" value="{{banners.top_link}}" required><br>
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Middle Banner :</label>
-                    <input type="file" class="form-control text-light" name="middile_banner" id=""><br>
+                    <label for="exampleInputEmail1">Middle Banner (resalution: 1728*500) :</label>
+                    <input type="file" class="form-control text-light" name="middile_banner" id="" value="{{banners.middle_banner.url}}" required><br>
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Middle Banner Link :</label>
-                    <input type="text" class="form-control text-light" name="middle_banner_link" id=""><br>
+                    <input type="text" class="form-control text-light" name="middle_banner_link" id="" value="{{banners.middle_link}}" required><br>
                 </div>
             
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Bottom Banner1 :</label>
-                    <input type="file" class="form-control text-light" name="last_banner1" id=""><br>
+                    <label for="exampleInputEmail1">Bottom Banner1 (resalution: 694*392) :</label>
+                    <input type="file" class="form-control text-light" name="last_banner1" id="" value="{{banners.bottom_banner1.url}}" required><br>
                     
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Bottom Banner1 Link :</label>
-                    <input type="text" class="form-control text-light" name="bottom_banner_link1" id=""><br>
+                    <input type="text" class="form-control text-light" name="bottom_banner_link1" id="" value="{{banners.bottom_link1}}" required><br>
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Bottom Banner2 : </label>
-                    <input type="file" class="form-control text-light" name="last_banner2" id=""><br>
+                    <label for="exampleInputEmail1">Bottom Banner2 (resalution: 694*392) : </label>
+                    <input type="file" class="form-control text-light" name="last_banner2" id="" value="{{banners.bottom_banner2.url}}" required><br>
                     
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Bottom Banner2 Link :</label>
-                    <input type="text" class="form-control text-light" name="bottom_banner_link2" id=""><br>
+                    <input type="text" class="form-control text-light" name="bottom_banner_link2" id="" value="{{banners.bottom_link2}}" required><br>
                 </div>
 
 
@@ -95,7 +95,7 @@
     </form>
 
     {%else%}
-    <form action="" method="POST" enctype="multipart/form-data" style="text-align: left;">
+    <form action="{% url 'save_banner'%}" method="POST" enctype="multipart/form-data" style="text-align: left;">
         {% csrf_token %}
         <div class="row mb-4">
         <div class="col-sm-12"style="border-radius: 10px;">
@@ -105,60 +105,56 @@
         </div>
         
         
+        <div class="form-group">
+            <label for="exampleInputEmail1">Top Banner (resalution: 1728*572) :</label>
+            <input type="file" class="form-control text-light" name="main_banner" id="" required  ><br>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Top Banner Link :</label>
+            <input type="text" class="form-control text-light" name="main_banner_link" id=""  required><br>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Middle Banner (resalution: 1728*500) :</label>
+            <input type="file" class="form-control text-light" name="middile_banner" id=""  required><br>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Middle Banner Link :</label>
+            <input type="text" class="form-control text-light" name="middle_banner_link" id=""  required><br>
+        </div>
+    
+        <div class="form-group">
+            <label for="exampleInputEmail1">Bottom Banner1 (resalution: 694*392) :</label>
+            <input type="file" class="form-control text-light" name="last_banner1" id=""  required><br>
+            
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Bottom Banner1 Link :</label>
+            <input type="text" class="form-control text-light" name="bottom_banner_link1" id=""  required><br>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Bottom Banner2 (resalution: 694*392) : </label>
+            <input type="file" class="form-control text-light" name="last_banner2" id=""  required><br>
+            
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Bottom Banner2 Link :</label>
+            <input type="text" class="form-control text-light" name="bottom_banner_link2" id=""  required><br>
+        </div>
+
+
+        
         <div class="row mt-3">
-        <div class="col-sm-12">
-            <form action="" class="mt-5 pt-5" method="POST" enctype="multipart/form-data">
-              
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Top Banner :</label>
-                    <input type="file" class="form-control text-light" name="main_banner" id=""><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Top Banner Link :</label>
-                    <input type="text" class="form-control text-light" name="main_banner_link" id=""><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Middle Banner :</label>
-                    <input type="file" class="form-control text-light" name="middile_banner" id=""><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Middle Banner Link :</label>
-                    <input type="text" class="form-control text-light" name="middle_banner_link" id=""><br>
-                </div>
-            
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Bottom Banner1 :</label>
-                    <input type="file" class="form-control text-light" name="last_banner1" id=""><br>
-                    
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Bottom Banner1 Link :</label>
-                    <input type="text" class="form-control text-light" name="bottom_banner_link1" id=""><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Bottom Banner2 : </label>
-                    <input type="file" class="form-control text-light" name="last_banner2" id=""><br>
-                    
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Bottom Banner2 Link :</label>
-                    <input type="text" class="form-control text-light" name="bottom_banner_link2" id=""><br>
-                </div>
-
-
-                
-                <div class="row mt-3">
-                    <div class="col-sm-12" >
-                        <input id="submit" class="btn btn-light " type="submit" name="submit" value="Save" />
-            
-                    </div>
-                    </div>
+            <div class="col-sm-12" >
+                <input id="submit" class="btn btn-light " type="submit" name="submit" value="Save" />
+    
+            </div>
+            </div>
             </form>
             
         </div>
