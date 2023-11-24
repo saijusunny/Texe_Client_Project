@@ -1,0 +1,180 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.col-sm-6{
+    margin: 0 auto;
+
+}
+
+
+</style>
+
+<div class="row p-3" style="padding-top: 10rem;">
+    <div class="container2 col-sm-6 p-5" style="background-color:#191c24; text-align: left; border-radius: 10px;">
+    {%if banners%}
+    <form action="" method="POST" enctype="multipart/form-data" style="text-align: left;">
+        {% csrf_token %}
+        <div class="row mb-4">
+        <div class="col-sm-12"style="border-radius: 10px;">
+            <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:34px;" >Edit Banner</h3>
+            <hr>
+        </div>
+        </div>
+        
+        
+        <div class="row mt-3">
+        <div class="col-sm-12">
+            <form action="" class="mt-5 pt-5" method="POST" enctype="multipart/form-data">
+              
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Top Banner :</label>
+                    <input type="file" class="form-control text-light" name="main_banner" id=""><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Top Banner Link :</label>
+                    <input type="text" class="form-control text-light" name="main_banner_link" id=""><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Middle Banner :</label>
+                    <input type="file" class="form-control text-light" name="middile_banner" id=""><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Middle Banner Link :</label>
+                    <input type="text" class="form-control text-light" name="middle_banner_link" id=""><br>
+                </div>
+            
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bottom Banner1 :</label>
+                    <input type="file" class="form-control text-light" name="last_banner1" id=""><br>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bottom Banner1 Link :</label>
+                    <input type="text" class="form-control text-light" name="bottom_banner_link1" id=""><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bottom Banner2 : </label>
+                    <input type="file" class="form-control text-light" name="last_banner2" id=""><br>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bottom Banner2 Link :</label>
+                    <input type="text" class="form-control text-light" name="bottom_banner_link2" id=""><br>
+                </div>
+
+
+                
+                <div class="row mt-3">
+                    <div class="col-sm-12" >
+                        <input id="submit" class="btn btn-light " type="submit" name="submit" value="Save" />
+            
+                    </div>
+                    </div>
+            </form>
+            
+        </div>
+
+        </div>
+        
+        </div>
+
+        
+        
+        
+
+
+    </form>
+
+    {%else%}
+    <form action="" method="POST" enctype="multipart/form-data" style="text-align: left;">
+        {% csrf_token %}
+        <div class="row mb-4">
+        <div class="col-sm-12"style="border-radius: 10px;">
+            <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:34px;" >Create Banner</h3>
+            <hr>
+        </div>
+        </div>
+        
+        
+        <div class="row mt-3">
+        <div class="col-sm-12">
+            <form action="" class="mt-5 pt-5" method="POST" enctype="multipart/form-data">
+              
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Top Banner :</label>
+                    <input type="file" class="form-control text-light" name="main_banner" id=""><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Top Banner Link :</label>
+                    <input type="text" class="form-control text-light" name="main_banner_link" id=""><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Middle Banner :</label>
+                    <input type="file" class="form-control text-light" name="middile_banner" id=""><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Middle Banner Link :</label>
+                    <input type="text" class="form-control text-light" name="middle_banner_link" id=""><br>
+                </div>
+            
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bottom Banner1 :</label>
+                    <input type="file" class="form-control text-light" name="last_banner1" id=""><br>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bottom Banner1 Link :</label>
+                    <input type="text" class="form-control text-light" name="bottom_banner_link1" id=""><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bottom Banner2 : </label>
+                    <input type="file" class="form-control text-light" name="last_banner2" id=""><br>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Bottom Banner2 Link :</label>
+                    <input type="text" class="form-control text-light" name="bottom_banner_link2" id=""><br>
+                </div>
+
+
+                
+                <div class="row mt-3">
+                    <div class="col-sm-12" >
+                        <input id="submit" class="btn btn-light " type="submit" name="submit" value="Save" />
+            
+                    </div>
+                    </div>
+            </form>
+            
+        </div>
+
+        </div>
+        
+        </div>
+
+        
+        
+        
+
+
+    </form>
+    {%endif%}
+    </div>
+</div>
+
+{% endblock %}

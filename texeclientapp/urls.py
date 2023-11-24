@@ -18,5 +18,12 @@ urlpatterns = [
     path('profile',views.profile, name='profile'),
     path('edit_user_profile/<int:id>',views.edit_user_profile, name='edit_user_profile'),
 
+    #--------------------------------------------------------------------------admin Module
+    path('admin_home',views.admin_home, name='admin_home'),
+    path('create_banner',views.create_banner, name='create_banner'),
+    path('ex_add_event',views.ex_add_event, name='ex_add_event'),
+    path('ex_update',views.ex_update, name='ex_update'),
+    path('ex_remove',views.ex_remove, name='ex_remove'),
+
     
 ]

@@ -11,7 +11,7 @@ from django.core.mail import EmailMessage
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-
+from django.contrib.auth import authenticate
 def index(request):
     try:
         ids=request.session['userid']
@@ -72,11 +72,15 @@ def login(request):
     if request.method == "POST":
         email = request.POST.get('username')
         password = request.POST.get('pass')
+        user = authenticate(username=email, password=password)
 
         if registration.objects.filter(Q(email=email) | Q(number=email) and Q(password=password)):
             users=registration.objects.get(Q(email=email) | Q(number=email) and Q(password=password))
             request.session['userid'] = users.id
             return redirect('index')
+        elif user.is_superuser:
+                    request.session['userid'] = request.user.id
+                    return redirect('admin_home')
         else:
             messages.error(request, 'Invalid Email/Password')
             return redirect('login')
@@ -272,3 +276,48 @@ def edit_user_profile(request,id):
         
         return redirect ("profile")
     return redirect ("profile")
+
+
+#-----------------------------------------------admin
+
+def admin_home(request):
+    return render(request, "admin/admin_home.html")
+
+def create_banner(request):
+    banners = banner.objects.all()
+    
+    context={
+        "banners":banners,
+    }
+    if request.method=="POST":
+        ban=banner()
+        ban.top_banner = request.FILES.get("main_banner", None)
+        ban.top_link = request.POST.get("main_banner_link", None)
+        ban.middle_banner =  request.POST.get("middile_banner", None)
+        ban.middle_link = request.POST.get("middle_banner_link", None)
+        ban.bottom_banner1 =  request.POST.get("last_banner1", None)
+        ban.bottom_link1 = request.POST.get("bottom_banner_link1", None)
+        ban.bottom_banner2 =  request.POST.get("last_banner2", None)
+        ban.bottom_link2 = request.POST.get("bottom_banner_link2", None)
+    return render(request,"admin/create_banner.html",context)
+
+def ex_all_events(request):
+    all_events = Events.objects.all()
+    out=[]
+    for event in all_events:
+        out.append({
+            "title":event.name,
+            "id":event.id,
+            "start":event.start.strftime("%m/%d/%Y, %H:%M:%S"), 
+        })
+    return JsonResponse(out, safe=False)
+ 
+ 
+def ex_add_event(request):
+    pass
+ 
+def ex_update(request):
+    pass
+ 
+def ex_remove(request):
+   pass
