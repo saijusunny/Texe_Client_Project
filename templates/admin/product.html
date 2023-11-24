@@ -3,15 +3,182 @@
 {%load static%}
 {%block content%}
 <style>
-  
+  #search{
+    right: 25px;
+    position: absolute;
+    width: 400px;
+  }
+  @media (max-width:992px) {
+    #search{
+    right: 5px;
+    position: absolute;
+    width: 400px;
+
+  }
+    }
+
+    .box {
+    position: absolute;
+    width: 220px;
+    background-color: red;
+    right: 25px;
+}
+.search {
+    width: 200px;
+    max-width:0;
+    padding: 5px;
+    transition: all .5s ease;
+    position:absolute;
+    right:20px;
+    box-sizing:border-box;
+    opacity:0;
+}
+.search.expanded {
+    max-width:300px;
+    opacity:1;
+}
+.icon {
+ 
+    background: red;
+    position: absolute;
+    right: 0;
+    padding: 10px;
+    border-radius: 50%;
+}
 </style>
 
 
 <div class="row pt-3">
-  <div class="" style="font-size: 20px;font-weight: 600;color:#6C7293;">
-    Product Management
+  <div class="col-sm-12 col-md-4 col-xl-4 mt-4" style="font-size: 20px;font-weight: 600;color:#6C7293;">
+      <a href="{% url 'admin_add_item'%}"><div class="btn btn-danger pt-3 pb-3 pl-3 pr-3" style="background-color: red; color: white;">
+        + Add Product
+      </div></a>
   </div>
+ 
+    <div class="col-sm-12 col-md-8 col-xl-8 mt-4">
+      <div class="box">
+        <input type="text" class="form-control text-light search" style="" id="search" placeholder="Search here...">
+
+         <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        </svg></div>  
+    </div>
+        
+    </div>
+
 </div>
 
 
+<div class="row mt-5">
+        
+  <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 2rem auto;">
+
+      <div class="card" style="height: auto;text-align: left; ">
+          <img src="{% static 'images\static_image\trend1.png' %}" class="card-img-top w-100">
+          
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-sm-12">
+                    <h4 class="text-light card-title" >T-shirt</h4>
+                  
+                      
+                      </svg>
+                  </div>
+              </div>
+              
+              
+          </div>
+      </div>
+
+  </div>
+
+  <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 2rem auto;">
+
+          <div class="card" style="height: auto;text-align: left; ">
+              <img src="{% static 'images\static_image\trend1.png' %}" class="card-img-top w-100">
+              
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-sm-12">
+                        <h4 class="text-light card-title">T-shirt</h4>
+                      
+                         
+                      </div>
+                  </div>
+                  
+                  
+              </div>
+          </div>
+      </a>
+      </div>
+
+
+      <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 2rem auto;">
+
+
+              <div class="card" style="height: auto;text-align: left; ">
+                  <img src="{% static 'images\static_image\trend1.png' %}" class="card-img-top w-100">
+                  
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <h4 class="text-light card-title">T-shirt</h4>
+                          
+                             
+                          </div>
+                      </div>
+                      
+                      
+                  </div>
+              </div>
+     
+          </div>
+
+
+          <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 2rem auto;">
+
+    
+                  <div class="card" style="height: auto;text-align: left; ">
+                      <img src="{% static 'images\static_image\trend1.png' %}" class="card-img-top w-100">
+                      
+                      <div class="card-body">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                <h4 class="text-light card-title">sshirt</h4>
+                              
+                                  
+                              </div>
+                          </div>
+                          
+                          
+                      </div>
+                  </div>
+      
+              </div>
+
+</div>
+
+<script>
+  const input = document.getElementById('search')
+  input.addEventListener('keyup', (e) => {
+  var inputs = e.target.value.toLowerCase(); //do lowercase
+  document.querySelectorAll('.outers').forEach(function(el) {
+      el.style.display = 'none';
+  });
+
+  document.querySelectorAll('.outers .card-title').forEach(function(el) {
+      //compare 
+      if (el.textContent.toLowerCase().indexOf(inputs) > -1) {
+      el.closest('.outers').style.display = "block"; //if match show that div
+      }
+  })
+  })
+</script>
+
+
+<script>
+  $('.icon').click(function() {
+    $('.search').toggleClass('expanded');
+});
+</script>
 {% endblock %}
