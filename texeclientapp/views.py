@@ -322,10 +322,6 @@ def edit_banner(request,id):
     return redirect("create_banner")
 
 
-def category_management(request):
-    return render(request, 'admin/category_management.html')
-
-
 def admin_category(request):
     cat_all=category.objects.all()
     return render(request,'admin/create_category.html',{'cat_all':cat_all})
@@ -422,6 +418,12 @@ def ex_all_events(request):
         })
     return JsonResponse(out, safe=False)
  
+def product(request):
+    return render(request, 'admin/product.html')
+
+def create_product(request):
+    
+    return render(request, 'admin/create_product.html')
 
 def ex_add_event(request):
     pass

@@ -116,80 +116,58 @@
                         <span class="menu-icon">
                             <i class="mdi mdi-file-document-box"></i>
                         </span>
-                        <span class="menu-title">Banner Management</span>
+                        <span class="menu-title">Banner</span>
                     </a>
                 </li>
 
 
                 <li class="nav-item menu-items dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                    <span class="menu-icon">
-                    <i class="mdi mdi-sitemap"></i>
-                    </span>
-                    <span class="menu-title">Product Management</span>
-                    
-                </a>
-                <ul class="dropdown-menu">
-                    <li>              
-        
-                    <div class="dropdown-item">
-                        <a class="d-inline-block" style="color: white; text-decoration: none;" href="{%url 'category_management'%}" >Category Management</a>
-                        <a class="d-inline-block" style="color: white;margin-left: 3px;" href="">
-                        <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
-                            
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                        <span class="menu-icon">
+                        <i class="mdi mdi-sitemap"></i>
                         </span>
-                        </a>
-                    </div> 
-                    
+                        <span class="menu-title">Category</span>
                         
-                                                                        
-                    </li>               
-                </ul>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>              
+            
+                        <div class="dropdown-item">
+                            <a class="d-inline-block" style="color: white; text-decoration: none;" href="{%url 'admin_category'%}" >Create Category</a>
+                
+                        </div>                                                    
+                        </li>   
+                        
+                        <li>              
+            
+                            <div class="dropdown-item">
+                                <a class="d-inline-block" style="color: white; text-decoration: none;" href="{%url 'ad_category_list'%}" >Category List</a>
+                    
+                            </div>                                                    
+                            </li>  
+                    </ul>
         
                 </li>
-            <li class="nav-item menu-items">
-              <a class="nav-link" href="">
-                  <span class="menu-icon">
-                      <i class="mdi mdi-file-document-box"></i>
-                  </span>
-                  <span class="menu-title">Product Management</span>
-              </a>
-          </li>
 
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="">
-                <span class="menu-icon">
-                    <i class="mdi mdi-file-document-box"></i>
-                </span>
-                <span class="menu-title">Offer Management</span>
-            </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-file-document-box"></i>
-                    </span>
-                    <span class="menu-title">Order Management</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-file-document-box"></i>
-                    </span>
-                    <span class="menu-title">User Management</span>
-                </a>
-            </li>
+                
 
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="{% url 'product'%}">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-file-document-box"></i>
+                        </span>
+                        <span class="menu-title">Products</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-file-document-box"></i>
+                        </span>
+                        <span class="menu-title">Order Management</span>
+                    </a>
+                </li>
             
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-file-document-box"></i>
-                    </span>
-                    <span class="menu-title">Service Management</span>
-                </a>
-            </li>
                
             </ul>
         </nav>
