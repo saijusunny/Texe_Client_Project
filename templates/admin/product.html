@@ -70,20 +70,36 @@
 
 
 <div class="row mt-5">
-        
+  {% for i in items%} 
+  
+
+  
   <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 2rem auto;">
 
       <div class="card" style="height: auto;text-align: left; ">
-          <img src="{% static 'images\static_image\trend1.png' %}" class="card-img-top w-100">
-          
+        <a href="{% url 'edit_item' i.id%}">
+          <img src="{{i.image.url}}" class="card-img-top w-100">
+        </a>
           <div class="card-body">
               <div class="row">
                   <div class="col-sm-12">
-                    <h4 class="text-light card-title" >T-shirt</h4>
+                    <h5 class="text-light card-title" >{{i.name}}</h5>
                   
                       
                       </svg>
                   </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <h5 style="font-size: 18px;">₹{{i.offer_price}} <span style="font-size: 16px;"><strike>₹{{i.price}}</strike></span></h5>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <p>{{i.title_description}}</p>
+                </div>
               </div>
               
               
@@ -92,69 +108,8 @@
 
   </div>
 
-  <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 2rem auto;">
-
-          <div class="card" style="height: auto;text-align: left; ">
-              <img src="{% static 'images\static_image\trend1.png' %}" class="card-img-top w-100">
-              
-              <div class="card-body">
-                  <div class="row">
-                      <div class="col-sm-12">
-                        <h4 class="text-light card-title">T-shirt</h4>
-                      
-                         
-                      </div>
-                  </div>
-                  
-                  
-              </div>
-          </div>
-      </a>
-      </div>
-
-
-      <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 2rem auto;">
-
-
-              <div class="card" style="height: auto;text-align: left; ">
-                  <img src="{% static 'images\static_image\trend1.png' %}" class="card-img-top w-100">
-                  
-                  <div class="card-body">
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <h4 class="text-light card-title">T-shirt</h4>
-                          
-                             
-                          </div>
-                      </div>
-                      
-                      
-                  </div>
-              </div>
-     
-          </div>
-
-
-          <div class="col-md-3 col-sm-12 col-lg-3 mt-2 outers"  style="margin: 2rem auto;">
-
-    
-                  <div class="card" style="height: auto;text-align: left; ">
-                      <img src="{% static 'images\static_image\trend1.png' %}" class="card-img-top w-100">
-                      
-                      <div class="card-body">
-                          <div class="row">
-                              <div class="col-sm-12">
-                                <h4 class="text-light card-title">sshirt</h4>
-                              
-                                  
-                              </div>
-                          </div>
-                          
-                          
-                      </div>
-                  </div>
-      
-              </div>
+{%endfor%}
+  
 
 </div>
 

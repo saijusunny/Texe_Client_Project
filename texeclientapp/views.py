@@ -12,6 +12,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate
+from django.shortcuts import get_object_or_404
 def index(request):
     try:
         ids=request.session['userid']
@@ -419,14 +420,16 @@ def ex_all_events(request):
     return JsonResponse(out, safe=False)
  
 def product(request):
-    return render(request, 'admin/product.html')
+    items=item.objects.all()
+
+    return render(request, 'admin/product.html',{'items':items})
 
 def admin_add_item(request):
 
     item_categories = category.objects.all()
     cat = sub_category.objects.all()
     
-    if request.method == 'POST':
+    if request.method == "POST":
         form_data = request.POST.dict()
 
         title = form_data.get('title', None)
@@ -437,14 +440,10 @@ def admin_add_item(request):
         offer_prices = form_data.get('offer_price', None)
         image = request.FILES.get('image', None)
         category_id = form_data.get('categories', None)
-        under_category = form_data.get('under_category', None)
         title_description = form_data.get('title_description', None)
-        description = form_data.get('description', None)
-        sub_categoryies = form_data.get('subcategories', None)
-       
+        sb_cat = form_data.get('subcategories', None)
+        sub_categoryies = sub_category.objects.get(subcategory=sb_cat)
         categorys = get_object_or_404(category, pk=category_id)
-        
-
         new_item = item(
             category = categorys,
             name = title,
@@ -454,21 +453,97 @@ def admin_add_item(request):
             offer_price=offer_prices,
             image = image,
             sub_category=sub_categoryies,
-            under_category = under_category,
             title_description = title_description,
-            description = description
+            subcategory=sb_cat,
         )
         new_item.save()
+        subimg = request.FILES.getlist('sub_img[]')
+
+
+        if subimg:
+            mappeds = zip(subimg)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_images.objects.get_or_create(image=ele[0], item=new_item)
+        else: 
+            pass
+
+
         return redirect('product')
     context={
         'item_categories':item_categories,
-
+        
         'sub_categories':cat,
     }
 
     return render(request,'admin/create_product.html',context)
 
+def edit_item(request,id):
+    item_categories = category.objects.all()
+    cat = sub_category.objects.all()
+    items=item.objects.get(id=id)
 
+    sub_img=sub_images.objects.filter(item_id=items.id)
+    
+    if request.method == "POST":
+        form_data = request.POST.dict()
+
+        title = form_data.get('title', None)
+        price = form_data.get('price', None)
+
+        
+        offer_percentage = form_data.get('offer_percentage', None)
+        offer_prices = form_data.get('offer_price', None)
+        image = request.FILES.get('image', None)
+        cat = form_data.get('categories', None)
+        title_description = form_data.get('title_description', None)
+        sb_cat = form_data.get('subcategories', None)
+        sub_categoryies = sub_category.objects.get(subcategory=sb_cat)
+    
+  
+        categorys = category.objects.get(id=cat)
+
+        items.category = categorys
+        items.name = title
+        items.price = price
+        items.buying_count = 0
+        items.offer = offer_percentage
+        items.offer_price=offer_prices
+        if image==None:
+            pass
+        else:
+
+            items.image = image
+        items.sub_category=sub_categoryies
+        items.title_description = title_description
+        items.subcategory=sb_cat
+      
+        items.save()
+        subimg = request.FILES.getlist('sub_img[]')
+
+
+        if subimg:
+
+            sub_images.objects.filter(item=items).delete()
+            mappeds = zip(subimg)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_images.objects.get_or_create(image=ele[0], item=new_item)
+        else: 
+            pass
+
+
+        return redirect('product')
+    context={
+        'item_categories':item_categories,
+        'items':items,
+        'sub_categories':cat,
+        'sub_img':sub_img,
+    }
+
+    return render(request,'admin/edit_item.html',context)
 
 
 def create_product(request):

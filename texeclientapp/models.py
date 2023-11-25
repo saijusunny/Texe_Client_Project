@@ -36,3 +36,20 @@ class category(models.Model):
 class sub_category(models.Model):
     subcategory=  models.CharField(max_length=255,blank=True,null=True)
     category=models.ForeignKey(category, on_delete=models.SET_NULL, null=True, blank=True)
+
+class item(models.Model):
+    user = models.ForeignKey(registration, on_delete=models.SET_NULL, null=True, blank=True)
+    category= models.ForeignKey(category, on_delete=models.SET_NULL, null=True, blank=True,default=None)
+    sub_category= models.ForeignKey(sub_category, on_delete=models.SET_NULL, null=True, blank=True,default=None)
+    name = models.CharField(max_length=255,blank=True,null=True)
+    title_description = models.CharField(max_length=100,blank=True,null=True)
+    price = models.FloatField(default=0)
+    offer_price=  models.FloatField(default=0)
+    buying_count = models.IntegerField(default=0)
+    offer = models.IntegerField(default=0)
+    image = models.FileField(upload_to='images/items', default='static/images/logo/noimage.jpg')
+    subcategory=models.CharField(max_length=255,blank=True,null=True)
+
+class sub_images(models.Model):
+    image=  models.FileField(upload_to='images/sub_items', default='static/images/logo/noimage.jpg')
+    item=models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
