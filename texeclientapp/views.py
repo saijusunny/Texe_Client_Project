@@ -15,16 +15,21 @@ from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 def index(request):
+    items=item.objects.all()
     try:
         ids=request.session['userid']
         print(ids)
         usr=registration.objects.get(id=ids)
+
         context={
-            'user':usr
+            'user':usr,
+            "items":items,
         }
     except:
         context={
-            'user':None
+            'user':None,
+            "items":items,
+            
         }
     return render(request, 'index.html',context)
 
@@ -160,18 +165,24 @@ def logout(request):
     else:
         return redirect('/')
 
-def product_view(request):
+def product_view(request,id):
+    items=item.objects.get(id=id)
+    sub=sub_images.objects.filter(item=items)
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
 
         context={
-            'user':usr
+            'user':usr,
+            'items':items,
+            'sub':sub,
         }
     except:
         
         context={
-            'user':None
+            'user':None,
+            'items':items,
+            'sub':sub,
         }
     return render(request, 'user/product_view.html',context)
     
@@ -207,6 +218,25 @@ def cart(request):
             'user':None
         }
     return render(request, 'user/cart.html',context)
+
+def save_cart(request,id):
+    ids=request.session['userid']
+    usr=registration.objects.get(id=ids)
+    if request.methon=="POST":
+        if request.POST.get('cart_id',None)==None:
+            carts=cart()
+            
+            carts.user = usr
+            carts.item = id
+            
+            carts.size= "XS"
+            carts.color= "white"
+            carts.meterial= "Cotton"
+            carts.design= request.FILES.get('design',None)
+            carts.logo= request.FILES.get('logo',None)
+            carts.text= models.CharField(max_length=255,blank=True,null=True)
+            carts.save()
+    return redirect('cart')
 
 def whistle(request):
     try:

@@ -1,5 +1,5 @@
 
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
+import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/loaders/GLTFLoader.js';
 
 document.addEventListener("DOMContentLoaded", function () {
