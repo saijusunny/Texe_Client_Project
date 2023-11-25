@@ -37,4 +37,6 @@ urlpatterns = [
     path('product',views.product, name='product'),
     path('admin_add_item',views.admin_add_item, name='admin_add_item'),
     path('edit_item/<int:id>',views.edit_item, name='edit_item'),
+    path('orders',views.orders, name='orders'),
+    path('change_order_status',views.change_order_status, name='change_order_status'),
 ]

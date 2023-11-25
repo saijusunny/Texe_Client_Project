@@ -13,6 +13,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 def index(request):
     try:
         ids=request.session['userid']
@@ -530,7 +531,7 @@ def edit_item(request,id):
             mappeds=list(mappeds)
             for ele in mappeds:
             
-                created = sub_images.objects.get_or_create(image=ele[0], item=new_item)
+                created = sub_images.objects.get_or_create(image=ele[0], item=items)
         else: 
             pass
 
@@ -546,9 +547,13 @@ def edit_item(request,id):
     return render(request,'admin/edit_item.html',context)
 
 
-def create_product(request):
-    
-    return render(request, 'admin/create_product.html')
+def orders(request):
+    return render(request,'admin/orders.html')
+
+def change_order_status(request):
+    ele = request.GET.get('ele')
+    print(ele)
+    return JsonResponse({"status":" not"})
 
 def ex_add_event(request):
     pass
