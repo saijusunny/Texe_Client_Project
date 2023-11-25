@@ -228,15 +228,44 @@ def save_cart(request,id):
             
             carts.user = usr
             carts.item = id
-            
             carts.size= "XS"
             carts.color= "white"
             carts.meterial= "Cotton"
             carts.design= request.FILES.get('design',None)
             carts.logo= request.FILES.get('logo',None)
-            carts.text= models.CharField(max_length=255,blank=True,null=True)
+            carts.name= request.POST.get('cart_id',None)
+            carts.number= request.POST.get('number',None)
             carts.save()
+        else:
+            cart_id=request.POST.get('cart_id',None)
+            crt=cart.objects.get(id=cart_id)
+            if crt.size==None:
+                crt.size= "XS"
+            else:
+                pass
+            if crt.color==None:
+                crt.color= "white"
+            else:
+                pass
+
+            if crt.meterial==None:
+                crt.meterial= "Cotton"
+            else:
+                pass
+            
+            crt.design= request.FILES.get('design',None)
+            crt.logo= request.FILES.get('logo',None)
+            crt.name= request.POST.get('name',None)
+            crt.number= request.POST.get('number',None)
+            crt.save()
+
+
     return redirect('cart')
+def cart_cust(request):
+    ele = request.GET.get('ele')
+    print(ele)
+    return JsonResponse({"status":" not"})
+
 
 def whistle(request):
     try:

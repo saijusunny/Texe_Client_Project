@@ -98,12 +98,12 @@
                     <div class="row">
                         <div class="col-sm-12">
                             
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;">XS</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;">S</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;">M</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;">L</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;">XL</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;">XXl</div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('XS')">XS</div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('S')">S</div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('M')">M</div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('L')">L</div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('XL')">XL</div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('XXL')">XXl</div>
                         </div>
                         
                     </div>
@@ -206,6 +206,24 @@
     </div>
 </div>
 </form>
+
+<script>
+function changesize(val){
+    $.ajax({
+        type: "GET",
+        url: "{% url 'cart_cust' %}",
+        data: {
+            ele : ids,
+            
+            
+        },
+        success:function(response){
+            alert("Order Status Update Successfully")
+        }});
+
+}
+
+</script>
 <script>
     function imgchange(img){
         itm=document.getElementById('main_img')
