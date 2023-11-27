@@ -204,39 +204,53 @@ def all_item(request):
 def cust(request):
     return render(request, 'user/cust.html')
 
-def cart(request):
+def carts(request):
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
-
+        crt= cart.objects.filter(user=usr)
+    
         context={
-            'user':usr
+            'user':usr,
+            'crt':crt,
         }
     except:
-        
+        if request.session.has_key('userid'):
+            pass
+        else:
+            return redirect('/')
         context={
             'user':None
         }
     return render(request, 'user/cart.html',context)
 
+
+
 def save_cart(request,id):
     ids=request.session['userid']
     usr=registration.objects.get(id=ids)
-    if request.methon=="POST":
-        if request.POST.get('cart_id',None)==None:
+    
+    itm=item.objects.get(id=id)
+    if request.method=="POST":
+        if request.POST.get('cart_id',None) == "":
             carts=cart()
             
             carts.user = usr
-            carts.item = id
+            carts.item = itm
             carts.size= "XS"
             carts.color= "white"
             carts.meterial= "Cotton"
             carts.design= request.FILES.get('design',None)
             carts.logo= request.FILES.get('logo',None)
-            carts.name= request.POST.get('cart_id',None)
+            carts.name= request.POST.get('text',None)
             carts.number= request.POST.get('number',None)
+            mdl_id=request.POST.get('model_num1', None)
+            mdl=sub_images.objects.get(id=mdl_id)
+            carts.model = mdl
             carts.save()
+            return redirect('index')
         else:
+            
             cart_id=request.POST.get('cart_id',None)
             crt=cart.objects.get(id=cart_id)
             if crt.size==None:
@@ -252,20 +266,157 @@ def save_cart(request,id):
                 crt.meterial= "Cotton"
             else:
                 pass
+            if crt.model==None:
+                mdl_id=request.POST.get('model_num1', None)
+                mdl=sub_images.objects.get(id=mdl_id)
+                crt.model = mdl
+            else:
+                pass
             
             crt.design= request.FILES.get('design',None)
             crt.logo= request.FILES.get('logo',None)
-            crt.name= request.POST.get('name',None)
+            crt.name= request.POST.get('text',None)
             crt.number= request.POST.get('number',None)
             crt.save()
+            return redirect('index')
 
 
-    return redirect('cart')
-def cart_cust(request):
+    return redirect('carts')
+
+
+
+def cart_cust_size(request):
     ele = request.GET.get('ele')
-    print(ele)
-    return JsonResponse({"status":" not"})
+    cart_id = request.GET.get('cart_id')
+    prd_id = request.GET.get('prd_id')
+    itm=item.objects.get(id=prd_id)
+    ids=request.session['userid']
+    usr=registration.objects.get(id=ids)
+    if cart_id=="":
+        crt=cart()
+        crt.user = usr
+        crt.item = itm
+        crt.model = None
+    else:
+        crt=cart.objects.get(id=cart_id)
 
+    
+    crt.size= ele
+    crt.save()
+    return JsonResponse({"status":" not", "ids":crt.id})
+
+def cart_change_color(request):
+    ele = request.GET.get('ele')
+    cart_id = request.GET.get('cart_id')
+    prd_id = request.GET.get('prd_id')
+    itm=item.objects.get(id=prd_id)
+    ids=request.session['userid']
+    usr=registration.objects.get(id=ids)
+    if cart_id=="":
+        crt=cart()
+        crt.user = usr
+        crt.item = itm
+        crt.model = None
+    else:
+        crt=cart.objects.get(id=cart_id) 
+
+    
+    crt.color= ele
+    crt.save()
+    return JsonResponse({"status":" not", "ids":crt.id})
+
+def cart_change_meterial(request):
+    ele = request.GET.get('ele')
+    cart_id = request.GET.get('cart_id')
+    prd_id = request.GET.get('prd_id')
+    itm=item.objects.get(id=prd_id)
+    ids=request.session['userid']
+    usr=registration.objects.get(id=ids)
+    if cart_id=="":
+        crt=cart()
+        crt.user = usr
+        crt.item = itm
+        crt.model = None
+    else:
+        crt=cart.objects.get(id=cart_id) 
+
+    
+    crt.meterial= ele
+    crt.save()
+    return JsonResponse({"status":" not", "ids":crt.id})
+
+
+def cart_change_model(request):
+    ele = request.GET.get('ele')
+    model=sub_images.objects.get(id=ele)
+    cart_id = request.GET.get('cart_id')
+    prd_id = request.GET.get('prd_id')
+    itm=item.objects.get(id=prd_id)
+    ids=request.session['userid']
+    usr=registration.objects.get(id=ids)
+    if cart_id=="":
+        crt=cart()
+        crt.user = usr
+        crt.item = itm
+        crt.model = model
+    else:
+        crt=cart.objects.get(id=cart_id) 
+
+    
+    crt.model = model
+    crt.save()
+    return JsonResponse({"status":" not", "ids":crt.id})
+
+def checkout(request):
+    ids=request.session['userid']
+    usr=registration.objects.get(id=ids)
+
+    if request.method =="POST":
+        total_amount = request.POST.get('sum')
+
+        chk=orders()
+        chk.user = usr
+        chk.total_amount=total_amount
+        chk.date=datetime.now()
+        chk.status="checkout"
+        chk.save()
+        item_id =request.POST.getlist('item_id[]') 
+        qty =request.POST.getlist('qty[]') 
+
+        if len(item_id)==len(qty):
+            mapped2 = zip(item_id,qty)
+            mapped2=list(mapped2)
+         
+            for ele in mapped2:
+                itm=item.objects.get(id=ele[0])
+                itm.buying_count=int(itm.buying_count+1)
+                itm.save()
+                created = checkout_item.objects.create(item=itm,qty=ele[1],item_name=itm.name,item_price=itm.offer_price, orders=chk)
+
+        chk_item=checkout_item.objects.filter(orders=chk)
+      
+        # lst=""
+        # for i in chk_item:
+        #     rcp="\n\nItem : "+str(i.item_name)+'\nAmount : '+str(i.item_price)+' * '+str(i.qty)+' = '+str(i.item_price)
+        #     lst+=rcp
+     
+        # tot="\n\nTotal Amount : "+str(total_amount)
+        
+        # message = 'Greetings from Malieakal\n\nReciept,\n\nName :'+str(usr.name)+str(usr.lastname)+'\nAddress :'+str(pro.address)+'\n\n'+str(lst)+str(tot)
+
+        # pywhatkit.sendwhatmsg_instantly(
+        #     phone_no="+918848937577", 
+        #     message=""+str(message),
+        # )
+     
+        messages.error(request, 'Purchase Success Full')
+        
+        ckt=cart.objects.filter(user=usr).delete()
+        
+          
+    
+        return redirect("my_order")
+    return redirect("my_order")
 
 def whistle(request):
     try:
@@ -606,7 +757,7 @@ def edit_item(request,id):
     return render(request,'admin/edit_item.html',context)
 
 
-def orders(request):
+def order(request):
     return render(request,'admin/orders.html')
 
 def change_order_status(request):

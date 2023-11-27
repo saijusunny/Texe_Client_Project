@@ -56,10 +56,10 @@ class sub_images(models.Model):
 
 class orders(models.Model):
     user = models.ForeignKey(registration, on_delete=models.SET_NULL, null=True, blank=True)
-    item=models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
     status =models.CharField(max_length = 255,blank=True,null=True, default=0)
     total_amount=models.FloatField(default=0,null=True, blank=True)
     date=models.DateTimeField(null=True, blank=True)
+    stage_count=models.IntegerField(default=0,null=True, blank=True)
 
 class checkout_item(models.Model):
     orders = models.ForeignKey(orders, on_delete=models.SET_NULL, null=True, blank=True)

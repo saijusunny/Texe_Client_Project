@@ -23,7 +23,8 @@
 }
 
 </style>
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="{% url 'save_cart' items.id%}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 <div class="row mt-5 pt-5">
     <div class="col-sm-12">
         <div class="container">
@@ -41,8 +42,9 @@
                                 <div class="col-sm-12">
                                     <div class="owl-carousel owl_views_arrival">
                                         {% for l in sub%}
+                                        <input type="text" name="model_num{{forloop.counter}}" value="{{l.id}}" hidden>
                                         <div class="item"><img src="{{l.image.url}}" class="rounded-3" style="width:70%;"
-                                            alt="Avatar" onclick="imgchange('{{l.image}}')"/></div>
+                                            alt="Avatar" onclick="imgchange('{{l.image}}','{{l.id}}')"/></div>
                                         {%endfor%}
                                         <!-- Add more items as needed -->
                                       </div>
@@ -90,7 +92,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h5 style="font-size: 24px;">₹{{items.offer_price}} <span style="font-size: 16px;"><strike>₹{{items.price}}</strike></span></h5>
-                            <input type="number" id="cart_id" name="cart_id">
+                            <input type="number" id="cart_id" name="cart_id" hidden>
                         </div>
                         
                     </div>
@@ -113,12 +115,12 @@
                     <label for="" class="mt-5">Select Color : </label>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px; background-color: white;"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: red;"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: yellow;"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: green;"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: magenta;"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px; background-color: mediumblue;"></div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px; background-color: white;" onclick="change_color('white')"></div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: red;" onclick="change_color('red')"></div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: yellow;" onclick="change_color('yellow')"></div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: green;" onclick="change_color('green')"></div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: magenta;" onclick="change_color('magenta')"></div>
+                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px; background-color: mediumblue;" onclick="change_color('mediumblue')"></div>
                         </div>
                         
                     </div>
@@ -126,9 +128,9 @@
                     <label for="" class="mt-5">Select Meterial : </label>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="btn btn-outline-dark pl-4 pr-4 mt-2" style=" height: 48px;">Cotton</div>
-                            <div class="btn btn-outline-dark pl-4 pr-4 mt-2" style="height: 48px;">Poly Cotton</div>
-                            <div class="btn btn-outline-dark pl-4 pr-4 mt-2" style="height: 48px;">Polyester</div>
+                            <div class="btn btn-outline-dark pl-4 pr-4 mt-2" style=" height: 48px;" onclick="change_meterial('cotton')">Cotton</div>
+                            <div class="btn btn-outline-dark pl-4 pr-4 mt-2" style="height: 48px;" onclick="change_meterial('Poly Cotton')">Poly Cotton</div>
+                            <div class="btn btn-outline-dark pl-4 pr-4 mt-2" style="height: 48px;" onclick="change_meterial('Polyester')">Polyester</div>
                         </div>
                         
                     </div>
@@ -151,24 +153,18 @@
 
                 
                     <div class="row mt-5">
-                        <div class="col-sm-12 upload">
+                        <div class="col-sm-12 ">
                             
                                 <div class="center">
                                     
                                     <div >
                                         <label for="">Upload Design : </label><br>
-                                        <button class="btn btn-outline-dark form-control w-50" style="color: red;">Upload <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload ml-2" viewBox="0 0 16 16">
-                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                                          </svg></button>
-                                        <input type="file" class="upload-input" name="design" />
+                                        
+                                        <input type="file" class="upload-input form-control" name="design" /> <br><br>
 
                                         <label for="">Upload Logo : </label><br>
-                                        <button class="btn btn-outline-dark form-control w-50" style="color: red;">Upload <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload ml-2" viewBox="0 0 16 16">
-                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                                          </svg></button>
-                                        <input type="file" class="upload-input" name="logo" />
+                                        
+                                        <input type="file" class="upload-input form-control" name="logo" /> <br><br>
                                     </div>
                             
                                     
@@ -184,16 +180,18 @@
                     <div class="row">
                         <div class="col-sm-12">
                             {% if user%}
-                            <a href="{% url 'cart'%}">
+                      
+                                <input type="submit" class="btn btn-danger form-control" style="background-color: red; color: white;" value="Add to Cart">
+                         
+                            
+                            {%else%}
+                            
+
+                            <a href="{% url 'carts'%}">
                                 <div class="btn btn-danger form-control" style="background-color: red; color: white;">
                                     Add to Cart
                                 </div>
                                 
-                            </a>
-                            
-                            {%else%}
-                            <a href="{% url 'login'%}">
-                                <input type="submit" class="btn btn-danger form-control" style="background-color: red; color: white;" value="Add to Cart">
                             </a>
                             {%endif%}
                         </div>
@@ -209,25 +207,100 @@
 
 <script>
 function changesize(val){
+    var cart_id = document.getElementById("cart_id").value;
     $.ajax({
         type: "GET",
-        url: "{% url 'cart_cust' %}",
+        url: "{% url 'cart_cust_size' %}",
         data: {
-            ele : ids,
+            ele : val,
+            cart_id:cart_id,
+            prd_id:'{{items.id}}'
             
             
         },
         success:function(response){
+            console.log(response)
+            ids = response.ids
+           
+            document.getElementById('cart_id').value=ids
             alert("Order Status Update Successfully")
         }});
 
 }
 
+
+function change_color(val){
+    var cart_id = document.getElementById("cart_id").value;
+    $.ajax({
+        type: "GET",
+        url: "{% url 'cart_change_color' %}",
+        data: {
+            ele : val,
+            cart_id:cart_id,
+            prd_id:'{{items.id}}'
+            
+            
+        },
+        success:function(response){
+            console.log(response)
+            ids = response.ids
+           
+            document.getElementById('cart_id').value=ids
+            alert("Order Status Update Successfully")
+        }});
+
+}
+
+function change_meterial(val){
+    var cart_id = document.getElementById("cart_id").value;
+    $.ajax({
+        type: "GET",
+        url: "{% url 'cart_change_meterial' %}",
+        data: {
+            ele : val,
+            cart_id:cart_id,
+            prd_id:'{{items.id}}'
+            
+            
+        },
+        success:function(response){
+            console.log(response)
+            ids = response.ids
+           
+            document.getElementById('cart_id').value=ids
+            alert("Order Status Update Successfully")
+        }});
+
+}
+
+
+
+
 </script>
 <script>
-    function imgchange(img){
+    function imgchange(img,id){
+        
         itm=document.getElementById('main_img')
         itm.src="/media/"+img
+        var cart_id = document.getElementById("cart_id").value;
+        $.ajax({
+            type: "GET",
+            url: "{% url 'cart_change_model' %}",
+            data: {
+                ele : id,
+                cart_id:cart_id,
+                prd_id:'{{items.id}}'
+                
+                
+            },
+            success:function(response){
+                console.log(response)
+                ids = response.ids
+            
+                document.getElementById('cart_id').value=ids
+                alert("Order Status Update Successfully")
+            }});
+        
     }
 </script>
 <script>

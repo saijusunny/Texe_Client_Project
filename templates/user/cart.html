@@ -5,10 +5,13 @@
 <style>
 
 </style>
+<form action="{% url 'checkout'%}" method="POST" enctype="multipart/form-data">
+    {%csrf_token%}
 <div class="container">
     <div class="row" style="margin-top: 8rem;">
         <div class="col-sm-8">
-           
+                {%if crt%}
+                {% for crt in crt%}
                 <div class="row justify-content-center mb-3">
                   <div class="col-md-12 col-xl-12   ">
                     <div class="card shadow-0 border rounded-3">
@@ -16,8 +19,12 @@
                         <div class="row">
                           <div class="col-md-12 col-lg-2 col-xl-2 mb-4 mb-lg-0">
                             <div class="bg-image hover-zoom ripple rounded ripple-surface" >
-                              <img src="{% static 'images\static_image\trend1.png' %}"
-                              class="w-100" id="main_img"/>
+                                
+                                {% if crt.model %}
+                                <img src="{{crt.model.image.url}}" class="w-100" id="main_img"/>
+                                {%else%}
+                                <img src="{{crt.item.image.url}}" class="w-100" id="main_img"/>
+                                {%endif%}
                               <a href="#!">
                                 <div class="hover-overlay">
                                   <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
@@ -26,10 +33,10 @@
                             </div>
                           </div>
                           <div class="col-md-8 col-lg-8 col-xl-8 mt-1 ">
-                            <h5>Quant trident shirts</h5>
+                            <h5>{{crt.item.name}}</h5>
                             <div class="d-flex flex-row">
                             <div class="mt-1">
-                                <span>$<input type="text" value="499" style="border: none; " class="w-25" readonly id="amount"></span><span class="ml-4 text-muted"><strike>$999</strike></span><br>
+                                <span>₹<input type="text" value="{{crt.item.offer_price}}" style="border: none; " class="w-25" readonly id="amount{{forloop.counter}}"></span><span class="ml-4 text-muted"><strike>₹{{crt.item.price}}</strike></span><br>
                             </div>
                             
             
@@ -38,25 +45,29 @@
                             <div class="">
                                 <div class="row mt-2">
                                     <div class="col-sm-3 mt-1">
-                                        <span>Size : S</span>
-                                    </div>
+                                        <span>Size : {{crt.size}}</span>
+                                    </div> 
                                     <div class="col-sm-3 mt-1">
-                                        <span><span class="">Color : <button class="btn btn-outline-dark" style="width: 30px; height: 30px; background-color: mediumblue;"></button></span></span>
+                                        <span><span class="">Color : <div class="btn btn-outline-dark" style='width: 30px; height: 30px; background-color: {{crt.color}}'></div></span></span>
                                     </div>
                                     <div class="col-sm-6 mt-1">
-                                        <span class="">Meterial : Cotton</span>
+                                        <span class="">Meterial : {{crt.meterial}}</span>
                                     </div>
                                 </div>
 
                                 <div class="row mt-1">
                                     <div class="col-sm-12">
-                                        <button onclick="decrement()" class="btn-outline-danger btn" style="border-radius: 50%; width: 40px;">-</button>
-                                        <input type="number" id="numberInput" value="0" readonly class="qty" style="width: 10%;border: none;text-align: right;">
+                                        <div onclick="decrement('{{forloop.counter}}')" class="btn-outline-danger btn" style="border-radius: 50%; width: 40px;">-</div>
+                                        <input type="number" id="numberInput{{forloop.counter}}" value="0" readonly class="qty" name='qty[]' style="width: 10%;border: none;text-align: right;">
                                         
-                                        <button onclick="increment()" class="btn-danger btn" style="border-radius: 50%; width: 40px;">+</button>
+                                       
+                                        <div onclick="increment('{{forloop.counter}}')" class="btn-danger btn" style="border-radius: 50%; width: 40px;">+</div>
                                         
                                     </div>
                                 </div>
+
+                                <input type="number" id="itm_amount{{forloop.counter}}" value="0" readonly class="itm_amount tot_item" style="width: 10%;border: none;text-align: right;" hidden>
+                                <input type="text"  value="{{crt.item.id}}" readonly name='item_id[]' style="width: 10%;border: none;text-align: right;" hidden>
                                 
                                 
                             </div>
@@ -80,8 +91,18 @@
                     </div>
                   </div>
                 </div>
+                {%endfor%}
+                {%else%}
 
-                
+                <div class="row">
+                    <div class="col-sm-8 ">
+                        <div class="card p-5" style="text-align: center;">
+                            <h3>Empty Cart</h3>
+                        </div>
+                        
+                    </div>
+                </div>
+                {%endif%}
             
               
 
@@ -90,23 +111,23 @@
 
 
 
-        <div class="col-sm-4">
+        <div class="col-sm-4 mt-3  ">
             <div class="card p-4" style="background-color: #FFE6E6;">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <p>Price : </p>
                     </div>
-                    <div class="col-sm-4">
-                        <p>$<input type="text" value="0" style="border: none; background-color: transparent; " class="w-75" readonly id="price"></p>
+                    <div class="col-sm-6">
+                        <p>₹<input type="text" value="0" style="border: none; background-color: transparent; " class="w-75" readonly id="price" name="sum"></p>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-8">
-                        <p>Delivery Charge : </p>
+                    <div class="col-sm-6">
+                        <p>Delivery Charge: </p>
                     </div>
-                    <div class="col-sm-4">
-                        <p>$<input type="number" value="0" style="border: none; background-color: transparent; " class="w-75" id="delivery" onchange="delivery()"></p>
+                    <div class="col-sm-6">
+                        <p>₹<input type="number" value="0" style="border: none; background-color: transparent; " class="w-75" id="delivery" onchange=del_calc()></p>
                     </div>
                 </div>
                 <div class="row">
@@ -116,11 +137,11 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <p>Total : </p>
                     </div>
-                    <div class="col-sm-4">
-                        <p>$<input type="text" value="0" style="border: none; background-color: transparent;" class="w-75" readonly id="sum"></p>
+                    <div class="col-sm-6">
+                        <p>₹<input type="text" value="0" style="border: none; background-color: transparent;" class="w-75" readonly id="sum"></p>
                     </div>
                 </div>
 
@@ -134,17 +155,22 @@
     </div>
     
 </div>
+</form>
 
 <script>
-  
-    function calc_total() {
+    function del_calc(){
        
-          var price = document.getElementById(`price`).value
-          var qty = document.getElementById(`numberInput`).value
-          var delivery = document.getElementById(`delivery`).value
-          document.getElementById(`sum`).value=parseFloat(qty)*parseFloat(price)
-          console.log(price)
-          console.log(parseFloat(qty)*parseFloat(price))
+        tot=document.getElementById('price').value
+        deli=document.getElementById('delivery').value
+    
+        document.getElementById('sum').value=parseFloat(tot)+parseFloat(deli)
+
+    }
+</script>
+<script>
+  
+    function calc_sum() {
+          
           
           total = 0;
           $('.tot_item').each(function () {
@@ -152,57 +178,39 @@
               
           });
           
-          console.log(total)
   
-          $('#total').val((total).toFixed(2));
-  
+          $('#price').val((total).toFixed(2));
+          $('#sum').val((total).toFixed(2));
+          del_calc()
       }
   </script>
+
 <script>
-    function delivery(){
-        var qty = document.getElementById('numberInput').value;
-        var amount = document.getElementById('amount').value;
-        
-        var delivery = document.getElementById("delivery").value;
-     
-        document.getElementById("price").value=parseInt(qty)*parseInt(amount)
-        var price = document.getElementById("price").value;
-        
-        document.getElementById("sum").value=parseInt(parseInt(qty)*parseInt(amount))+parseInt(delivery)
-    }
+  
 
 
-    function increment() {
+    function increment(id) {
        
-        var numberInput = document.getElementById('numberInput');
+        var numberInput = document.getElementById(`numberInput${id}`);
         numberInput.value = parseInt(numberInput.value) + 1;
-        var qty = document.getElementById('numberInput').value;
-        var amount = document.getElementById('amount').value;
+        var qty = document.getElementById(`numberInput${id}`).value;
+        var amount = document.getElementById(`amount${id}`).value;
         
-        var delivery = document.getElementById("delivery").value;
-     
-        document.getElementById("price").value=parseInt(qty)*parseInt(amount)
-        var price = document.getElementById("price").value;
-        
-        document.getElementById("sum").value=parseInt(parseInt(qty)*parseInt(amount))+parseInt(delivery)
+        document.getElementById(`itm_amount${id}`).value=parseInt(qty)*parseInt(amount)
+        calc_sum()
         
     }
     
     
-    function decrement() {
-        var numberInput = document.getElementById('numberInput');
+    function decrement(id) {
+        var numberInput = document.getElementById(`numberInput${id}`);
         var value = parseInt(numberInput.value) - 1;
         // Ensure the value doesn't go below 0
         numberInput.value = value < 0 ? 0 : value;
-        var qty = document.getElementById('numberInput').value;
-        var amount = document.getElementById('amount').value;
-        
-        var delivery = document.getElementById("delivery").value;
-     
-        document.getElementById("price").value=parseInt(qty)*parseInt(amount)
-        var price = document.getElementById("price").value;
-        
-        document.getElementById("sum").value=parseInt(parseInt(qty)*parseInt(amount))+parseInt(delivery)
+        var qty = document.getElementById(`numberInput${id}`).value;
+        var amount = document.getElementById(`amount${id}`).value;
+        document.getElementById(`itm_amount${id}`).value=parseInt(qty)*parseInt(amount)
+        calc_sum()
     }
  
 </script>

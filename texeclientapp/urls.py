@@ -12,11 +12,12 @@ urlpatterns = [
     path('product_view/<int:id>',views.product_view, name='product_view'),
     path('cust',views.cust, name='cust'),
     path('all_item',views.all_item, name='all_item'),
-    path('cart',views.cart, name='cart'),
+    path('carts',views.carts, name='carts'),
     path('whistle',views.whistle, name='whistle'),
     path('my_order',views.my_order, name='my_order'),
     path('profile',views.profile, name='profile'),
     path('edit_user_profile/<int:id>',views.edit_user_profile, name='edit_user_profile'),
+    path('checkout',views.checkout, name='checkout'),
 
     #--------------------------------------------------------------------------admin Module
     path('admin_home',views.admin_home, name='admin_home'),
@@ -37,6 +38,12 @@ urlpatterns = [
     path('product',views.product, name='product'),
     path('admin_add_item',views.admin_add_item, name='admin_add_item'),
     path('edit_item/<int:id>',views.edit_item, name='edit_item'),
-    path('orders',views.orders, name='orders'),
+    path('order',views.order, name='order'),
     path('change_order_status',views.change_order_status, name='change_order_status'),
+
+    path('cart_cust_size',views.cart_cust_size, name='cart_cust_size'),
+    path('cart_change_color',views.cart_change_color, name='cart_change_color'),
+    path('cart_change_meterial',views.cart_change_meterial, name='cart_change_meterial'),
+    path('cart_change_model',views.cart_change_model, name='cart_change_model'),
+    path('save_cart/<int:id>',views.save_cart, name='save_cart'),
 ]
