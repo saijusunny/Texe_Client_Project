@@ -20,10 +20,11 @@ def index(request):
         ids=request.session['userid']
         print(ids)
         usr=registration.objects.get(id=ids)
-
+        wish=wishlist.objects.filter(user=usr)
         context={
             'user':usr,
             "items":items,
+            "wish":wish,
         }
     except:
         context={
@@ -500,6 +501,26 @@ def edit_user_profile(request,id):
         return redirect ("profile")
     return redirect ("profile")
 
+def add_wishlist(request):
+    ids=request.session['userid']
+    usr=registration.objects.get(id=ids)
+    ele = request.GET.get('ele')
+    itm=item.objects.get(id=ele)
+    wis=wishlist()
+    wis.user=usr
+    wis.item=itm
+    wis.save()
+
+    return JsonResponse({"status":" not"})
+
+def remove_wishlist(request):
+    ele = request.GET.get('ele')
+    ids=request.session['userid']
+    usr=registration.objects.get(id=ids)
+  
+    wis=wishlist.objects.get(id=ele).delete()
+  
+    return JsonResponse({"status":" not"})
 
 #-----------------------------------------------admin
 
@@ -775,12 +796,48 @@ def order(request):
         "orders":orde,
         "ord_item":ord_item,
     }
-    return render(request,'admin/orders.html')
+    return render(request,'admin/orders.html', context)
 
 def change_order_status(request):
     ele = request.GET.get('ele')
-    print(ele)
+    count = request.GET.get('count')
+    itm=orders.objects.get(id=ele)
+
+    itm.stage_count=count
+    if int(count)==6:
+        itm.status='arrived'
+    else:
+        itm.status='delivery'
+    itm.save()
     return JsonResponse({"status":" not"})
+
+def order_details(request,id):
+    orde = orders.objects.filter(status="delivery", id=id).order_by("-id")
+    ord_item=checkout_item.objects.filter(orders_id=id)
+    context={
+        "orders":orde,
+        "ord_item":ord_item,
+    }
+    return render(request, 'admin/order_details.html', context)
+
+def delivery_orders(request):
+    orde = orders.objects.filter(status="delivery").order_by("-id")
+    ord_item=checkout_item.objects.all()
+    context={
+        "orders":orde,
+        "ord_item":ord_item,
+    }
+    return render(request,'admin/delivery_orders.html', context)
+
+def delivery_order_details(request,id):
+    orde = orders.objects.filter(status="delivery", id=id).order_by("-id")
+    ord_item=checkout_item.objects.filter(orders_id=id)
+    context={
+        "orders":orde,
+        "ord_item":ord_item,
+    }
+    return render(request, 'admin/delivery_order_details.html', context)
+
 
 def ex_add_event(request):
     pass

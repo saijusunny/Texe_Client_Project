@@ -161,14 +161,36 @@
                         <span class="menu-title">Products</span>
                     </a>
                 </li>
-                <li class="nav-item menu-items">
-                    <a class="nav-link" href="{% url 'order'%}">
+
+                <li class="nav-item menu-items dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                         <span class="menu-icon">
-                            <i class="mdi mdi-file-document-box"></i>
+                        <i class="mdi mdi-sitemap"></i>
                         </span>
                         <span class="menu-title">Order Management</span>
+                        
                     </a>
+                    <ul class="dropdown-menu">
+                        <li>              
+            
+                        <div class="dropdown-item">
+                            <a class="d-inline-block" style="color: white; text-decoration: none;" href="{%url 'order'%}" >Orders</a>
+                
+                        </div>                                                    
+                        </li>   
+                        
+                        <li>              
+            
+                            <div class="dropdown-item">
+                                <a class="d-inline-block" style="color: white; text-decoration: none;" href="{%url 'delivery_orders'%}" >Delivered</a>
+                    
+                            </div>                                                    
+                            </li>  
+                    </ul>
+        
                 </li>
+
+
             
                
             </ul>

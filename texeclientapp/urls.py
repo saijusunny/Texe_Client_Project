@@ -18,6 +18,14 @@ urlpatterns = [
     path('profile',views.profile, name='profile'),
     path('edit_user_profile/<int:id>',views.edit_user_profile, name='edit_user_profile'),
     path('checkout',views.checkout, name='checkout'),
+    path('add_wishlist',views.add_wishlist, name='add_wishlist'),
+    path('cart_cust_size',views.cart_cust_size, name='cart_cust_size'),
+    path('cart_change_color',views.cart_change_color, name='cart_change_color'),
+    path('cart_change_meterial',views.cart_change_meterial, name='cart_change_meterial'),
+    path('cart_change_model',views.cart_change_model, name='cart_change_model'),
+    path('save_cart/<int:id>',views.save_cart, name='save_cart'),
+    path('cancel_order/<int:id>',views.cancel_order, name='cancel_order'),
+    path('remove_wishlist/',views.remove_wishlist, name='remove_wishlist'),
 
     #--------------------------------------------------------------------------admin Module
     path('admin_home',views.admin_home, name='admin_home'),
@@ -40,11 +48,8 @@ urlpatterns = [
     path('edit_item/<int:id>',views.edit_item, name='edit_item'),
     path('order',views.order, name='order'),
     path('change_order_status',views.change_order_status, name='change_order_status'),
-
-    path('cart_cust_size',views.cart_cust_size, name='cart_cust_size'),
-    path('cart_change_color',views.cart_change_color, name='cart_change_color'),
-    path('cart_change_meterial',views.cart_change_meterial, name='cart_change_meterial'),
-    path('cart_change_model',views.cart_change_model, name='cart_change_model'),
-    path('save_cart/<int:id>',views.save_cart, name='save_cart'),
-    path('cancel_order/<int:id>',views.cancel_order, name='cancel_order'),
+    path('order_details/<int:id>',views.order_details, name='order_details'),    
+    path('delivery_orders',views.delivery_orders, name='delivery_orders'),
+    path('delivery_order_details/<int:id>',views.delivery_order_details, name='delivery_order_details'), 
+    
 ]

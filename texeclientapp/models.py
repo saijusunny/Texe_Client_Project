@@ -83,6 +83,9 @@ class checkout_item(models.Model):
     qty=models.IntegerField(null=True, blank=True)
     item_price=models.FloatField(null=True, blank=True)
 
+class wishlist(models.Model):
+    user = models.ForeignKey(registration, on_delete=models.SET_NULL, null=True, blank=True)
+    item = models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
 
 
 

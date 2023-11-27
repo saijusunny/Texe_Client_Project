@@ -1,4 +1,4 @@
-{% extends 'user/base_profile.html' %}
+{%extends 'admin/admin_base.html'%}
 {% load static %}
 {% block content %}
 <style>
@@ -251,8 +251,8 @@ svg{
 </style>
 <section style="">
   <div class="container ">
-    {% for ord in ords %}
-    {%for i in ords_itm%}
+    {% for ord in orders %}
+    {%for i in ord_item%}
     {% if ord.id == i.orders_id%}
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-10">
@@ -262,12 +262,11 @@ svg{
             <div class="row">
               <div class="col-md-12 col-lg-2 col-xl-2 mb-4 mb-lg-0">
                 <div class="bg-image hover-zoom ripple rounded ripple-surface" >
-                  {% if i.cart.model %}
-                  <img src="{{i.cart.model.image.url}}" class="w-100" id="main_img"/>
-                  {%else%}
-                  <img src="{{i.item.image.url}}" class="w-100"/>
-                  {%endif%}
-                  
+                    {% if i.cart.model %}
+                    <img src="{{i.cart.model.image.url}}" class="w-100" id="main_img"/>
+                    {%else%}
+                    <img src="{{i.item.image.url}}" class="w-100"/>
+                    {%endif%}
                   <a href="#!">
                     <div class="hover-overlay">
                       <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
@@ -279,7 +278,7 @@ svg{
                 <h5>{{i.item.name}}</h5>
                 <div class="d-flex flex-row">
                 <div class="mt-4">
-                    <span>${{i.item.offer_price}}</span><span class="ml-4 text-muted"><strike>${{i.item.price}}</strike></span><br>
+                    <span>₹{{i.item.offer_price}}&nbsp;&nbsp;</span><span class=" text-muted"><strike>₹{{i.item.price}}</strike></span><br>
                 </div>
                 
 
@@ -313,38 +312,8 @@ svg{
                         <p>Total : ₹{{i.item_price}}</p>
                         
 
-                        <div class="tracking-wrapper" style="margin-bottom: 5rem;">
-                            <div class="tracking">
-                              <div id="progress0" class="progress-{{ord.stage_count}}">
-                                <div class="empty-bar"></div>
-                                <div class="color-bar"></div>
-                                <ul>
-                                  <li class="bullet-1">
-                                    <div class="el"><i class='bx bx-check'></i></div>
-                                    <div class="txt">Order Processed</div>
-                                  </li>
-                                  <li class="bullet-2">
-                                    <div class="el"><i class='bx bx-check'></i></div>
-                                    <div class="txt">Order Shipped</div>
-                                  </li>
-                                  <li class="bullet-3">
-                                    <div class="el"><i class='bx bx-check'></i></div>
-                                    <div class="txt">Order En Route</div>
-                                  </li>
-                                  <li class="bullet-4">
-                                    <div class="el"><i class='bx bx-check '></i></div>
-                                    <div class="txt">Order Arrived</div>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row mt-5">
-                            <div class="col-sm-12" style="text-align: center;">
-                              <a href="{% url 'cancel_order' ord.id%}"><button class="btn btn-danger" style="background-color: red; color: white;">Cancel Order</button></a>
-                            </div>
-                          </div>
+                        
+                          
                           
                     </div>
                   </div>

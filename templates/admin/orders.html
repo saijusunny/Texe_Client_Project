@@ -251,21 +251,21 @@ svg{
 </style>
 <section style="">
   <div class="container ">
-    {% for k in orders%}
+    {% if orders%}
+    {%for i in orders%}
+    
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-10">
-        <div class="row">
-          <div class="col-sm-12">
-            <h4 class=" pr-4 mt-3 mb-3" >Orders</h4>
-          </div>
-        </div>  
+         
         <div class="card shadow-0 border rounded-3">
           <div class="card-body">
             <div class="row">
               <div class="col-md-12 col-lg-2 col-xl-2 mb-4 mb-lg-0">
                 <div class="bg-image hover-zoom ripple rounded ripple-surface" >
-                  <img src="{% static 'images\static_image\trend1.png' %}"
+                  <a href="{%url 'order_details' i.id%}">
+                  <img src="{{i.user.profile.url}}"
                   class="w-100"/>
+                  </a>
                   <a href="#!">
                     <div class="hover-overlay">
                       <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
@@ -273,48 +273,33 @@ svg{
                   </a>
                 </div>
               </div>
-              <div class="col-md-6 col-lg-6 col-xl-6 mt-4 ">
-                <h5>Quant trident shirts</h5>
+              <div class="col-md-6 col-lg-6 col-xl-6 mt-1 ">
+                <h5>{{i.user.name}}</h5>
                 <div class="d-flex flex-row">
-                <div class="mt-4">
-                    <span>$499</span><span class="ml-4 text-muted"><strike>$999</strike></span><br>
+                <div class="">
+                    <span>Address : {{i.user.addres}}</span><br>
+                    <span>Ph. No : {{i.user.number}}</span><br>
+                    <span>Address : {{i.user.addres}}</span><br>
+                    <span>Order Date : {{i.date}}</span><br>
+                    <span>Total Amount : ₹{{i.total_amount}}</span><br>
                 </div>
                 
 
                 
                 </div>
-                <div class="">
-                    <div class="row mt-2">
-                        <div class="col-sm-3 mt-3">
-                            <span>Size : S</span>
-                        </div>
-                        <div class="col-sm-3 mt-3">
-                            <span><span class="">Color : <button class="btn btn-outline-dark" style="width: 30px; height: 30px; background-color: mediumblue;"></button></span></span>
-                        </div>
-                        <div class="col-sm-6 mt-3">
-                            <span class="">Meterial : Cotton</span>
-                        </div>
-                    </div>
-                    
-                    
-                </div>
+                
                 
               </div>
               
-              <div class="col-md-6 col-lg-4 col-xl-4 border-sm-start-none border-start">
+              <div class="col-md-6 col-lg-4 col-xl-4 ">
                 <div class="d-flex flex-row align-items-center mb-1">
 
                   <div class="row">
                     <div class="col-sm-12">
-                        <p>Quantity : 5</p>
-                        <p>Order Date : 14-20-20</p> 
-                        <p> Status : Pending</p>
-                        <p>Order Customer : Saiju Sunny</p>
-                        <p>Address : sdfdsffdsf dfsd dfsfdsf fdsfs fsf sdfdf sdfds f sf ds</p>
-
+                        
                         <div class="tracking-wrapper">
                             <div class="tracking">
-                              <div id="progress0" class="progress-0">
+                              <div id="progress{{forloop.counter}}" class="progress-{{i.stage_count}}">
                                 <div class="empty-bar"></div>
                                 <div class="color-bar"></div>
                                 <ul>
@@ -341,12 +326,10 @@ svg{
                           
                           <div class="controls">
                             <div>
-                              <button id="prev" onclick="prev('0')"><i class='bx bx-chevron-left'></i> Prev</button>
-                              <button id="next" onclick="next('0')">Next <i class='bx bx-chevron-right'></i></button>
+                              <button id="prev" onclick="prev('{{forloop.counter}}', '{{i.id}}')"><i class='bx bx-chevron-left'></i> Prev</button>
+                              <button id="next" onclick="next('{{forloop.counter}}', '{{i.id}}')">Next <i class='bx bx-chevron-right'></i></button>
                             </div>
-                            <div>
-                              <p>Step: <span id="step">0</span></p>
-                            </div>
+                            
                           </div>
                     </div>
                   </div>
@@ -362,14 +345,20 @@ svg{
         </div>
       </div>
     </div>
-
-    
+    {%endfor%}
+    {%else%}
+    <div class="row">
+        <div class="col-sm-4 bg-dark p-5" style="text-align: center;margin: auto;">
+            <h5>No Orders Found!</h5>
+        </div>
+    </div>
+    {%endif%}
     
   </div>
 </section>
 <script>
 
-function next(ids){
+function next(ids, id){
     console.log(ids)
     var trak = document.getElementById(`progress${ids}`);
 
@@ -382,7 +371,8 @@ function next(ids){
             type: "GET",
             url: "{% url 'change_order_status' %}",
             data: {
-                ele : ids,
+                ele : id,
+                count:cls,
                 
                 
             },
@@ -393,7 +383,7 @@ function next(ids){
 
 }
 
-function prev(ids){
+function prev(ids,id){
     var trak = document.getElementById(`progress${ids}`);
     var cls = trak.className.split('-').pop();
 	cls < 1 ? cls = 7 : cls--;
@@ -403,8 +393,8 @@ function prev(ids){
             type: "GET",
             url: "{% url 'change_order_status' %}",
             data: {
-                ele : ids,
-                
+                ele : id,
+                count:cls,
                 
             },
             success:function(response){
