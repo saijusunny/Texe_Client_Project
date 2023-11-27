@@ -46,4 +46,5 @@ urlpatterns = [
     path('cart_change_meterial',views.cart_change_meterial, name='cart_change_meterial'),
     path('cart_change_model',views.cart_change_model, name='cart_change_model'),
     path('save_cart/<int:id>',views.save_cart, name='save_cart'),
+    path('cancel_order/<int:id>',views.cancel_order, name='cancel_order'),
 ]

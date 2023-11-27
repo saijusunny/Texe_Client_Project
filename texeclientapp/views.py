@@ -208,7 +208,7 @@ def carts(request):
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
-        crt= cart.objects.filter(user=usr)
+        crt= cart.objects.filter(user=usr, status="cart")
     
         context={
             'user':usr,
@@ -240,6 +240,7 @@ def save_cart(request,id):
             carts.size= "XS"
             carts.color= "white"
             carts.meterial= "Cotton"
+            carts.status="cart"
             carts.design= request.FILES.get('design',None)
             carts.logo= request.FILES.get('logo',None)
             carts.name= request.POST.get('text',None)
@@ -277,6 +278,7 @@ def save_cart(request,id):
             crt.logo= request.FILES.get('logo',None)
             crt.name= request.POST.get('text',None)
             crt.number= request.POST.get('number',None)
+            crt.status="cart"
             crt.save()
             return redirect('index')
 
@@ -382,16 +384,22 @@ def checkout(request):
         chk.save()
         item_id =request.POST.getlist('item_id[]') 
         qty =request.POST.getlist('qty[]') 
+        cart_id=request.POST.getlist('cart_id[]') 
 
-        if len(item_id)==len(qty):
-            mapped2 = zip(item_id,qty)
+        if len(item_id)==len(qty)==len(cart_id):
+            mapped2 = zip(item_id,qty,cart_id)
             mapped2=list(mapped2)
          
             for ele in mapped2:
                 itm=item.objects.get(id=ele[0])
                 itm.buying_count=int(itm.buying_count+1)
                 itm.save()
-                created = checkout_item.objects.create(item=itm,qty=ele[1],item_name=itm.name,item_price=itm.offer_price, orders=chk)
+
+                crts= cart.objects.get(id=ele[2])
+                crts.status="checkout"
+                crts.save()
+                tot=float(itm.offer_price)*int(ele[1])
+                created = checkout_item.objects.create(item=itm,qty=ele[1],item_name=itm.name,item_price=tot, orders=chk, cart=crts)
 
         chk_item=checkout_item.objects.filter(orders=chk)
       
@@ -408,11 +416,6 @@ def checkout(request):
         #     phone_no="+918848937577", 
         #     message=""+str(message),
         # )
-     
-        messages.error(request, 'Purchase Success Full')
-        
-        ckt=cart.objects.filter(user=usr).delete()
-        
           
     
         return redirect("my_order")
@@ -437,9 +440,12 @@ def my_order(request):
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
-
+        ords=orders.objects.filter(user=usr, status="checkout")
+        ords_itm=checkout_item.objects.all()
         context={
-            'user':usr
+            'user':usr,
+            'ords':ords,
+            'ords_itm':ords_itm,
         }
     except:
         
@@ -448,6 +454,11 @@ def my_order(request):
         }
     return render(request, 'user/my_orders.html',context)
 
+def cancel_order(request,id):
+    ords=orders.objects.get(id=id)
+    ords.status=="cancel"
+    ords.save()
+    return redirect('my_order')
 
 def profile(request):
     ids=request.session['userid']
@@ -758,6 +769,12 @@ def edit_item(request,id):
 
 
 def order(request):
+    orde = orders.objects.filter(status="checkout").order_by("-id")
+    ord_item=checkout_item.objects.all()
+    context={
+        "orders":orde,
+        "ord_item":ord_item,
+    }
     return render(request,'admin/orders.html')
 
 def change_order_status(request):

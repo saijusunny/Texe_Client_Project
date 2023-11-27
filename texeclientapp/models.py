@@ -54,20 +54,6 @@ class sub_images(models.Model):
     image=  models.FileField(upload_to='images/sub_items', default='static/images/logo/noimage.jpg')
     item=models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
 
-class orders(models.Model):
-    user = models.ForeignKey(registration, on_delete=models.SET_NULL, null=True, blank=True)
-    status =models.CharField(max_length = 255,blank=True,null=True, default=0)
-    total_amount=models.FloatField(default=0,null=True, blank=True)
-    date=models.DateTimeField(null=True, blank=True)
-    stage_count=models.IntegerField(default=0,null=True, blank=True)
-
-class checkout_item(models.Model):
-    orders = models.ForeignKey(orders, on_delete=models.SET_NULL, null=True, blank=True)
-    item = models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
-    item_name= models.CharField(max_length=255,blank=True,null=True)
-    qty=models.IntegerField(null=True, blank=True)
-    item_price=models.FloatField(null=True, blank=True)
-
 class cart(models.Model):
     user = models.ForeignKey(registration, on_delete=models.SET_NULL, null=True, blank=True)
     item = models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
@@ -79,6 +65,25 @@ class cart(models.Model):
     logo= models.FileField(upload_to='images/cart/logos',null=True, blank=True)
     name= models.CharField(max_length=255,blank=True,null=True)
     number= models.CharField(max_length=255,blank=True,null=True)
+    status= models.CharField(max_length=255,blank=True,null=True)
+
+class orders(models.Model):
+    user = models.ForeignKey(registration, on_delete=models.SET_NULL, null=True, blank=True)
+    status =models.CharField(max_length = 255,blank=True,null=True, default=0)
+    total_amount=models.FloatField(default=0,null=True, blank=True)
+    date=models.DateTimeField(null=True, blank=True)
+    stage_count=models.IntegerField(default=0,null=True, blank=True)
+
+class checkout_item(models.Model):
+    orders = models.ForeignKey(orders, on_delete=models.SET_NULL, null=True, blank=True)
+    item = models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
+    cart = models.ForeignKey(cart, on_delete=models.SET_NULL, null=True, blank=True)
+
+    item_name= models.CharField(max_length=255,blank=True,null=True)
+    qty=models.IntegerField(null=True, blank=True)
+    item_price=models.FloatField(null=True, blank=True)
+
+
 
 
     

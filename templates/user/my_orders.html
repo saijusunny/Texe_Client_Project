@@ -251,7 +251,9 @@ svg{
 </style>
 <section style="">
   <div class="container ">
-    
+    {% for ord in ords %}
+    {%for i in ords_itm%}
+    {% if ord.id == i.orders_id%}
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-10">
          
@@ -260,7 +262,7 @@ svg{
             <div class="row">
               <div class="col-md-12 col-lg-2 col-xl-2 mb-4 mb-lg-0">
                 <div class="bg-image hover-zoom ripple rounded ripple-surface" >
-                  <img src="{% static 'images\static_image\trend1.png' %}"
+                  <img src="{{i.item.image.url}}"
                   class="w-100"/>
                   <a href="#!">
                     <div class="hover-overlay">
@@ -270,10 +272,10 @@ svg{
                 </div>
               </div>
               <div class="col-md-6 col-lg-6 col-xl-6 mt-4 ">
-                <h5>Quant trident shirts</h5>
+                <h5>{{i.item.name}}</h5>
                 <div class="d-flex flex-row">
                 <div class="mt-4">
-                    <span>$499</span><span class="ml-4 text-muted"><strike>$999</strike></span><br>
+                    <span>${{i.item.offer_price}}</span><span class="ml-4 text-muted"><strike>${{i.item.price}}</strike></span><br>
                 </div>
                 
 
@@ -282,13 +284,13 @@ svg{
                 <div class="">
                     <div class="row mt-2">
                         <div class="col-sm-3 mt-3">
-                            <span>Size : S</span>
+                            <span>Size : {{i.cart.size}}</span>
                         </div>
                         <div class="col-sm-3 mt-3">
-                            <span><span class="">Color : <button class="btn btn-outline-dark" style="width: 30px; height: 30px; background-color: mediumblue;"></button></span></span>
+                            <span><span class="">Color : <button class="btn btn-outline-dark" style="width: 30px; height: 30px; background-color: {{i.cart.color}};"></button></span></span>
                         </div>
                         <div class="col-sm-6 mt-3">
-                            <span class="">Meterial : Cotton</span>
+                            <span class="">Meterial : {{i.cart.meterial}}</span>
                         </div>
                     </div>
                     
@@ -300,17 +302,16 @@ svg{
               <div class="col-md-6 col-lg-4 col-xl-4 border-sm-start-none border-start">
                 <div class="d-flex flex-row align-items-center mb-1">
 
-                  <div class="row">
+                  <div class="row mt-2">
                     <div class="col-sm-12">
-                        <p>Quantity : 5</p>
-                        <p>Order Date : 14-20-20</p> 
-                        <p> Status : Pending</p>
-                        <p>Order Customer : Saiju Sunny</p>
-                        <p>Address : sdfdsffdsf dfsd dfsfdsf fdsfs fsf sdfdf sdfds f sf ds</p>
+                        <p>Quantity : {{i.qty}}</p>
+                        <p>Order Date : {{ord.date}}</p> 
+                        <p>Total : ₹{{i.item_price}}</p>
+                        
 
-                        <div class="tracking-wrapper">
+                        <div class="tracking-wrapper" style="margin-bottom: 5rem;">
                             <div class="tracking">
-                              <div id="progress0" class="progress-0">
+                              <div id="progress0" class="progress-{{ord.stage_count}}">
                                 <div class="empty-bar"></div>
                                 <div class="color-bar"></div>
                                 <ul>
@@ -334,16 +335,13 @@ svg{
                               </div>
                             </div>
                           </div>
-                          
-                          <div class="controls">
-                            <div>
-                              <button id="prev" onclick="prev('0')"><i class='bx bx-chevron-left'></i> Prev</button>
-                              <button id="next" onclick="next('0')">Next <i class='bx bx-chevron-right'></i></button>
-                            </div>
-                            <div>
-                              <p>Step: <span id="step">0</span></p>
+
+                          <div class="row mt-5">
+                            <div class="col-sm-12" style="text-align: center;">
+                              <a href="{% url 'cancel_order' ord.id%}"><button class="btn btn-danger" style="background-color: red; color: white;">Cancel Order</button></a>
                             </div>
                           </div>
+                          
                     </div>
                   </div>
                     
@@ -358,7 +356,10 @@ svg{
         </div>
       </div>
     </div>
-
+    {%else%}
+    {%endif%}
+    {% endfor%}
+    {%endfor%}
     
     
   </div>
