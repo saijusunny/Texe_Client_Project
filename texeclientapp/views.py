@@ -641,6 +641,9 @@ def admin_category(request):
     cat_all=category.objects.all()
     return render(request,'admin/create_category.html',{'cat_all':cat_all})
 
+def admin_ad_category(request):
+    return render(request, 'admin/ad_main_cat.html')
+
 def admin_save_category(request):
     
     if request.method == 'POST':
@@ -652,9 +655,9 @@ def admin_save_category(request):
         categorys.save()
 
         
-        return redirect('admin_category')
+        return redirect('ad_category_list')
 
-    return redirect('admin_category')
+    return redirect('ad_category_list')
 
 def admin_subcategory(request):
     
@@ -675,7 +678,7 @@ def admin_subcategory(request):
 
         return redirect('admin_home')
 
-    return redirect('admin_category')
+    return redirect('ad_category_list')
 
 def edit_category(request,id):
     if request.method == 'POST':

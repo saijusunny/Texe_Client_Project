@@ -11,20 +11,20 @@
 </style>
 
 <div class="row p-3" style="padding-top: 10rem;">
-  <div class="container2 col-sm-6 p-5" style="background-color:#191c24; text-align: left; border-radius: 10px;">
+  <div class="container2 col-sm-6 p-5" style="background-color:#191c24; text-align: left; border-radius: 10px;" data-aos="fade-up">
     
     <form action="{% url 'admin_subcategory' %}" method="POST" enctype="multipart/form-data" style="text-align: center;">
       {% csrf_token %}
       <div class="row mb-4">
         <div class="col-sm-12"style="border-radius: 10px;">
-          <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:34px;" >Add Sub Category</h3>
+          <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:20px;" >Add Sub Category</h3>
           <hr>
         </div>
       </div>
       
       
       <div class="row mt-3">
-        <div class="col-sm-10">
+        <div class="col-sm-12">
     
           <div class="form-item form-item1">
             <label for="categories" style="text-align: left;">Categories</label>
@@ -39,12 +39,7 @@
         </div>
 
         </div>
-        <div class="col-sm-2">
-          <br>
-          <a href="" class="btn btn-light pb-2 pt-2 mt-1" data-toggle="modal" data-target="#dis{{item.id}}" style="text-align: center;">New</a>
-    
-
-        </div>
+        
       </div>
 
       <div class="row mt-3">
@@ -71,61 +66,7 @@
 </div>
 
 
-<form action="{% url 'admin_save_category'%}" method="POST" enctype="multipart/form-data">
 
-  <div class="rowmt-5 modal fade" id="dis{{item.id}}">
-    <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
-      aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-content modal-xl" style="background-color: #191c24;">
-        <div class="card ">
-          <div class="card-body">
-            <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
-              style="background-color: #191c24;border:none;float: right;font-size: 20px;">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            
-            
-              {% csrf_token %}
-              
-                {% csrf_token %}
-                <div class="row mb-4">
-                  <div class="col-sm-12"style="border-radius: 10px;">
-                    <h3 class="text-uppercase" style="color:#fff; font-family:bold; font-size:34px;" >Add Category</h3>
-                    <hr>
-                  </div>
-                </div>
-                
-                
-                <div class="row mt-3">
-                  <div class="col-sm-12">
-              
-                    <input id="category_name" type="text" name="category_name"placeholder="Category Name" class="form-control  text-light" required/>
-                  </div>
-                  <div class="col-sm-2">
-                    
-              
-          
-                  </div>
-                </div>
-          
-               
-                
-                <div class="row mt-3">
-                  <div class="col-sm-12" style="text-align: center;">
-                    <input id="submit" class="btn btn-light " type="submit" name="submit" value="Submit" />
-          
-                  </div>
-                </div>
-          
-          
-            
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
 
 
 <script>
@@ -169,7 +110,17 @@
   
 
 
-
+<script>
+  window.addEventListener('load', () => {
+       AOS.init({
+           duration: 1000,
+           easing: 'ease-in-out',
+           once: true,
+           mirror: false
+       })
+   });
+ 
+ </script>
 
 
 

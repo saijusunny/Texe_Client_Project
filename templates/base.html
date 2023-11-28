@@ -136,24 +136,24 @@
           {% csrf_token%}
           <!-- Button to trigger the input field -->
           <div id="searchButton" class="search-button" onclick="expandSearch()">
-            <img class="rounded-circle article-img  ml-2  mt-2" id="buton" src="static\images\static_image\Group_182.png"  width="40" height="40">
+            <img class="rounded-circle article-img  ml-2  mt-2" id="buton" src="{%static 'images\static_image\Group_182.png'%}"  width="40" height="40">
           </div>
       
           <!-- Input field (initially hidden) -->
           <input type="text" id="searchInput" class="search-input mt-2" name="search" placeholder="search here..." onblur="collapseSearch()">
       
           <!-- Submit button (initially hidden) -->
-          <button type="submit" id="submitButton" class="submit-button" onclick="submitForm()"><img class="rounded-circle article-img" id="buton" src="static\images\static_image\Group_182.png"  width="40" height="40"></button>
+          <button type="submit" id="submitButton" class="submit-button" onclick="submitForm()"><img class="rounded-circle article-img" id="buton" src="{%static 'images\static_image\Group_182.png'%}"  width="40" height="40"></button>
       </form>
         
          
 
 
           {% if user %}
-          <a href="{% url 'carts' %}"><img class="rounded-circle article-img ml-2  mt-2" id="log" type="button" src="static\images\static_image\Group_183.png" id="img" width="40" height="40"></a>
+          <a href="{% url 'carts' %}"><img class="rounded-circle article-img ml-2  mt-2" id="log" type="button" src="{% static 'images\static_image\Group_183.png'%}" id="img" width="40" height="40"></a>
           
           {%else%}
-          <a href="{% url 'login' %}"><img class="rounded-circle article-img ml-2  mt-2" id="log" type="button" src="static\images\static_image\Group_183.png" id="img" width="40" height="40"></a>
+          <a href="{% url 'login' %}"><img class="rounded-circle article-img ml-2  mt-2" id="log" type="button" src="{%static 'images\static_image\Group_183.png'%}" id="img" width="40" height="40"></a>
           {%endif%}
 
           {% if user %}
@@ -174,7 +174,7 @@
            
           </div>
           {%else%}
-          <a href="{% url 'login'%}"><img class="rounded-circle ml-2 mt-2" id="log" type="button"  src="static\images\static_image\icon.svg" id="img" width="40" height="40"></a>
+          <a href="{% url 'login'%}"><img class="rounded-circle ml-2 mt-2" id="log" type="button"  src="{% static 'images\static_image\icon.svg'%}" id="img" width="40" height="40"></a>
           {%endif%}
      
       </div>

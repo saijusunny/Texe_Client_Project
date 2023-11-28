@@ -328,6 +328,7 @@
                               <div class="card border-0 " >
                                 <a href="{% url 'product_view' i.id%}" style="text-decoration: none; color: black;">
 
+
                                 <img src="{{i.image.url}}" alt="{{i.image}}" class="card-img-top"></a>
                                 <div class="card-body">
                                   <div class="row">
@@ -462,14 +463,17 @@
         
         <div class="owl-carousel owl_views_arrival">
         {% for j in items%}
-        <a href="" style="text-decoration: none; color: black;">
-          <div class="item"><div class="card border-0 "  id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
+        
+          <div class="item"><div class="card border-0 "  id="products" style="height: 25rem;">
+            <a href="{% url 'product_view' j.id%}" style="text-decoration: none; color: black;">
+            <img src="{{j.image.url}}" width="75" alt="" class="card-img-top">
+          </a>
             <div class="card-body">
       
               <div class="row">
                 <div class="col-sm-12">
                  {{j.name}}
+
                 
                  {% if user %}
                  {% if wish%}
@@ -503,7 +507,7 @@
               </div>
             </div>
           </div></div>
-        </a>
+     
         {%endfor%}
 
         <a href="{%url 'all_item'%}" style="text-decoration: none;">
