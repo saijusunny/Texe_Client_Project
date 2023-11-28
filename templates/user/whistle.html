@@ -19,20 +19,26 @@ svg{
     top:-7rem
 }
 }
+#navs{
+  margin-left: 100px;
+}
+@media (max-width:992px) {
+      #navs{
+      margin-left: 0;
+    }
+    }
 
 </style>
 <section style="">
   <div class="container ">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="navs">&#9776;</span>
+    <h3 id="navs">Wishlist</h3>
+
     {% for i in wish%}
     
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-10">
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-        <div class="row">
-          <div class="col-sm-12">
-            <h4 class=" pr-4 mt-3 mb-3" >Wishlist</h4>
-          </div>
-        </div>  
+         
         <div class="card shadow-0 border rounded-3">
           <div class="card-body">
             <div class="row">
@@ -75,7 +81,7 @@ svg{
               <div class="col-md-6 col-lg-2 col-xl-2 border-sm-start-none border-start">
                 <div class="d-flex flex-row align-items-center mb-1">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16" style="position: absolute; right:20px; color:red">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16" style="position: absolute; right:20px; color:red" onclick="whish_remove('{{i.id}}')">
                         <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                       </svg>
 
@@ -131,6 +137,21 @@ svg{
        }
  
    </script> 
-
+<script>
+  function whish_remove(id){
+    $.ajax({
+              type: "GET",
+              url: "{% url 'remove_wishlist' %}",
+              data: {
+                  ele : id,
+                
+                  
+                  
+              },
+              success:function(response){
+                  alert("Order Status Update Successfully")
+              }});
+  }
+  </script>
 
 {% endblock %}

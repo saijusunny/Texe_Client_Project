@@ -248,9 +248,20 @@ svg{
   background-color: var(--green);
 }
 
+#navs{
+  margin-left: 100px;
+}
+@media (max-width:992px) {
+      #navs{
+      margin-left: 0;
+    }
+    }
+
 </style>
 <section style="">
   <div class="container ">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="navs">&#9776;</span>
+    <h3 id="navs">My Orders</h3>
     {% for ord in ords %}
     {%for i in ords_itm%}
     {% if ord.id == i.orders_id%}

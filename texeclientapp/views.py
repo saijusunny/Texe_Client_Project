@@ -14,8 +14,13 @@ from django.template.loader import render_to_string
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from django.core.serializers import serialize
 def index(request):
-    items=item.objects.all()
+    cat_id=category.objects.all().first()
+    items=item.objects.filter(category=cat_id)
+    cat=category.objects.all()
+    sub=sub_category.objects.all()
+    trend=item.objects.all().order_by('-buying_count')[:10]
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
@@ -26,11 +31,17 @@ def index(request):
             "items":items,
             "wish":wish,
             'bann':bann,
+            'cat':cat,
+            'sub':sub,
+            'trend':trend,
         }
     except:
         context={
             'user':None,
             "items":items,
+            'cat':cat,
+            'sub':sub,
+            'trend':trend,
             
         }
     return render(request, 'index.html',context)
@@ -56,6 +67,9 @@ def signup(request):
                     sign.email = request.POST.get('email')
                     sign.number = request.POST.get('num')
                     sign.password = request.POST.get('pass')
+                    sign.addres = request.POST.get('address')
+                    sign.dob = request.POST.get('dob')
+                    sign.location = request.POST.get('location')
                     sign.role = "user1"
                     sign.save()
                     return redirect('login')
@@ -189,19 +203,29 @@ def product_view(request,id):
     return render(request, 'user/product_view.html',context)
     
 def all_item(request):
+
+    itm = item.objects.all()
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
+        wish=wishlist.objects.filter(user=usr)
 
         context={
-            'user':usr
+            'user':usr,
+            "itm":itm,
+            "wish":wish,
+
         }
     except:
-        
         context={
-            'user':None
+            'user':None,
+            "itm":itm,
+            
         }
-    return render(request, 'user/all_item.html',context)
+        
+    
+    return render(request, 'user/all_item.html', context)
+  
 
 def cust(request):
     return render(request, 'user/cust.html')
@@ -489,6 +513,7 @@ def edit_user_profile(request,id):
         else:
             form.profile = request.FILES.get('image',None)
         form.addres = request.POST.get('address',None)
+        form.location = request.POST.get('location')
         if request.POST.get('password',None) == "":
             form.password == form.password
         else:
@@ -527,12 +552,47 @@ def remove_wishlist(request):
 
 
 def search(request):
+
+    
     if request.method=="POST":
         search=request.POST.get("search",None)
-        results = item.objects.filter(models.Q(name__icontains=search) |models.Q(title_description__icontains=search))
-        print(results)
-        return redirect('index')
+        itm = item.objects.filter(models.Q(name__icontains=search) |models.Q(title_description__icontains=search))
+        try:
+            ids=request.session['userid']
+            usr=registration.objects.get(id=ids)
+            wish=wishlist.objects.filter(user=usr)
+
+            context={
+                'user':usr,
+                "itm":itm,
+                "wish":wish,
+    
+            }
+        except:
+            context={
+                'user':None,
+                "itm":itm,
+                
+            }
+            
+        
+        return render(request, 'user/all_item.html', context)
     return redirect('index')
+
+def get_items(request):
+    ele = request.GET.get('ele')
+    print("*********************************************************")
+    print(ele)
+    # Perform a database query to fetch items based on the selected category
+    items = item.objects.filter(category=ele)
+    
+    # Convert QuerySet to list for JsonResponse
+    items_list = list(items)
+    print(items_list)
+
+    items_json = serialize('json', items_list)
+    return JsonResponse({"status":" not","items_list": items_json}, safe=False)
+
 #-----------------------------------------------admin
 
 def admin_home(request):

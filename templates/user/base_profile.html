@@ -38,9 +38,9 @@
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 8px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 18px;
   color: white;
   display: block;
   transition: 0.3s;
@@ -62,16 +62,28 @@
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+li{
+  list-style-type: none;
+  padding: px;
+}
+
+
 </style>
 </head>
 <body>
 
 <div id="mySidenav" class="sidenav">
+
+  <ul>
+    <a href="{% url 'index'%}"><li>Home</li></a>  
+    <a href="{% url 'profile'%}"><li>Personal Information</li></a>  
+    <a href="{% url 'my_order'%}"><li>My Orders</li></a>  
+    <a href="{% url 'whistle'%}"><li>Home</li></a>  
+
+    <a href="{% url 'logout'%}"><li id="log">Log Out</li></a>  
+  </ul>
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="{% url 'index'%}">Home</a>
-  <a href="{% url 'profile'%}">Personal Information</a>
-  <a href="{% url 'my_order'%}">My Orders</a>
-  <a href="{% url 'whistle'%}">Wishlist</a>
+  
  
 </div>
 
