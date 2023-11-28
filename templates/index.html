@@ -96,6 +96,13 @@
         background: url('static/images/static_image/banner.jpeg'), red 0px -226.074px / 100% 186.684% no-repeat; 
     }
 
+    #banner_fetch{
+      height: 600px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-top: 5.5rem;
+    }
+
     .banner_item{
       margin-top: 12rem;
     }
@@ -119,6 +126,13 @@
         #banner{
         height: 600px;
         background: url('static/images/static_image/banner.jpeg'), red 0px -226.074px / 100% 186.684% no-repeat; 
+    }
+
+    #banner_fetch{
+      height: 600px;
+      background-repeat: no-repeat;
+      background-size: cover;
+  
     }
     #banner2{
         height: 300px;
@@ -216,7 +230,45 @@
 
 </style>
 <div>
-    
+
+  {% if bann.top_banner%}
+
+  <div id="banner_fetch" style="background-image: url('{{bann.top_banner.url}}');">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+  
+        </div>
+  
+        <div class="col-sm-8 banner_item" style="text-align: center;">
+          <div class="row ">
+            <div class="col-sm-12">
+              <h1  style="color: white;font-weight: 400;line-height: normal;letter-spacing: 3px;">
+                CUSTOMIZE<br>YOUR STYLE
+              </h1>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <p style="color: white;font-weight: 400;line-height: normal;letter-spacing: 1.2px;">
+                Rorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 ">
+              <div style="" class="pl-4 pr-4 pt-4 pb-4 banner_btn">Create a Design</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   </div>
+  {%else%}
    <div id="banner">
 
     <div class="container">
@@ -252,7 +304,7 @@
     </div>
 
    </div>
-
+{%endif%}
     <div class="container">
         <div class="row mt-5">
             <div class="col-sm-12">
@@ -336,7 +388,13 @@
 
     <!-- middle Banner -->
    <div class="">
-    <img src="static\images\static_image\middle.png" class="w-100" alt="">
+    {% if bann.middle_banner%}
+    <a href="{{bann.middle_link}}">
+      <img src="{{bann.middle_banner.url}}" class="w-100" alt="">
+    </a>
+    {%else%}
+      <img src="static\images\static_image\middle.png" class="w-100" alt="">
+    {%endif%}
 
    </div>
 
@@ -779,10 +837,24 @@
    <div class="container mt-5">
     <div class="row">
       <div class="col-sm-6 " style="text-align: left;">
-        <img src="static\images\static_image\image 1.png" class="w-100 mt-5" alt="">
+        {% if bann.bottom_banner1%}
+        <a href="{{bann.bottom_link1}}">
+          <img src="{{bann.bottom_banner1.url}}" class="w-100 mt-5" alt="">
+        </a>
+        {%else%}
+        <img src="static\images\static_image\image_1.png" class="w-100 mt-5" alt="">
+        {%endif%}
+        
       </div>
       <div class="col-sm-6" >
-        <img src="static\images\static_image\image 2.png" style="left: 0;" class="w-100 mt-5" alt="">
+        {% if bann.bottom_banner1%}
+        <a href="{{bann.bottom_link1}}">
+          <img src="{{bann.bottom_banner1.url}}" class="w-100 mt-5" alt="">
+        </a>
+        {%else%}
+        <img src="static\images\static_image\image_2.png" style="left: 0;" class="w-100 mt-5" alt="">
+
+        {%endif%}
       </div>
     </div>
    </div>
@@ -921,7 +993,7 @@ function whish(id){
 <script>
   $(document).ready(function(){
     $('.owl_views_arrival').owlCarousel({
-      loop:true,
+      loop:false,
       margin:10,
       autoplay: true,
       nav:false,
@@ -954,7 +1026,7 @@ function whish(id){
 <script>
   $(document).ready(function(){
     $('.owl_nav').owlCarousel({
-      loop:true,
+      loop:false,
       margin:10,
       autoplay: true,
       nav:false,
@@ -988,7 +1060,7 @@ function whish(id){
 <script>
   $(document).ready(function(){
     $('.owl_views').owlCarousel({
-      loop:true,
+      loop:false,
       margin:10,
       autoplay: true,
       nav:false,

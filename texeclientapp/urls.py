@@ -26,7 +26,7 @@ urlpatterns = [
     path('save_cart/<int:id>',views.save_cart, name='save_cart'),
     path('cancel_order/<int:id>',views.cancel_order, name='cancel_order'),
     path('remove_wishlist/',views.remove_wishlist, name='remove_wishlist'),
-
+    path('search',views.search, name='search'),
     #--------------------------------------------------------------------------admin Module
     path('admin_home',views.admin_home, name='admin_home'),
     path('create_banner',views.create_banner, name='create_banner'),

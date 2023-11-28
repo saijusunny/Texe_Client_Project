@@ -342,7 +342,7 @@ svg{
 
                           <div class="row mt-5">
                             <div class="col-sm-12" style="text-align: center;">
-                              <a href="{% url 'cancel_order' ord.id%}"><button class="btn btn-danger" style="background-color: red; color: white;">Cancel Order</button></a>
+                              <a href="{% url 'cancel_order' ord.id%}" onclick="return confirm('Are you sure, you want to cancel thois order?')"><button class="btn btn-danger" style="background-color: red; color: white;" >Cancel Order</button></a>
                             </div>
                           </div>
                           

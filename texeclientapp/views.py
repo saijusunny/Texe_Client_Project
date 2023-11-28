@@ -18,13 +18,14 @@ def index(request):
     items=item.objects.all()
     try:
         ids=request.session['userid']
-        print(ids)
         usr=registration.objects.get(id=ids)
         wish=wishlist.objects.filter(user=usr)
+        bann=banner.objects.all().last()
         context={
             'user':usr,
             "items":items,
             "wish":wish,
+            'bann':bann,
         }
     except:
         context={
@@ -426,9 +427,11 @@ def whistle(request):
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
+        wish=wishlist.objects.filter(user=usr)
 
         context={
-            'user':usr
+            'user':usr,
+            'wish':wish,
         }
     except:
         
@@ -522,6 +525,14 @@ def remove_wishlist(request):
   
     return JsonResponse({"status":" not"})
 
+
+def search(request):
+    if request.method=="POST":
+        search=request.POST.get("search",None)
+        results = item.objects.filter(models.Q(name__icontains=search) |models.Q(title_description__icontains=search))
+        print(results)
+        return redirect('index')
+    return redirect('index')
 #-----------------------------------------------admin
 
 def admin_home(request):
