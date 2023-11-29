@@ -28,6 +28,7 @@ urlpatterns = [
     path('remove_wishlist/',views.remove_wishlist, name='remove_wishlist'),
     path('search',views.search, name='search'),
     path('get_items',views.get_items, name='get_items'),
+    path('show_category/<int:id>',views.show_category, name='show_category'),
     #--------------------------------------------------------------------------admin Module
     path('admin_home',views.admin_home, name='admin_home'),
     path('create_banner',views.create_banner, name='create_banner'),

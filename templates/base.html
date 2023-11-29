@@ -88,11 +88,26 @@
 
         /* Styles for the input field */
         .search-input {
+          position: absolute;
+          right: 220px;
+          top: 33px;
             display: none;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 7px;
+            background-color: white;
+            color: red;
+            border: none;
+            border-radius: 30px;
+ 
             
+        }
+        .search-input:active{
+          border: none;
+        }
+        .search-input:focus{
+          outline: none;
+        }
+        .search-input:hover{
+          border: none;
         }
 
         /* Styles for the submit button */
@@ -105,6 +120,21 @@
             border: none;
             border-radius: 5px;
         }
+        @media (max-width:992px) {
+          .navbar{
+            background-color: rgb(255, 255, 255);
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+          .search-input {
+          position: relative;
+          right: 0px;
+          top: 0px;
+            display: none;
+            padding: 10px;
+        }
+        }
+  
    </style>
 </head>
 <body>
@@ -140,10 +170,11 @@
           </div>
       
           <!-- Input field (initially hidden) -->
-          <input type="text" id="searchInput" class="search-input mt-2" name="search" placeholder="search here..." onblur="collapseSearch()">
+          <input type="text" id="searchInput" class="search-input" name="search" placeholder="search here..." onblur="collapseSearch()">
       
           <!-- Submit button (initially hidden) -->
-          <button type="submit" id="submitButton" class="submit-button" onclick="submitForm()"><img class="rounded-circle article-img" id="buton" src="{%static 'images\static_image\Group_182.png'%}"  width="40" height="40"></button>
+          
+          <div type="submit" id="submitButton" class="submit-button mt-2" onclick="submitForm()"><img class="rounded-circle article-img" id="buton" src="{%static 'images\static_image\Group_182.png'%}"  width="40" height="40"></div>
       </form>
         
          

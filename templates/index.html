@@ -4,6 +4,11 @@
 {% block content %}
 
 
+
+  <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <style>
     /* Customize navigation buttons */
 
@@ -419,11 +424,11 @@
                       <div class="owl-carousel owl-theme owl_nav">
                         {%for i in cat%}
                         <div class="item mb-4">
-                          <select class="form-control" onclick="showSelectedValue(this.value)">
-                            <option value="tshirt" selected disabled>{{i.category_name}}</option>
+                          <select class="form-control" onchange="showSelectedValue(this.value)">
+                            <option selected disabled>{{i.category_name}}</option>
                             {%for k in sub%}
                             {%if i.id == k.category_id%}
-                            <option value="tshirt">{{k.subcategory}}</option>
+                            <a href=""><option value="{{k.id}}">{{k.subcategory}}</option></a>
                             {%else%}
                             {%endif%}
                             {% endfor %}
@@ -464,7 +469,7 @@
         <div class="owl-carousel owl_views_arrival">
         {% for j in items%}
         
-          <div class="item"><div class="card border-0 "  id="products" style="height: 25rem;">
+          <div class="item"><div class="card border-0 "  id="products" >
             <a href="{% url 'product_view' j.id%}" style="text-decoration: none; color: black;">
             <img src="{{j.image.url}}" width="75" alt="" class="card-img-top">
           </a>
@@ -836,7 +841,7 @@
 
 <form action="" method="POST" enctype="multipart/form-data">
 
-    <div class="rowmt-5 modal fade" id="subcat">
+    <div class="row mt-5 modal fade" id="subcat">
       <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-content modal-xl" style="background-color: #191c24;">
@@ -912,52 +917,11 @@ function whish(id){
 <!-- script for show cat -->
 <script>
   function showSelectedValue(val) {
-
-  if (val=="tshirt"){
-    document.getElementById("t-shirt").style.display="block";
-    document.getElementById("hoodies").style.display="none"; 
-    document.getElementById("baby_clothes").style.display="none";
-    document.getElementById("jersey").style.display="none";
-    document.getElementById("uniforms").style.display="none";
-    document.getElementById("sports_wears").style.display="none";
-
-  } else if(val=="hoodies"){
-    document.getElementById("t-shirt").style.display="none";
-    document.getElementById("hoodies").style.display="block";
-    document.getElementById("baby_clothes").style.display="none";
-    document.getElementById("jersey").style.display="none";
-    document.getElementById("uniforms").style.display="none";
-    document.getElementById("sports_wears").style.display="none";
-  }else if(val=="baby_clothes"){
-    document.getElementById("t-shirt").style.display="none";
-    document.getElementById("hoodies").style.display="none";
-    document.getElementById("baby_clothes").style.display="block";
-    document.getElementById("jersey").style.display="none";
-    document.getElementById("uniforms").style.display="none";
-    document.getElementById("sports_wears").style.display="none";
-  }else if(val=="jersey"){
-    document.getElementById("t-shirt").style.display="none";
-    document.getElementById("hoodies").style.display="none";
-    document.getElementById("baby_clothes").style.display="none";
-    document.getElementById("jersey").style.display="block";
-    document.getElementById("uniforms").style.display="none";
-    document.getElementById("sports_wears").style.display="none";
-  }else if(val=="uniforms"){
-    document.getElementById("t-shirt").style.display="none";
-    document.getElementById("hoodies").style.display="none";
-    document.getElementById("baby_clothes").style.display="none";
-    document.getElementById("jersey").style.display="none";
-    document.getElementById("uniforms").style.display="block";
-    document.getElementById("sports_wears").style.display="none";
-  }
-  else if(val=="sports_wears"){
-    document.getElementById("t-shirt").style.display="none";
-    document.getElementById("hoodies").style.display="none";
-    document.getElementById("baby_clothes").style.display="none";
-    document.getElementById("jersey").style.display="none";
-    document.getElementById("uniforms").style.display="none";
-    document.getElementById("sports_wears").style.display="block";
-  }
+    if (val) {
+        // Redirect to the selected page
+        window.location.href = '/show_category/' + val 
+      }
+  
 }
 </script>
 <script>
@@ -965,7 +929,7 @@ function whish(id){
     $('.owl_views_arrival').owlCarousel({
       loop:false,
       margin:10,
-      autoplay: true,
+      autoplay: false,
       nav:false,
       navigation: true,
       responsive:{
@@ -998,7 +962,7 @@ function whish(id){
     $('.owl_nav').owlCarousel({
       loop:false,
       margin:10,
-      autoplay: true,
+      autoplay: false,
       nav:false,
       navigation: false,
       dots:false,
@@ -1032,7 +996,7 @@ function whish(id){
     $('.owl_views').owlCarousel({
       loop:false,
       margin:10,
-      autoplay: true,
+      autoplay: false,
       nav:false,
       navigation: true,
       dots:false,

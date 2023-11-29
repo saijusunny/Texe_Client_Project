@@ -581,8 +581,7 @@ def search(request):
 
 def get_items(request):
     ele = request.GET.get('ele')
-    print("*********************************************************")
-    print(ele)
+    
     # Perform a database query to fetch items based on the selected category
     items = item.objects.filter(category=ele)
     
@@ -593,6 +592,30 @@ def get_items(request):
     items_json = serialize('json', items_list)
     return JsonResponse({"status":" not","items_list": items_json}, safe=False)
 
+def show_category(request, id):
+    
+
+    cat=sub_category.objects.get(id=id)
+    itm = item.objects.filter(sub_category=cat)
+    try:
+        ids=request.session['userid']
+        usr=registration.objects.get(id=ids)
+        wish=wishlist.objects.filter(user=usr)
+
+        context={
+            'user':usr,
+            "itm":itm,
+            "wish":wish,
+
+        }
+    except:
+        context={
+            'user':None,
+            "itm":itm,
+            
+        }
+
+    return render(request, 'user/all_item.html', context)
 #-----------------------------------------------admin
 
 def admin_home(request):
