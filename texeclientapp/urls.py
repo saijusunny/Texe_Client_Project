@@ -54,5 +54,6 @@ urlpatterns = [
     path('delivery_orders',views.delivery_orders, name='delivery_orders'),
     path('delivery_order_details/<int:id>',views.delivery_order_details, name='delivery_order_details'),
     path('admin_ad_category',views.admin_ad_category, name='admin_ad_category'), 
+    path('remove_sub_cat',views.remove_sub_cat, name='remove_sub_cat'), 
     
 ]

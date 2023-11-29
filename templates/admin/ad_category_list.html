@@ -124,11 +124,19 @@
                   {% for cat in cat_sub %}
                  
                   {% if cat.category_id == item.id%}
-                  <div class="row pt-1">
-                    <div class="col-sm-12">
+                  <div class="row pt-1" >
+                    <div class="col-sm-10">
                       
-                      <input type="text" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;color:#6C7293;" value="{{cat.subcategory}}" name='subcat[]' placeholder="Sub Category Name" required>
+                      <input type="text" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;color:#6C7293;" value="{{cat.subcategory}}" name='subcat[]' placeholder="Sub Category Name" required id="main_in{{forloop.counter}}">
+
+                      
+
                     </div>
+                    <div class="col-sm-2 " id="btn${it}">
+                      <div class="btn btn-danger mt-2 pt-2 pb-2" onclick='delt("{{forloop.counter}}","{{cat.id}}")' id="delete{{forloop.counter}}" onclick="return confirm('Are you sure, you want to delete it?')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                      </svg></div>
+                     </div>
                     
                   </div>
                   {%endif%}
@@ -146,10 +154,10 @@
           
                 <div class="row mt-3">
                   <div class="col-sm-12" style="text-align: left;">
-                    <div id="sub_field{{forloop.counter}}">
+                    <div id="ad_req_nts">
                     
                     </div>
-                    <div class="btn btn-light mt-2" id="add_sub_cat{{forloop.counter}}" onclick="add_admin_sub_cat('{{forloop.counter}}')" title="Add New Sub Category">Add Sub Categories</div>
+                    <div class="btn btn-light mt-2" id="add_req_row" title="Add New Sub Category">Add Sub Categories</div>
                     
                     
                   </div>
@@ -271,6 +279,34 @@
   </div>
 {%endfor%}
   
+<script>
+  function delt(val, cat_id){
+    var userResponse = window.confirm("Do you want to proceed?");
+
+    if (userResponse) {
+      document.getElementById(`main_in${val}`).remove()
+      
+      document.getElementById(`delete${ val}`).remove()
+      $.ajax({
+              type: "GET",
+              url: "{% url 'remove_sub_cat' %}",
+              data: {
+                cat_id : cat_id,
+                
+                  
+                  
+              },
+              success:function(response){
+                  alert("Delete Successfully")
+              }});
+    } else {
+        console.log("User clicked Cancel");
+    }
+
+    
+    
+  }
+</script>
   
   <script>
     $(document).ready(function () {
@@ -307,21 +343,40 @@
     }
   </script>
   <script>
-    function add_admin_sub_cat(ids){
-       
-          $(`#sub_field${ids}`).append(
+    $(document).ready(function(){
+      var it=0
+      $('#add_req_row').click(function(){
+          it++
+  
+  
+          $('#ad_req_nts').append(
+            
               `
-              <div class="row pt-1">
+              <div class="row" id="main${it}">
                 <div class="col-sm-10">
-                  <input type="text" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;color:#6C7293;" name='subcat[]' placeholder="Sub Category Name" required>
+                  <input type="text" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;color:#6C7293;" name='subcat[]' id="row${it}" placeholder="Sub Category Name" required>
                 </div>
-                
+                <div class="col-sm-2 " id="btn${it}">
+                 <div class="btn btn-danger mt-2 pt-2 pb-2" onclick=remove_cat('${it}')><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/></div>
+                </div>
               </div>
                                               
               `
           );
-      };
-
+          it+=1
+      });
+    });
+  </script>
+    
+  <script>
+    function remove_cat(id){
+      document.getElementById(`main${id}`).remove()
+      
+      document.getElementById(`btn${id}`).remove()
+    
+      }
+      
   </script>
   <script>
     window.addEventListener('load', () => {

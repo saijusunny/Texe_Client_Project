@@ -21,11 +21,12 @@ def index(request):
     cat=category.objects.all()
     sub=sub_category.objects.all()
     trend=item.objects.all().order_by('-buying_count')[:10]
+    bann=banner.objects.all().last()
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
         wish=wishlist.objects.filter(user=usr)
-        bann=banner.objects.all().last()
+        
         context={
             'user':usr,
             "items":items,
@@ -41,6 +42,7 @@ def index(request):
             "items":items,
             'cat':cat,
             'sub':sub,
+            'bann':bann,
             'trend':trend,
             
         }
@@ -632,8 +634,15 @@ def create_banner(request):
 def save_banner(request):
     if request.method=="POST":
         ban=banner()
-        ban.top_banner = request.FILES.get("main_banner", None)
-        ban.top_link = request.POST.get("main_banner_link", None)
+        ban.top_banner1 = request.FILES.get("main_banner1", None)
+        ban.top_link1 = request.POST.get("main_banner_link1", None)
+
+        ban.top_banner2 = request.FILES.get("main_banner2", None)
+        ban.top_link2 = request.POST.get("main_banner_link2", None)
+
+        ban.top_banner3 = request.FILES.get("main_banner3", None)
+        ban.top_link3 = request.POST.get("main_banner_link3", None)
+
         ban.middle_banner =  request.FILES.get("middile_banner", None)
         ban.middle_link = request.POST.get("middle_banner_link", None)
         ban.bottom_banner1 =  request.FILES.get("last_banner1", None)
@@ -647,13 +656,47 @@ def save_banner(request):
 def edit_banner(request,id):
     if request.method=="POST":
         ban=banner.objects.get(id=id)
-        ban.top_banner = request.FILES.get("main_banner", None)
-        ban.top_link = request.POST.get("main_banner_link", None)
-        ban.middle_banner =  request.FILES.get("middile_banner", None)
+        if request.POST.get("main_banner1", None)=="":
+     
+            pass
+        else:
+          
+            ban.top_banner1 = request.FILES.get("main_banner1", None)
+            
+        ban.top_link1 = request.POST.get("main_banner_link1", None)
+
+        if request.POST.get("main_banner2", None)=="":
+            pass
+        else:
+            ban.top_banner2 = request.FILES.get("main_banner2", None)
+            
+        ban.top_link2 = request.POST.get("main_banner_link2", None)
+
+        if request.POST.get("main_banner3", None)=="":
+            pass
+        else:
+            ban.top_banner3 = request.FILES.get("main_banner3", None)
+        ban.top_link3 = request.POST.get("main_banner_link3", None)
+
+        if request.POST.get("middile_banner", None)=="":
+            pass
+        else:
+            ban.middle_banner =  request.FILES.get("middile_banner", None)
+
+        
         ban.middle_link = request.POST.get("middle_banner_link", None)
-        ban.bottom_banner1 =  request.FILES.get("last_banner1", None)
+
+        if request.POST.get("last_banner1", None)=="":
+            pass
+        else:
+            ban.bottom_banner1 =  request.FILES.get("last_banner1", None)
+        
         ban.bottom_link1 = request.POST.get("bottom_banner_link1", None)
-        ban.bottom_banner2 =  request.FILES.get("last_banner2", None)
+        if request.POST.get("last_banner2", None)=="":
+            pass
+        else:
+            ban.bottom_banner2 =  request.FILES.get("last_banner2", None)
+        
         ban.bottom_link2 = request.POST.get("bottom_banner_link2", None)
         ban.save()
         return redirect("admin_home")
@@ -944,3 +987,8 @@ def ex_update(request):
  
 def ex_remove(request):
    pass
+
+def remove_sub_cat(request):
+    cat_id = request.GET.get('cat_id')
+    cat=sub_category.objects.get(id=cat_id).delete()
+    return JsonResponse({"status":" not"})

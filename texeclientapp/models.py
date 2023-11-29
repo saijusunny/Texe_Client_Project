@@ -19,8 +19,14 @@ class registration(models.Model):
         return 'email'
 
 class banner(models.Model):
-    top_banner = models.ImageField(upload_to='images/banner',null=True, blank=True)
-    top_link = models.CharField(max_length=250, null=True, blank=True)
+    top_banner1 = models.ImageField(upload_to='images/banner',null=True, blank=True)
+    top_link1 = models.CharField(max_length=250, null=True, blank=True)
+
+    top_banner2 = models.ImageField(upload_to='images/banner',null=True, blank=True)
+    top_link2 = models.CharField(max_length=250, null=True, blank=True)
+
+    top_banner3 = models.ImageField(upload_to='images/banner',null=True, blank=True)
+    top_link3 = models.CharField(max_length=250, null=True, blank=True)
     middle_banner = models.ImageField(upload_to='images/banner',null=True, blank=True)
     middle_link = models.CharField(max_length=250, null=True, blank=True)
     bottom_banner1 = models.ImageField(upload_to='images/banner',null=True, blank=True)

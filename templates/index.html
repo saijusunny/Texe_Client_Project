@@ -105,7 +105,7 @@
       height: 600px;
       background-repeat: no-repeat;
       background-size: cover;
-      margin-top: 5.5rem;
+
     }
 
     .banner_item{
@@ -234,84 +234,97 @@
 
 
 </style>
-<div>
+<div >
 
-  {% if bann.top_banner%}
+  <div class="container">
+    <div class="row mt-5 pt-5">
+        <div class="col-sm-12">
+            <div id="category" data-aos="fade-up">
 
-  <div id="banner_fetch" style="background-image: url('{{bann.top_banner.url}}');">
+                  
+                <section id="pro" >
+                  <div class=" pt-3 pl-5 pr-5 mr-2 ml-2" data-aos="fade-up">
+                    <div class="row g-4 py-1">
+                      <div class="owl-carousel owl-theme owl_nav">
+                        {%for i in cat%}
+                        <div class="item mb-4">
+                          <select class="form-control" onchange="showSelectedValue(this.value)">
+                            <option selected disabled>{{i.category_name}}</option>
+                            {%for k in sub%}
+                            {%if i.id == k.category_id%}
+                            <a href=""><option value="{{k.id}}">{{k.subcategory}}</option></a>
+                            {%else%}
+                            {%endif%}
+                            {% endfor %}
+                    
+                      
+                          </select>
+                        
+                        </div>
+                        {%endfor%}
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
-  
+                        
+
+
+                      </div>
+                    
+                      
+                    </div>
+                  </div>
+                </section>
+                <div class="custom-nav prev ml-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg></div>
+                <div class="custom-nav next mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg></div>
+                
         </div>
-  
-        <div class="col-sm-8 banner_item" style="text-align: center;">
-          <div class="row ">
-            <div class="col-sm-12">
-              <h1  style="color: white;font-weight: 400;line-height: normal;letter-spacing: 3px;">
-                CUSTOMIZE<br>YOUR STYLE
-              </h1>
-            </div>
-          </div>
+    </div>
+  </div>
 
-          <div class="row">
-            <div class="col-sm-12">
-              <p style="color: white;font-weight: 400;line-height: normal;letter-spacing: 1.2px;">
-                Rorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
-          </div>
+  </div>
 
-          <div class="row">
-            <div class="col-sm-12 ">
-              <a href="#category" style="text-decoration: none;">
-              <div style="" class="pl-4 pr-4 pt-4 pb-4 banner_btn">Create a Design</div></a>
-            </div>
-          </div>
+ 
+
+  <div>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        {% if bann.top_banner1%}
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="{{bann.top_banner1.url}}" alt="First slide">
         </div>
+        {%endif%}
+        {% if bann.top_banner2%}
+        <div class="carousel-item">
+          <img class="d-block w-100" src="{{bann.top_banner2.url}}" alt="Second slide">
+        </div>
+        {%endif%}
+        {% if bann.top_banner3%}
+        <div class="carousel-item">
+          <img class="d-block w-100" src="{{bann.top_banner3.url}}" alt="Third slide">
+        </div>
+        {%endif%}
+        
+        
       </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
 
-   </div>
-  {%else%}
-   <div id="banner">
+  </div>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
-  
-        </div>
-  
-        <div class="col-sm-8 banner_item" style="text-align: center;">
-          <div class="row ">
-            <div class="col-sm-12">
-              <h1  style="color: white;font-weight: 400;line-height: normal;letter-spacing: 3px;">
-                CUSTOMIZE<br>YOUR STYLE
-              </h1>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12">
-              <p style="color: white;font-weight: 400;line-height: normal;letter-spacing: 1.2px;">
-                Rorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12 ">
-              <a href="#category" style="text-decoration: none;">
-                <div style="" class="pl-4 pr-4 pt-4 pb-4 banner_btn">Create a Design</div></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-   </div>
-{%endif%}
     <div class="container">
         <div class="row mt-5">
             <div class="col-sm-12">
@@ -319,7 +332,7 @@
 
                     <div class="row" style="margin-top: 1rem;">
                       <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: left; ">
-                        <h2 style="font-weight: bold;">Trending Products <span><img src="static\images\home\trendicon.png" class="trend_lg" alt=""></span></h2>
+                        <h2 style="font-weight: bold;">Trending Products<span><img src="static\images\home\trendicon.png" class="trend_lg" alt=""></span></h2>
                       </div>
                     </div>   
                     <section id="pro" >
@@ -408,60 +421,15 @@
    </div>
 
    
+   
+
+
    <div class="container">
-    <div class="row mt-5">
-        <div class="col-sm-12">
-            <div id="category" data-aos="fade-up">
-
-                <div class="row" style="margin-top: 1rem;">
-                  <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; ">
-                    <h2 style="font-weight: bold;">Product Categories</h2>
-                  </div>
-                </div>   
-                <section id="pro" >
-                  <div class=" pt-3 pl-5 pr-5 mr-2 ml-2" data-aos="fade-up">
-                    <div class="row g-4 py-1">
-                      <div class="owl-carousel owl-theme owl_nav">
-                        {%for i in cat%}
-                        <div class="item mb-4">
-                          <select class="form-control" onchange="showSelectedValue(this.value)">
-                            <option selected disabled>{{i.category_name}}</option>
-                            {%for k in sub%}
-                            {%if i.id == k.category_id%}
-                            <a href=""><option value="{{k.id}}">{{k.subcategory}}</option></a>
-                            {%else%}
-                            {%endif%}
-                            {% endfor %}
-                    
-                      
-                          </select>
-                        
-                        </div>
-                        {%endfor%}
-
-                        
-
-
-                      </div>
-                    
-                      
-                    </div>
-                  </div>
-                </section>
-                <div class="custom-nav prev ml-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                </svg></div>
-                <div class="custom-nav next mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                </svg></div>
-                
-        </div>
-    </div>
-  </div>
-
-
-  
-
+    <div class="row" style="margin-top: 1rem;">
+      <div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center; ">
+        <h2 style="font-weight: bold;">Product Categories</h2>
+      </div>
+    </div> 
   <div id="t-shirt" data-aos="fade-up">
     <div class=" " data-aos="fade-up">
       <div class="row pl-3 pr-3">
@@ -542,272 +510,8 @@
       </div>
     </div>
   </div>
-<!-- hoodies -->
-  <div id="hoodies" data-aos="fade-up" style="display: none;">
-    <div class=" " data-aos="fade-up">
-      <div class="row pl-3 pr-3">
-        <div class="owl-carousel owl_views_arrival">
-          <div class="item"><div class="card border-0 "  id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-            <div class="card-body">
-      
-              <div class="row">
-                <div class="col-sm-12">
-                  hoodies
-                
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          
-          <div class="item"><div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-            <div class="card-body">
-      
-              <div class="row">
-                <div class="col-sm-12">
-                  hoodies
-                
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          <!-- Add more items as needed -->
-        </div>
 
-        <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-        </svg></div>
-        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-        </svg></div>
-        
-      </div>
-    </div>
-  </div>
-
-
-<!-- baby_clothes -->
-
-<div id="baby_clothes" data-aos="fade-up" style="display: none;">
-  <div class=" " data-aos="fade-up">
-    <div class="row pl-3 pr-3">
-      <div class="owl-carousel owl_views_arrival">
-        <div class="item"><div class="card border-0 "  id="products">
-          <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-          <div class="card-body">
-    
-            <div class="row">
-              <div class="col-sm-12">
-               baby_clothes
-              
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div></div>
-        
-        <div class="item"><div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
-          <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-          <div class="card-body">
-    
-            <div class="row">
-              <div class="col-sm-12">
-               baby_clothes
-              
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div></div>
-        <!-- Add more items as needed -->
-      </div>
-
-      <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-      </svg></div>
-      <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-      </svg></div>
-      
-    </div>
-  </div>
-</div>
-
-
-<!-- jersey -->
-
-<div id="jersey" data-aos="fade-up" style="display: none;">
-  <div class=" " data-aos="fade-up">
-    <div class="row pl-3 pr-3">
-      <div class="owl-carousel owl_views_arrival">
-          <div class="item"><div class="card border-0 "  id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-            <div class="card-body">
-      
-              <div class="row">
-                <div class="col-sm-12">
-                 jersey
-                
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          
-          <div class="item"><div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-            <div class="card-body">
-      
-              <div class="row">
-                <div class="col-sm-12">
-                 jersey
-                
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          <!-- Add more items as needed -->
-        </div>
-
-        <div class="custom-nav2 prev2  mr-2 pl-2 pr-" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-        </svg></div>
-        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-        </svg></div>
-      
-    </div>
-  </div>
-</div>
-
-
-
-<!-- uniforms -->
-
-<div id="uniforms" data-aos="fade-up" style="display: none;">
-  <div class=" " data-aos="fade-up">
-    <div class="row pl-3 pr-3">
-      <div class="owl-carousel owl_views_arrival">
-          <div class="item"><div class="card border-0 "  id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-            <div class="card-body">
-      
-              <div class="row">
-                <div class="col-sm-12">
-                 uniforms
-                
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          
-          <div class="item"><div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-            <div class="card-body">
-      
-              <div class="row">
-                <div class="col-sm-12">
-                 uniforms
-                
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          <!-- Add more items as needed -->
-        </div>
-
-        <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-        </svg></div>
-        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-        </svg></div>
-      
-    </div>
-  </div>
-</div>
-
-
-
-<!-- sports_wears -->
-
-<div id="sports_wears" data-aos="fade-up" style="display: none;">
-  <div class=" " data-aos="fade-up">
-    <div class="row pl-3 pr-3">
-      <div class="owl-carousel owl_views_arrival">
-          <div class="item"><div class="card border-0 "  id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-            <div class="card-body">
-      
-              <div class="row">
-                <div class="col-sm-12">
-                 sports_wears
-                
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          
-          <div class="item"><div class="card border-0 " style="box-shadow: 5px 10px 20px 0px #bebebe48; " id="products">
-            <img src="static\images\static_image\trend1.png" width="75" alt="" class="card-img-top">
-            <div class="card-body">
-      
-              <div class="row">
-                <div class="col-sm-12">
-                 sports_wears
-                
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  style="position: absolute; right:0; top:5px">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          <!-- Add more items as needed -->
-        </div>
-
-        <div class="custom-nav2 prev2  mr-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-        </svg></div>
-        <div class="custom-nav2 next2  mr-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-        </svg></div>
-      
-    </div>
-  </div>
-
-
-</div>
-
-
-
-
-
+  
 
    <div class="container mt-5">
     <div class="row">
@@ -837,48 +541,7 @@
 </div>
 
 
-<!-- search modal -->
 
-<form action="" method="POST" enctype="multipart/form-data">
-
-    <div class="row mt-5 modal fade" id="subcat">
-      <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
-        aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-content modal-xl" style="background-color: #191c24;">
-          <div class="card ">
-            <div class="card-body">
-              <button type="button" class="close" data-dismiss="modal" aria-label=""
-                style="color: red;border:none;float: right;font-size: 20px;">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              
-              
-                {% csrf_token %}
-                <div class="row mb-4">
-                  <div class="col-sm-12"style="border-radius: 10px;">
-                   
-                  </div>
-                </div>
-                <div class="row mb-4">
-                  <div class="col-sm-12" style="border-radius: 10px; ">
-                    <input type="text" name="quesry" id="" class="form-control" placeholder="Search Here...">
-                  </div>
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-sm-12" style="border-radius: 10px;text-align: center;">
-                   <input type="submit" class="btn" style="background-color: red; color: white;" value="Search">
-                  </div>
-                </div>
-                
-                
-                
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
 
   
 
