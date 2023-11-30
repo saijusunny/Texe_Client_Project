@@ -15,6 +15,7 @@ from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.serializers import serialize
+
 def index(request):
     cat_id=category.objects.all().first()
     items=item.objects.filter(category=cat_id)
@@ -72,6 +73,9 @@ def signup(request):
                     sign.addres = request.POST.get('address')
                     sign.dob = request.POST.get('dob')
                     sign.location = request.POST.get('location')
+                    sign.pin = request.POST.get('pin')
+                    sign.country = request.POST.get('country')
+                    sign.state = request.POST.get('state')
                     sign.role = "user1"
                     sign.save()
                     return redirect('login')
@@ -81,6 +85,8 @@ def signup(request):
         
         return render(request, 'signup.html') 
     return render(request, 'signup.html')
+
+
 
 def login(request):
     try:

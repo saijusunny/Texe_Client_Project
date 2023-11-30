@@ -15,6 +15,9 @@ class registration(models.Model):
     role = models.CharField(max_length=255,blank=True,null=True)
     dob=models.DateField(null=True,)
     location = models.CharField(max_length=250, null=True, blank=True)
+    pin = models.CharField(max_length=250, null=True, blank=True)
+    country = models.CharField(max_length=250, null=True, blank=True)
+    state = models.CharField(max_length=250, null=True, blank=True)
     def get_email_field_name(self):
         return 'email'
 

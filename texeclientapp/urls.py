@@ -9,6 +9,8 @@ urlpatterns = [
     path('forgotPassword/', views.forgotPassword,name='forgotPassword'),
     path('resetpassword_validate/<uidb64>/<token>/', views.resetpassword_validate,name='resetpassword_validate'),
     path('resetPassword/', views.resetPassword,name='resetPassword'),
+  
+    #---------------------------------------------------------------------------------User Module
     path('product_view/<int:id>',views.product_view, name='product_view'),
     path('cust',views.cust, name='cust'),
     path('all_item',views.all_item, name='all_item'),

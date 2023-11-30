@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Texe</title>
-    <link rel="shortcut icon" href="{% static 'images\logo\glitzeventicon.png'%}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'text_title_logo.png'%}" type="image/x-icon" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -96,7 +96,7 @@
             background-color: white;
             color: red;
             border: none;
-            border-radius: 30px;
+            border-radius: 5px;
  
             
         }
@@ -142,7 +142,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,900&display=swap" rel="stylesheet">
   <div class="base">
     <nav class="navbar navbar-expand-lg navbar-dark">
-      <img src="{% static 'images\logo.png'%}" alt="" width="100">
+      <a href="{% url 'index'%}"><img src="{% static 'images\logo.png'%}" alt="" width="150"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -170,7 +170,7 @@
           </div>
       
           <!-- Input field (initially hidden) -->
-          <input type="text" id="searchInput" class="search-input" name="search" placeholder="search here..." onblur="collapseSearch()">
+          <input type="text" id="searchInput" class="search-input pl-3" name="search" placeholder="search here..." onblur="collapseSearch()">
       
           <!-- Submit button (initially hidden) -->
           
