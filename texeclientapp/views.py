@@ -18,7 +18,7 @@ from django.core.serializers import serialize
 
 def index(request):
     cat_id=category.objects.all().first()
-    items=item.objects.filter(category=cat_id)
+    items=item.objects.all()
     cat=category.objects.all()
     sub=sub_category.objects.all()
     trend=item.objects.all().order_by('-buying_count')[:10]
@@ -74,7 +74,7 @@ def signup(request):
                     sign.dob = request.POST.get('dob')
                     sign.location = request.POST.get('location')
                     sign.pin = request.POST.get('pin')
-                    sign.country = request.POST.get('country')
+                    sign.country = request.POST.get('country')      
                     sign.state = request.POST.get('state')
                     sign.role = "user1"
                     sign.save()
@@ -428,6 +428,12 @@ def checkout(request):
                 itm=item.objects.get(id=ele[0])
                 itm.buying_count=int(itm.buying_count+1)
                 itm.save()
+              
+                sub=sub_category.objects.get(id=itm.sub_category.id)
+                print("sub.buying_count")
+                print(sub.buying_count)
+                sub.buying_count=int(sub.buying_count)+1
+                sub.save()
 
                 crts= cart.objects.get(id=ele[2])
                 crts.status="checkout"
@@ -624,6 +630,11 @@ def show_category(request, id):
         }
 
     return render(request, 'user/all_item.html', context)
+
+def delete_cart(request, id):
+    car=cart.objects.get(id=id)
+    car.delete()
+    return redirect('carts')
 #-----------------------------------------------admin
 
 def admin_home(request):
@@ -998,3 +1009,43 @@ def remove_sub_cat(request):
     cat_id = request.GET.get('cat_id')
     cat=sub_category.objects.get(id=cat_id).delete()
     return JsonResponse({"status":" not"})
+
+def user_list_view(request):
+    staff_members = registration.objects.filter(role='user1')
+    return render(request, 'admin/users_list.html', {'staff_members': staff_members})
+
+def delete_user(request,id):
+    form = registration.objects.get(id=id)
+
+    form.delete()
+
+    return redirect ("user_list_view")
+
+def export_user_excel(request):
+    st_dt=request.POST.get('str_dt')
+    en_dt=request.POST.get('end_dt')
+    prop=registration.objects.filter(joindate__gte=st_dt,joindate__lte=en_dt)
+    # Create an Excel workbook and get the active sheet
+    workbook = Workbook()
+    sheet = workbook.active
+
+    # Add column headers to the Excel sheet
+    headers = ['Reg No.',"Join Date","Name","Email id","ph_no","Address", "Gender", "D.O.B"]  # "Replace with your actual column names
+    sheet.append(headers)
+
+    # Add data rows to the Excel sheet
+    count = 1
+    for item in prop:
+        
+        row = [item.id,item.joindate,item.name,item.email,item.number,item.address,item.gender,item.date_of_birth] # Replace with your actual column names
+        sheet.append(row)
+        count+=1
+
+    # Set the response headers for the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=filtered_data.xlsx'
+
+    # Save the Excel workbook to the response
+    workbook.save(response)
+
+    return response

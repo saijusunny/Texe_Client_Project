@@ -31,6 +31,7 @@ urlpatterns = [
     path('search',views.search, name='search'),
     path('get_items',views.get_items, name='get_items'),
     path('show_category/<int:id>',views.show_category, name='show_category'),
+    path('delete_cart/<int:id>',views.delete_cart, name='delete_cart'),
     #--------------------------------------------------------------------------admin Module
     path('admin_home',views.admin_home, name='admin_home'),
     path('create_banner',views.create_banner, name='create_banner'),
@@ -56,6 +57,9 @@ urlpatterns = [
     path('delivery_orders',views.delivery_orders, name='delivery_orders'),
     path('delivery_order_details/<int:id>',views.delivery_order_details, name='delivery_order_details'),
     path('admin_ad_category',views.admin_ad_category, name='admin_ad_category'), 
-    path('remove_sub_cat',views.remove_sub_cat, name='remove_sub_cat'), 
+    path('remove_sub_cat',views.remove_sub_cat, name='remove_sub_cat'),
+    path('user_list_view',views.user_list_view, name='user_list_view'),
+    path('delete_user/<int:id>',views.delete_user, name='delete_user'), 
+    path('export_user_excel',views.export_user_excel, name='export_user_excel'),
     
 ]

@@ -46,6 +46,7 @@ class category(models.Model):
 class sub_category(models.Model):
     subcategory=  models.CharField(max_length=255,blank=True,null=True)
     category=models.ForeignKey(category, on_delete=models.SET_NULL, null=True, blank=True)
+    buying_count=models.IntegerField(default=0)
 
 class item(models.Model):
     user = models.ForeignKey(registration, on_delete=models.SET_NULL, null=True, blank=True)
