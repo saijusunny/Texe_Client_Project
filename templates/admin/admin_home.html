@@ -1,83 +1,98 @@
 {% extends 'admin/admin_base.html' %}
-{% load static %}
+<!-- DEVprojects -->
+{%load static%}
+{%block content%}
 
-{% block content %}
+<style>
+.fc-button{
+    background-color: green;
+}
+</style>
 
-
-
-<div class="col-md-12">    
-    <div id='calendar'></div> 
+<div class="row">
+    <div class="col-sm-6">
+        <h3>Cat of Sales</h3>
+        <hr/>
+        <img src="./media/cat.png"  class="w-100"/>
+    </div>
+    <div class="col-sm-6">
+        <h3>Item Sale</h3>
+        <hr/>
+        <img src="./media/item.png" class="w-100"/>
+    </div>
 </div>
 
+<div class="row">
+
+</div>
+<div class="col-md-12">    
+    <div id='calendar' style="color: white;"></div> 
+</div>
 
 <div class="rowmt-5 modal fade" id="create_post">
-        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-          <div class="modal-content modal-xl" style="background-color: #191c24;">
-            <div class="card ">
-              <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-10 col-md-12 col-sm-12 mt-2" style="margin: 0 auto;">
-                        <div class="card">
-                            
-                            <div class="card-body">
-                          
-                                    <div class="row" >
-                                        <div class="col-12 col-sm-12 col-xl-12 my-auto" style="margin: 0 auto;">
-                                            
-                                            <textarea class=" form-control text-light" style="border:0px solid #6C7293 ;height:400px; width: 100%; font-size: 16px;" placeholder="Type something else..." name="description" id="dsrptn"></textarea>
-                                        </div>
-                                    </div>
-        
-                                    <div class="row mt-3" >
-                                        <div class="col-12 col-sm-12 col-xl-8 " style="margin: 0 auto;">
-                                            <div class="d-flex d-sm-block d-md-flex ">
-                                            
-                                                
-                                                <div>
-                                                  <input type="file" name="filed" id="file" multiple>
-                                                </div>
-                                            
-                                
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                   
-                                    <div class="row mt-3" >
-                                        <div class="col-sm-12" style="text-align: right;">
-                                            <div>
-                                                
-        
-                                                <button type="submit" class="btn btn-outline-primary mt-4 ml-4" id="saveEvent">Save And Draft</button>
-                                         
-                                            
-                                            <a href=""><div class="btn btn-outline-primary mt-4 " >Create Post</div></a>
-                                            </div>
-                                        </div>
-                                        
-                                
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content modal-xl" style="background-color: #191c24;">
+      <div class="card ">
+        <div class="card-body">
+          <div class="row">
+              <div class="col-lg-10 col-md-12 col-sm-12 mt-2" style="margin: 0 auto;">
+                  <div class="card">
+                      
+                      <div class="card-body">
+                         
+                              
+                              <div class="row" >
+                                  <div class="col-12 col-sm-12 col-xl-12 my-auto" style="margin: 0 auto;">
+                                      
+                                      <textarea class=" form-control text-light" style="border:0px solid #6C7293 ;height:400px; width: 100%; font-size: 16px;" placeholder="Type something else..." id="dsrptn"></textarea>
+                                  </div>
+                              </div>
+  
+                              <div class="row mt-3" >
+                                  <div class="col-12 col-sm-12 col-xl-8 " style="margin: 0 auto;">
+                                      <div class="d-flex d-sm-block d-md-flex ">
+                                      
                                           
-                                    </div>
-                               
-                                
-        
-                        
-                            </div>
-                           
-                        </div>
-                    </div>
-                
-                </div>
-            </div>
-            
-            <br><br>
+                                          <div>
+                                              <input type="file" name="" id="file" multiple>
+                                          </div>
+                                      
+                          
+                                      </div>
+                                  </div>
+                              </div>
+                              <hr>
+                              <div class="row mt-3" >
+                                  <div class="col-sm-12" style="text-align: right;">
+                                      <div>
+                                          
+  
+                                          <button  class="btn btn-outline-primary mt-4 ml-4" id="saveEvent" >Save</button>
+                                 
+                                      
+                                      
+                                      </div>
+                                  </div>
+                                  
+                          
+                                    
+                              </div>
+                         
+                          
+  
+                  
+                      </div>
+                     
+                  </div>
+              </div>
+          
           </div>
-        </div>
       </div>
+      
+      <br><br>
     </div>
-
-
-
+  </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -94,23 +109,18 @@
             eventLimit: true,
             select: function (start, end, allDay) {
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                 $('#create_post').modal('show');
                 $('#saveEvent').off('click').on('click', function() {
-                
                 var title = $('#dsrptn').val();
                 var file = $('#file')[0].files[0];  // get the first selected file
-                
-                
-                
                 var formData = new FormData();
                 formData.append('title', title);
                 formData.append('start', start);
-                formData.append('end', end);
                 formData.append('file', file);
+                
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'ex_add_event' %}",
+                    url: "{% url 'add_event' %}",
                     data: formData,
                     dataType: "json",
                     processData: false,
@@ -135,7 +145,7 @@
                 var id = event.id;
                 $.ajax({
                     type: "GET",
-                    url: '{% url "ex_add_event" %}',
+                    url: '/update',
                     data: {'title': title, 'start': start, 'end': end, 'id': id},
                     dataType: "json",
                     success: function (data) {
@@ -155,7 +165,7 @@
                 var id = event.id;
                 $.ajax({
                     type: "GET",
-                    url: '/ex_update',
+                    url: '/update',
                     data: {'title': title, 'start': start, 'end': end, 'id': id},
                     dataType: "json",
                     success: function (data) {
@@ -173,7 +183,7 @@
                     var id = event.id;
                     $.ajax({
                         type: "GET",
-                        url: '/ex_remove',
+                        url: '/remove',
                         data: {'id': id},
                         dataType: "json",
                         success: function (data) {
@@ -192,7 +202,5 @@
   
  </script>   
 
-
-
-
-{% endblock %}
+          
+  {% endblock %}

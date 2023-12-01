@@ -3,6 +3,7 @@ from datetime import datetime,date, timedelta
 # Create your models here.
 
 class registration(models.Model):
+    regno= models.CharField(max_length=250, null=True, blank=True)
     name = models.CharField(max_length=250, null=True, blank=True)
     email = models.CharField(max_length=250, null=True, blank=True)
     number = models.CharField(max_length=250, null=True, blank=True)
@@ -79,6 +80,7 @@ class cart(models.Model):
     status= models.CharField(max_length=255,blank=True,null=True)
 
 class orders(models.Model):
+    regno= models.CharField(max_length=250, null=True, blank=True)
     user = models.ForeignKey(registration, on_delete=models.SET_NULL, null=True, blank=True)
     status =models.CharField(max_length = 255,blank=True,null=True, default=0)
     total_amount=models.FloatField(default=0,null=True, blank=True)
@@ -100,4 +102,11 @@ class wishlist(models.Model):
 
 
 
+class events(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255,null=True,blank=True)
+    start = models.DateTimeField(null=True,blank=True)
+    end = models.DateTimeField(null=True,blank=True)
+    user=models.ForeignKey(registration, on_delete=models.CASCADE, null=True, blank=True)
+    order = models.ForeignKey(orders, on_delete=models.SET_NULL, null=True, blank=True)
     

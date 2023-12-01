@@ -247,9 +247,36 @@ svg{
   outline: none;
   background-color: var(--green);
 }
+#filter{
+  margin-right: 100px;
+}
+#flt_div{
+  text-align: right;
+}
+@media screen and (max-width: 960px) {  
+  #filter{
+  margin-right: 0px;
+}
+#flt_div{
+  text-align: center;
+}
+}
 
 </style>
+<div class="row pt-3" style="background-color: black;">
+  <div class="" style="font-size: 20px;font-weight: 600;color:#6C7293;">Delivery Orders List</div>
+</div>
 <section style="">
+  <div class="row">
+    <div class="col-sm-12 mb-5" style="" id="flt_div">
+      <a href="" data-toggle="modal" data-target="#flt_id" style="text-decoration: none;"><button class="btn btn-primary pl-4 pr-4 pb-2 pt-2" id="">Filter By OrderID</button></a>
+
+      <a href="" data-toggle="modal" data-target="#flt_date" style="text-decoration: none;"><button class="btn btn-primary  pb-2 pt-2" id="filter">Filter by Date</button></a>
+    </div>
+  </div>
+
+  
+
   <div class="container ">
     {%if orders%}
     {%for i in orders%}
@@ -257,7 +284,7 @@ svg{
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-10">
          
-        <div class="card shadow-0 border rounded-3">
+        <div class="card shadow-0 border rounded-3 outers">
           <div class="card-body">
             <div class="row">
               <div class="col-md-12 col-lg-2 col-xl-2 mb-4 mb-lg-0">
@@ -274,10 +301,11 @@ svg{
                 </div>
               </div>
               <div class="col-md-6 col-lg-6 col-xl-6 mt-1 ">
+                <h5>{{i.user.regno}}</h5>
                 <h5>{{i.user.name}}</h5>
                 <div class="d-flex flex-row">
                 <div class="">
-                    <span>Address : {{i.user.addres}}</span><br>
+                  <span>Order Number : {{i.user.regno}}</span><br>
                     <span>Ph. No : {{i.user.number}}</span><br>
                     <span>Address : {{i.user.addres}}</span><br>
                     <span>Order Date : {{i.date}}</span><br>
@@ -357,6 +385,138 @@ svg{
     
   </div>
 </section>
+
+<div class="rowmt-5 modal fade" id="flt_date">
+  <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-content modal-xl" style="background-color: #191c24;">
+      <div class="card ">
+        <div class="card-body">
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
+            style="background-color: #191c24;border:none;float: right;font-size: 20px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="text-info" style="font-size: 20px;font-weight: 600;">Filter By Date</div>
+
+          <form action="{% url 'filter_order'%}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %} 
+
+            <div class="row mt-5">
+              
+              <div class="col-md-6 ">
+                  <div>
+                      <label for="">Start Date</label>
+                  </div>
+                  <div>
+                  <input type="date" class="drop form-control ml-3 mt-2 text-light" name="str_dt" style="border:1px solid #6C7293 ;height:70px;"  >
+                  </div>
+
+    
+              </div>
+              <div class="col-md-6 ">
+                  <div>
+                      <label for=""> End Date</label>
+                  </div>
+                  <div>
+                      <input type="date" name="end_dt" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;height:70px;"  >
+                  </div>
+
+    
+              </div>
+
+            </div>
+
+            <div class="row mt-4 ">
+              <div class="col-md-12" style="text-align: center;">
+                  
+                      <button type="submit" name="submit" id="alert2" class="btn-primary Search" >Download Excel</button>
+                  
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="rowmt-5 modal fade" id="flt_id">
+  <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-content modal-xl" style="background-color: #191c24;">
+      <div class="card ">
+        <div class="card-body">
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
+            style="background-color: #191c24;border:none;float: right;font-size: 20px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="text-info" style="font-size: 20px;font-weight: 600;">Filter By OrderID</div>
+
+          <form action="{% url 'filter_delivery_id'%}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %} 
+
+            <div class="row mt-5">
+              
+              <div class="col-md-12 ">
+                  <div>
+                      <label for="">Order Id :</label>
+                  </div>
+                  <div>
+                  <input type="text" class="drop form-control ml-3 mt-2 text-light" name="ord_id" style="border:1px solid #6C7293 ;height:70px;"  >
+                  </div>
+
+    
+              </div>
+              
+
+            </div>
+
+            <div class="row mt-4 ">
+              <div class="col-md-12" style="text-align: center;">
+                  
+                      <button type="submit" name="submit" id="alert2" class="btn-primary Search" >Find</button>
+                  
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#search").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#search_ts").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#search_ex").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+
 <script>
 
 function next(ids, id){

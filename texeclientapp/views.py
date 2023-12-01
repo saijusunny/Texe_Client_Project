@@ -16,6 +16,13 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.serializers import serialize
 
+
+from django.shortcuts import render
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
+import numpy as np
+
 def index(request):
     cat_id=category.objects.all().first()
     items=item.objects.all()
@@ -51,6 +58,16 @@ def index(request):
 
 def signup(request):
     if request.method == "POST":
+        try: 
+            dt= date.today()
+            usr=registration.objects.all().last()
+            if usr:
+                num=int(usr.id)+1
+            else:
+                num=0
+            numb= "CUS"+str(num)+str(dt.day)+str(dt.year)[-2:]
+        except:
+            pass
         
         email = request.POST.get('email')
         number = request.POST.get('num')
@@ -77,6 +94,7 @@ def signup(request):
                     sign.country = request.POST.get('country')      
                     sign.state = request.POST.get('state')
                     sign.role = "user1"
+                    sign.regno=numb
                     sign.save()
                     return redirect('login')
         else:
@@ -107,8 +125,13 @@ def login(request):
 
         if registration.objects.filter(Q(email=email) | Q(number=email) and Q(password=password)):
             users=registration.objects.get(Q(email=email) | Q(number=email) and Q(password=password))
-            request.session['userid'] = users.id
-            return redirect('index')
+            if users.status=="deactive":
+                messages.error(request, 'Requested account will be deactivate from admin')
+                return redirect('login')
+            else:
+                request.session['userid'] = users.id
+                
+                return redirect('index')
         elif user.is_superuser:
                     request.session['userid'] = request.user.id
                     return redirect('admin_home')
@@ -407,14 +430,24 @@ def checkout(request):
     ids=request.session['userid']
     usr=registration.objects.get(id=ids)
 
+    
+
     if request.method =="POST":
         total_amount = request.POST.get('sum')
+        dt= date.today()
+        order=orders.objects.all().last()
+        if order:
+            num=int(order.id)+1
+        else:
+            num=0
+        numb= "ORD"+str(num)+str(dt.day)+str(dt.year)[-2:]
 
         chk=orders()
         chk.user = usr
         chk.total_amount=total_amount
         chk.date=datetime.now()
         chk.status="checkout"
+        chk.regno=numb
         chk.save()
         item_id =request.POST.getlist('item_id[]') 
         qty =request.POST.getlist('qty[]') 
@@ -430,8 +463,7 @@ def checkout(request):
                 itm.save()
               
                 sub=sub_category.objects.get(id=itm.sub_category.id)
-                print("sub.buying_count")
-                print(sub.buying_count)
+              
                 sub.buying_count=int(sub.buying_count)+1
                 sub.save()
 
@@ -442,6 +474,19 @@ def checkout(request):
                 created = checkout_item.objects.create(item=itm,qty=ele[1],item_name=itm.name,item_price=tot, orders=chk, cart=crts)
 
         chk_item=checkout_item.objects.filter(orders=chk)
+
+        start = datetime.now()
+  
+
+        date_obj = date.strftime(start, "%Y-%m-%d %H:%M:%S")
+        # one_hour = timedelta(hours=1)
+        # new_date_obj = date_obj + one_hour
+        # end = new_date_obj.strftime("%    Y-%m-%d %H:%M:%S.%f")
+
+        
+        title=str(numb)+" "+str(usr.name) 
+        event = events(name=title, start=start,end=start, user=usr, order=chk) 
+        event.save()
       
         # lst=""
         # for i in chk_item:
@@ -638,7 +683,91 @@ def delete_cart(request, id):
 #-----------------------------------------------admin
 
 def admin_home(request):
-    return render(request, "admin/admin_home.html")
+    all_events = events.objects.all()
+    sub=sub_category.objects.all()
+    nm=[]
+    cnt=[]
+    for i in sub:
+        nm.append(i.subcategory)
+        cnt.append(i.buying_count)
+    print(cnt)
+    objects = nm
+    y_pos = np.arange(len(objects))
+    qty = cnt
+    plt.bar(y_pos, qty, align='center', alpha=0.5)
+    plt.xticks(y_pos, objects)
+    plt.ylabel('Quantity')
+    plt.title('Sales')
+    plt.savefig('media/cat.png')
+
+    sub=item.objects.all()
+    nm=[]
+    cnt=[]
+    for i in sub:
+        nm.append(i.name)
+        cnt.append(i.buying_count)
+    print(cnt)
+    objects = nm
+    y_pos = np.arange(len(objects))
+    qty = cnt
+    plt.bar(y_pos, qty, align='center', alpha=0.5)
+    plt.xticks(y_pos, objects)
+    plt.ylabel('Quantity')
+    plt.title('Items')
+    plt.savefig('media/item.png')
+   
+    context={
+        'all_events':all_events,
+    }
+    return render(request, "admin/admin_home.html",context)
+
+
+def all_events(request):
+    all_events = events.objects.all()
+    out=[]
+    for event in all_events:
+        out.append({
+            "title":event.name,
+            "id":event.id,
+            "start":event.start.strftime("%m/%d/%Y, %H:%M:%S"), 
+        })
+    return JsonResponse(out, safe=False) 
+ 
+ 
+def add_event(request):
+    
+    if request.method == 'POST':
+        start = request.POST.get('start', None)
+        title = request.POST.get('title', None)
+       
+        date_obj = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
+        one_hour = timedelta(hours=1)
+        new_date_obj = date_obj + one_hour
+        end = new_date_obj.strftime("%Y-%m-%d %H:%M:%S.%f")
+        event = events(name=title, start=start,end=end, user=None) 
+        event.save()
+        data = {}
+        return JsonResponse(data)
+ 
+def update(request):
+    start = request.GET.get("start", None)
+    end = request.GET.get("end", None)
+    title = request.GET.get("title", None)
+    id = request.GET.get("id", None)
+    event = events.objects.get(id=id)
+    event.start = start
+    event.end = end
+    event.name = title
+    event.save()
+    data = {}
+    return JsonResponse(data)
+ 
+def remove(request):
+    id = request.GET.get("id", None)
+    event = events.objects.get(id=id)
+    event.delete()
+    data = {}
+    return JsonResponse(data)
 
 def create_banner(request):
     banners = banner.objects.all().last
@@ -996,14 +1125,6 @@ def delivery_order_details(request,id):
     return render(request, 'admin/delivery_order_details.html', context)
 
 
-def ex_add_event(request):
-    pass
- 
-def ex_update(request):
-    pass
- 
-def ex_remove(request):
-   pass
 
 def remove_sub_cat(request):
     cat_id = request.GET.get('cat_id')
@@ -1049,3 +1170,64 @@ def export_user_excel(request):
     workbook.save(response)
 
     return response
+
+
+def deactive_user(request,id):
+    usr=registration.objects.get(id=id)
+    usr.status="deactive"
+    usr.save()
+    return redirect('user_list_view')
+    
+def active_user(request,id):
+    usr=registration.objects.get(id=id)
+    usr.status="active"
+    usr.save()
+    return redirect('user_list_view')
+
+def filter_order(request):
+    if request.method=="POST":
+        st_dt=request.POST.get('str_dt')
+        en_dt=request.POST.get('end_dt')
+
+        orde = orders.objects.filter(date__gte=st_dt,date__lte=en_dt,status="checkout")
+        ord_item=checkout_item.objects.all()
+        context={
+            "orders":orde,
+            "ord_item":ord_item,
+        }
+        return render(request,'admin/orders.html', context)
+
+def filter_delivery(request):
+    if request.method=="POST":
+        st_dt=request.POST.get('str_dt')
+        en_dt=request.POST.get('end_dt')
+
+        orde = orders.objects.filter(date__gte=st_dt,date__lte=en_dt,status="delivery",)
+        ord_item=checkout_item.objects.all()
+        context={
+            "orders":orde,
+            "ord_item":ord_item,
+        }
+        return render(request,'admin/delivery_orders.html', context)
+
+def filter_order_id(request):
+    if request.method=="POST":
+        ord_id=request.POST.get('ord_id')
+        orde = orders.objects.filter(regno=ord_id,status="checkout")
+        ord_item=checkout_item.objects.all()
+        context={
+            "orders":orde,
+            "ord_item":ord_item,
+        }
+        return render(request,'admin/orders.html', context)
+
+def filter_delivery_id(request):
+    if request.method=="POST":
+        ord_id=request.POST.get('ord_id')
+        orde = orders.objects.filter(regno=ord_id,status="delivery",)
+        ord_item=checkout_item.objects.all()
+        context={
+            "orders":orde,
+            "ord_item":ord_item,
+        }
+        return render(request,'admin/delivery_orders.html', context)

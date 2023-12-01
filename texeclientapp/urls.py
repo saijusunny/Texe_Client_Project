@@ -35,9 +35,11 @@ urlpatterns = [
     #--------------------------------------------------------------------------admin Module
     path('admin_home',views.admin_home, name='admin_home'),
     path('create_banner',views.create_banner, name='create_banner'),
-    path('ex_add_event',views.ex_add_event, name='ex_add_event'),
-    path('ex_update',views.ex_update, name='ex_update'),
-    path('ex_remove',views.ex_remove, name='ex_remove'),
+    path('all_events',views.all_events, name='all_events'),
+
+    path('add_event',views.add_event, name='add_event'),
+    path('update',views.update, name='update'),
+    path('remove',views.remove, name='remove'),
     path('create_banner',views.create_banner, name='create_banner'),
     path('save_banner',views.save_banner, name='save_banner'),
     path('edit_banner/<int:id>',views.edit_banner, name='edit_banner'),
@@ -61,5 +63,12 @@ urlpatterns = [
     path('user_list_view',views.user_list_view, name='user_list_view'),
     path('delete_user/<int:id>',views.delete_user, name='delete_user'), 
     path('export_user_excel',views.export_user_excel, name='export_user_excel'),
+    path('deactive_user/<int:id>',views.deactive_user, name='deactive_user'),
+    path('active_user/<int:id>',views.active_user, name='active_user'),
+    path('filter_order',views.filter_order, name='filter_order'),
+    path('filter_delivery',views.filter_delivery, name='filter_delivery'),
+    path('filter_order_id',views.filter_order_id, name='filter_order_id'),
+    path('filter_delivery_id',views.filter_delivery_id, name='filter_delivery_id'),
+    
     
 ]

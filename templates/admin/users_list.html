@@ -47,7 +47,7 @@
             <tbody id="myTable">
                 {%for staff_member in staff_members%}
                 <tr>
-                    <td style="color:white;">{{ staff_member.id }}</td>
+                    <td style="color:white;">{{ staff_member.regno }}</td>
                 <td style="color:white;">{{ staff_member.name }}</td>
                 
             
@@ -56,7 +56,12 @@
                 <td style="color:white;">{{ staff_member.number }}</td>
                 <td style="color:white;">{{ staff_member.email }}</td>
                 <td style="color:white;">{{ staff_member.location }}</td>
-                <td><a href="" onclick="change_active('{{staff_member.id}}', 'active')" class="btn btn-success"> Active</a></td>
+                {%if staff_member.status == "active"%}
+                <td><a href="{% url 'deactive_user' staff_member.id%}" onclick="return confirm('Are you sure, you want to deactivate it?')" class="btn btn-danger"> Deactivate</a></td>
+                
+                {%else%}
+                <td><a href="{% url 'active_user'  staff_member.id%}" onclick="return confirm('Are you sure, you want to activate it?')" class="btn btn-success"> Active</a></td>
+                {%endif%}
      
                 <td class="action-buttons">
                     
@@ -133,11 +138,7 @@
 </div>
   
 
-<script>
-    function change_active(id,st){
-        
-    }
-</script>
+
   <script>
     $(document).ready(function () {
       $("#search").on("keyup", function () {
