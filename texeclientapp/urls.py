@@ -32,6 +32,7 @@ urlpatterns = [
     path('get_items',views.get_items, name='get_items'),
     path('show_category/<int:id>',views.show_category, name='show_category'),
     path('delete_cart/<int:id>',views.delete_cart, name='delete_cart'),
+    path('get_location',views.get_location, name='get_location'),
     #--------------------------------------------------------------------------admin Module
     path('admin_home',views.admin_home, name='admin_home'),
     path('create_banner',views.create_banner, name='create_banner'),

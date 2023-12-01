@@ -22,7 +22,8 @@ import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import numpy as np
-
+from geopy.geocoders import Nominatim
+#pip install geopy
 def index(request):
     cat_id=category.objects.all().first()
     items=item.objects.all()
@@ -73,6 +74,8 @@ def signup(request):
         number = request.POST.get('num')
         password = request.POST.get('pass')
         cn_password = request.POST.get('cn_pass')
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
 
         if password == cn_password:
 
@@ -91,10 +94,12 @@ def signup(request):
                     sign.dob = request.POST.get('dob')
                     sign.location = request.POST.get('location')
                     sign.pin = request.POST.get('pin')
-                    sign.country = request.POST.get('country')      
-                    sign.state = request.POST.get('state')
+                  
                     sign.role = "user1"
                     sign.regno=numb
+                    sign.latitude = latitude
+                    sign.longitude = longitude
+
                     sign.save()
                     return redirect('login')
         else:
@@ -104,6 +109,12 @@ def signup(request):
         return render(request, 'signup.html') 
     return render(request, 'signup.html')
 
+def get_location(request):
+    pin = request.GET.get('pin')
+    geolocator = Nominatim(user_agent="geoapiExercises")
+    zipcode = pin
+    location = geolocator.geocode(zipcode)
+    return JsonResponse({"location": str(location)})
 
 
 def login(request):
