@@ -706,7 +706,7 @@ def admin_home(request):
     for i in sub:
         nm.append(i.name)
         cnt.append(i.buying_count)
-    print(cnt)
+    
     objects = nm
     y_pos = np.arange(len(objects))
     qty = cnt
