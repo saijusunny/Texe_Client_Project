@@ -30,7 +30,7 @@
       font-family: 'Montserrat', sans-serif;
     }
     .base .navbar{
-      position: absolute;
+      position: relative;
       width: 100%;
       top: 0;
       left: 0;
@@ -134,7 +134,7 @@
   .footer-widget p {
     margin-bottom: 27px;
 }
-p {
+.footer-widget p {
 
     font-size: 16px;
   color:white;
@@ -530,7 +530,7 @@ p {
                     <a href="{% url 'index'%}" class="footer-logo">
                       <img src="{% static 'images\logo.png'%}"  alt="footer_logo" class="img-fluid">
                     </a>
-                    <p class="footer-info-text">
+                    <p class="footer-info-text" style="color: white;">
                        Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.
                     </p>
                     <div class="footer-social-link">
