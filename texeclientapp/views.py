@@ -691,6 +691,41 @@ def delete_cart(request, id):
     car=cart.objects.get(id=id)
     car.delete()
     return redirect('carts')
+
+def about(request):
+   
+   
+    try:
+        ids=request.session['userid']
+        usr=registration.objects.get(id=ids)
+
+        context={
+            'user':usr,
+     
+        }
+    except:
+        
+        context={
+            'user':None,
+      
+        }
+    return render(request, 'about.html',context)
+
+def user_add_service(request):
+    if request.method=="POST":
+        serv=service_history()
+        serv.name  =  request.POST.get('name',None)
+        serv.address = request.POST.get('address',None)
+        serv.phone_no =  request.POST.get('ph_no',None)
+        serv.secondnumb =  request.POST.get('second_ph_no',None)
+        serv.item =  request.POST.get('item_name',None)
+        serv.item_company =  request.POST.get('item_company',None)
+        serv.complaint = request.POST.get('complaint',None)
+        serv.status=  "pending"
+        serv.save()
+        return redirect('about')
+
+    return redirect('about')
 #-----------------------------------------------admin
 
 def admin_home(request):
