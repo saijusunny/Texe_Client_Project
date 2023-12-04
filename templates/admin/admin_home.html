@@ -11,22 +11,12 @@
 <!-- https://projectsplaza.com/how-to-create-bar-chart-image-with-matplotlib-in-django/
 pip install matplotlib -->
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
         <h5>Category</h5>
         <hr/>
-        <img src="./media/cat.png"  class="w-100"/>
+        {{ img_tag|safe }}
     </div>
-    <div class="col-sm-6">
-        <h5>Item Sale</h5>
-        <hr/>
-        <img src="./media/item.png" class="w-100"/>
-    </div>
-
-    <div class="col-sm-6">
-        <h5>Item Sale</h5>
-        <hr/>
-        <img src="./media/orders.png" class="w-100"/>
-    </div>
+    
 </div>
 
 <div class="row">

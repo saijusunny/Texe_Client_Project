@@ -24,6 +24,11 @@ from matplotlib import pyplot as plt
 import numpy as np
 from geopy.geocoders import Nominatim
 #pip install geopy
+
+from io import BytesIO
+import base64
+
+
 def index(request):
     cat_id=category.objects.all().first()
     items=item.objects.all()
@@ -274,7 +279,21 @@ def all_item(request):
   
 
 def cust(request):
-    return render(request, 'user/cust.html')
+    label_1 = [1,2,3,4]
+    data_1 = [1,2,3,4]
+    label_2=[1,2,3,4]
+    data_2=[1,2,3,4]
+    label_3 = [1,2,3,4]
+    data_3 = [1,2,3,4]
+    exp = "gfhfh"
+    inc = "fghgfh"
+    up="fghg"
+    p="fghg"
+    s="fghgfh"
+    
+
+    context = {'label_1':label_1,'data_1':data_1,'label_2':label_2,'data_2':data_2,'label_3':label_3,'data_3':data_3,'exp':exp,'inc':inc,'up':up,'p':p,'s':s}
+    return render(request, 'user/cust.html', context)
 
 def carts(request):
     try:
@@ -737,63 +756,113 @@ def user_add_service(request):
 def admin_home(request):
     all_events = events.objects.all()
     sub=sub_category.objects.all()
+
     nm=[]
     cnt=[]
     for i in sub:
         nm.append(i.subcategory)
         cnt.append(i.buying_count)
 
-    objects = nm
-    y_pos = np.arange(len(objects))
-    qty = cnt
-    plt.bar(y_pos, qty, align='center', alpha=0.5)
-    plt.xticks(y_pos, objects)
-    plt.ylabel('Quantity')
-    plt.title('Category')
-    plt.xticks(rotation=15, ha='right')
-    plt.savefig('media/cat.png')
+    # Generate data for the line graph (replace this with your actual data)
+    x_data =nm 
+    y_data = cnt
 
-    sub=item.objects.all()
-    nm=[]
-    cnt=[]
-    for i in sub:
-        nm.append(i.name)
-        cnt.append(i.buying_count)
     
-    objects = nm
-    y_pos = np.arange(len(objects))
-    qty = cnt
-    plt.bar(y_pos, qty, align='center', alpha=0.5)
-    plt.xticks(y_pos, objects)
-    plt.xticks(rotation=15, ha='right')
-    plt.ylabel('Quantity')
-    plt.title('Items')
-    plt.savefig('media/item.png')
+    # Create a figure and plot the data
+    fig, ax = plt.subplots()
 
-    today = datetime.now()
-    sub=orders.objects.filter(date__month=today.month).values_list('date__day', flat=True).distinct()
+    # Set the background color
+    fig.patch.set_facecolor('white')  # Change the color code as needed
 
-    nm=[]
-    cnt=[]
-    for i in sub:
+    # Plot the data with a specific line color
+    line, = ax.plot(x_data, y_data, label='Line Graph', color='red')  # Change the color name or code as needed
+
+    # Set the axis labels
+    ax.set_xlabel('X-axis Label')
+    ax.set_ylabel('Y-axis Label')
+
+    # Set the background color of the plot area
+    ax.set_facecolor('white')  # Change the color code as needed
+    fig.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1) 
+    # Customize the grid color (optional)
+    ax.grid(color='white', linestyle='--', linewidth=0.5)
+
+    # Customize the legend color (optional)
+    legend = ax.legend()
+    legend.get_frame().set_facecolor('#d9d9d9')  # Change the color code as needed
+
+    # Save the plot to a BytesIO object
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png', facecolor=fig.get_facecolor())  # Ensure the background color is included
+    buffer.seek(0)
+    plt.close()
+
+    # Convert the BytesIO object to a base64-encoded string
+    image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    img_tag = f'<img src="data:image/png;base64,{image_base64}" alt="Line Graph">'
+
+    # Render the HTML page with the line graph
+
+
+
+    # nm=[]
+    # cnt=[]
+    # for i in sub:
+    #     nm.append(i.subcategory)
+    #     cnt.append(i.buying_count)
+
+    # objects = nm
+    # y_pos = np.arange(len(objects))
+    # qty = cnt
+    # plt.bar(y_pos, qty, align='center', alpha=0.5)
+    # plt.xticks(y_pos, objects)
+    # plt.ylabel('Quantity')
+    # plt.title('Category')
+    # plt.xticks(rotation=15, ha='right')
+    # plt.savefig('media/cat.png')
+
+    # sub=item.objects.all()
+    # nm=[]
+    # cnt=[]
+    # for i in sub:
+    #     nm.append(i.name)
+    #     cnt.append(i.buying_count)
+    
+    # objects = nm
+    # y_pos = np.arange(len(objects))
+    # qty = cnt
+    # plt.bar(y_pos, qty, align='center', alpha=0.5)
+    # plt.xticks(y_pos, objects)
+    # plt.xticks(rotation=15, ha='right')
+    # plt.ylabel('Quantity')
+    # plt.title('Items')
+    # plt.savefig('media/item.png')
+
+    # today = datetime.now()
+    # sub=orders.objects.filter(date__month=today.month).values_list('date__day', flat=True).distinct()
+
+    # nm=[]
+    # cnt=[]
+    # for i in sub:
         
-        nm.append(i)
-        qty=orders.objects.filter(date__day=i).count()
-        cnt.append(qty)
+    #     nm.append(i)
+    #     qty=orders.objects.filter(date__day=i).count()
+    #     cnt.append(qty)
     
 
-    objects = nm
-    y_pos = np.arange(len(objects))
-    qty = cnt
-    plt.bar(y_pos, qty, align='center', alpha=0.5)
-    plt.xticks(y_pos, objects)
-    plt.xticks(rotation=0, ha='right')
-    plt.ylabel('Quantity')
-    plt.title('Orders')
-    plt.savefig('media/orders.png')
+    # objects = nm
+    # y_pos = np.arange(len(objects))
+    # qty = cnt
+    # plt.bar(y_pos, qty, align='center', alpha=0.5)
+    # plt.xticks(y_pos, objects)
+    # plt.xticks(rotation=0, ha='right')
+    # plt.ylabel('Quantity')
+    # plt.title('Orders')
+    # plt.savefig('media/orders.png')
    
     context={
         'all_events':all_events,
+        'img_tag': img_tag
     }
     return render(request, "admin/admin_home.html",context)
 
