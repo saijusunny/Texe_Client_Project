@@ -8,7 +8,7 @@
 <form action="{% url 'checkout'%}" method="POST" enctype="multipart/form-data">
     {%csrf_token%}
 <div class="container">
-    <div class="row" style="margin-top: 8rem;">
+    <div class="row" style="margin-top: 1rem;">
         <div class="col-sm-8">
                 {%if crt%}
                 {% for crt in crt%}
@@ -141,6 +141,27 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="Delivery Address">Delivery address :</label>
+                        {%if user%}
+                        {% if user.addres%}
+                        <textarea name="address" class="form-control">{{user.addres}}</textarea>
+                        {% else%}
+                        <textarea name="address" class="form-control"></textarea>
+                        {%endif%}
+                        {%else%}
+                        {%endif%}
+                    </div>
+                   
+                </div>
+
+                <div class="row mt-2">
                     <div class="col-sm-12">
                         <input type="submit" class="form-control btn btn-danger" style="background-color:red; color:white" value="Place Order">
                     </div>

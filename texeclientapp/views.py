@@ -118,39 +118,43 @@ def get_location(request):
 
 
 def login(request):
-    try:
-        ids=request.session['userid']
-        print(ids)
-        usr=registration.objects.get(id=ids)
-        context={
-            'user':usr
-        }
-    except:
-        context={
-            'user':None
-        }
-    if request.method == "POST":
-        email = request.POST.get('username')
-        password = request.POST.get('pass')
-        user = authenticate(username=email, password=password)
+    try :
+        try:
+            ids=request.session['userid']
+            print(ids)
+            usr=registration.objects.get(id=ids)
+            context={
+                'user':usr
+            }
+        except:
+            context={
+                'user':None
+            }
+        if request.method == "POST":
+            email = request.POST.get('username')
+            password = request.POST.get('pass')
+            user = authenticate(username=email, password=password)
 
-        if registration.objects.filter(Q(email=email) | Q(number=email) and Q(password=password)):
-            users=registration.objects.get(Q(email=email) | Q(number=email) and Q(password=password))
-            if users.status=="deactive":
-                messages.error(request, 'Requested account will be deactivate from admin')
-                return redirect('login')
+            if registration.objects.filter(Q(email=email) | Q(number=email) and Q(password=password)):
+                users=registration.objects.get(Q(email=email) | Q(number=email) and Q(password=password))
+                if users.status=="deactive":
+                    messages.error(request, 'Requested account will be deactivate from admin')
+                    return redirect('login')
+                else:
+                    request.session['userid'] = users.id
+                    
+                    return redirect('index')
+            elif user.is_superuser:
+                        request.session['userid'] = request.user.id
+                        return redirect('admin_home')
             else:
-                request.session['userid'] = users.id
-                
-                return redirect('index')
-        elif user.is_superuser:
-                    request.session['userid'] = request.user.id
-                    return redirect('admin_home')
-        else:
-            messages.error(request, 'Invalid Email/Password')
-            return redirect('login')
+                messages.error(request, 'Invalid Email/Password')
+                return redirect('login')
 
-    return render(request, 'login.html',context)
+        return render(request, 'login.html',context)
+    except:
+        messages.error(request, 'Invalid Email/Password')
+        return redirect('login')
 
 
 def forgotPassword(request):
@@ -445,6 +449,8 @@ def checkout(request):
 
     if request.method =="POST":
         total_amount = request.POST.get('sum')
+        address = request.POST.get('address')
+        usr.addres=address
         dt= date.today()
         order=orders.objects.all().last()
         if order:
@@ -736,14 +742,15 @@ def admin_home(request):
     for i in sub:
         nm.append(i.subcategory)
         cnt.append(i.buying_count)
-    print(cnt)
+
     objects = nm
     y_pos = np.arange(len(objects))
     qty = cnt
     plt.bar(y_pos, qty, align='center', alpha=0.5)
     plt.xticks(y_pos, objects)
     plt.ylabel('Quantity')
-    plt.title('Sales')
+    plt.title('Category')
+    plt.xticks(rotation=15, ha='right')
     plt.savefig('media/cat.png')
 
     sub=item.objects.all()
@@ -758,9 +765,32 @@ def admin_home(request):
     qty = cnt
     plt.bar(y_pos, qty, align='center', alpha=0.5)
     plt.xticks(y_pos, objects)
+    plt.xticks(rotation=15, ha='right')
     plt.ylabel('Quantity')
     plt.title('Items')
     plt.savefig('media/item.png')
+
+    today = datetime.now()
+    sub=orders.objects.filter(date__month=today.month).values_list('date__day', flat=True).distinct()
+
+    nm=[]
+    cnt=[]
+    for i in sub:
+        
+        nm.append(i)
+        qty=orders.objects.filter(date__day=i).count()
+        cnt.append(qty)
+    
+
+    objects = nm
+    y_pos = np.arange(len(objects))
+    qty = cnt
+    plt.bar(y_pos, qty, align='center', alpha=0.5)
+    plt.xticks(y_pos, objects)
+    plt.xticks(rotation=0, ha='right')
+    plt.ylabel('Quantity')
+    plt.title('Orders')
+    plt.savefig('media/orders.png')
    
     context={
         'all_events':all_events,
