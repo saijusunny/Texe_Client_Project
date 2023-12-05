@@ -189,13 +189,11 @@ margin-top: 10px;
                     <label for="" class="mt-3">Select Size : </label>
                     <div class="row">
                         <div class="col-sm-12">
+
+                            {% for k in size%}
                             
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('XS')">XS</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('S')">S</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('M')">M</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('L')">L</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('XL')">XL</div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;" onclick="changesize('XXL')">XXl</div>
+                            <div class="btn btn-outline-dark pt-2" style="width: 48px; height: 48px;" onclick="changesize('{{k.size}}')">{{k.size}}</div>
+                            {%endfor%}
                         </div>
                         
                     </div>
@@ -205,14 +203,22 @@ margin-top: 10px;
                     <label for="" class="mt-5">Select Color : </label>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px; background-color: white;" onclick="change_color('white')"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: red;" onclick="change_color('red')"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: yellow;" onclick="change_color('yellow')"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: green;" onclick="change_color('green')"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px;background-color: magenta;" onclick="change_color('magenta')"></div>
-                            <div class="btn btn-outline-dark" style="width: 48px; height: 48px; background-color: mediumblue;" onclick="change_color('mediumblue')"></div>
+                            <div class="owl-carousel owl_views_arrival " style="margin-left: 3%;">
+                                {% for l in color%}
+                                
+                                <div class="item">
+                                    <input type="text" name="model_num{{forloop.counter}}" value="{{l.id}}" hidden>
+                                    <img src="{{l.color.url}}" class="rounded-3" style="width:70%;"
+                                    alt="Avatar" onclick="change_color('{{l.color}}','{{l.id}}')"/></div>
+                                {%endfor%}
+                                <!-- Add more items as needed -->
+                              </div>
+                            
+                            
+                            <!-- <button class="btn btn-outline-dark" style="width: 15%;height: 100%;">View <br> all</button> -->
+                    
+
                         </div>
-                        
                     </div>
 
                     <label for="" class="mt-5">Select Meterial : </label>
@@ -319,7 +325,7 @@ function changesize(val){
 }
 
 
-function change_color(val){
+function change_color(val, id){
     var cart_id = document.getElementById("cart_id").value;
     $.ajax({
         type: "GET",
@@ -327,7 +333,8 @@ function change_color(val){
         data: {
             ele : val,
             cart_id:cart_id,
-            prd_id:'{{items.id}}'
+            prd_id:'{{items.id}}',
+            'id':id,
             
             
         },

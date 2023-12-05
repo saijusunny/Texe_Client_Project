@@ -262,11 +262,19 @@ svg{
             <div class="row">
               <div class="col-md-12 col-lg-2 col-xl-2 mb-4 mb-lg-0">
                 <div class="bg-image hover-zoom ripple rounded ripple-surface" >
+                  {% if i.cart.color %}
+             
+                  <img src="{{i.cart.sub_color.color.url}}" class="w-100" id="main_img"/>
+                  {%else%}
+                      
                     {% if i.cart.model %}
+               
                     <img src="{{i.cart.model.image.url}}" class="w-100" id="main_img"/>
                     {%else%}
+                    sasadadsd
                     <img src="{{i.item.image.url}}" class="w-100"/>
                     {%endif%}
+                  {%endif%}
                   <a href="#!">
                     <div class="hover-overlay">
                       <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
@@ -286,12 +294,10 @@ svg{
                 </div>
                 <div class="">
                     <div class="row mt-2">
-                        <div class="col-sm-3 mt-3">
+                        <div class="col-sm-4 mt-3">
                             <span>Size : {{i.cart.size}}</span>
                         </div>
-                        <div class="col-sm-3 mt-3">
-                            <span><span class="">Color : <button class="btn btn-outline-dark" style="width: 30px; height: 30px; background-color: {{i.cart.color}};"></button></span></span>
-                        </div>
+                        
                         <div class="col-sm-6 mt-3">
                             <span class="">Meterial : {{i.cart.meterial}}</span>
                         </div>

@@ -233,6 +233,8 @@ def logout(request):
 def product_view(request,id):
     items=item.objects.get(id=id)
     sub=sub_images.objects.filter(item=items)
+    color=sub_color.objects.filter(item=id)
+    size=sub_size.objects.filter(item=id)
     try:
         ids=request.session['userid']
         usr=registration.objects.get(id=ids)
@@ -241,6 +243,8 @@ def product_view(request,id):
             'user':usr,
             'items':items,
             'sub':sub,
+            'color':color,
+            'size':size,
         }
     except:
         
@@ -326,14 +330,19 @@ def save_cart(request,id):
     usr=registration.objects.get(id=ids)
     
     itm=item.objects.get(id=id)
+    colors=sub_color.objects.filter(item=itm).first()
+    print(itm.id)
+    sizes=sub_size.objects.filter(item=itm).first()
+    print(sizes)
     if request.method=="POST":
         if request.POST.get('cart_id',None) == "":
             carts=cart()
             
             carts.user = usr
             carts.item = itm
-            carts.size= "XS"
-            carts.color= "white"
+            carts.size= sizes.size
+            carts.color=colors.color
+            carts.sub_color=colors
             carts.meterial= "Cotton"
             carts.status="cart"
             carts.design= request.FILES.get('design',None)
@@ -350,13 +359,15 @@ def save_cart(request,id):
             cart_id=request.POST.get('cart_id',None)
             crt=cart.objects.get(id=cart_id)
             if crt.size==None:
-                crt.size= "XS"
+                crt.size= sizes.size
             else:
                 pass
             if crt.color==None:
-                crt.color= "white"
+                crt.color= colors.color
+                crt.sub_color=colors
             else:
                 pass
+
 
             if crt.meterial==None:
                 crt.meterial= "Cotton"
@@ -406,6 +417,7 @@ def cart_change_color(request):
     ele = request.GET.get('ele')
     cart_id = request.GET.get('cart_id')
     prd_id = request.GET.get('prd_id')
+    idsr=request.GET.get('id')
     itm=item.objects.get(id=prd_id)
     ids=request.session['userid']
     usr=registration.objects.get(id=ids)
@@ -419,6 +431,8 @@ def cart_change_color(request):
 
     
     crt.color= ele
+    idata=sub_color.objects.get(id=idsr)
+    crt.sub_color=idata
     crt.save()
     return JsonResponse({"status":" not", "ids":crt.id})
 
@@ -1046,6 +1060,7 @@ def admin_add_item(request):
         sub_categoryies = sub_category.objects.get(subcategory=sb_cat)
         categorys = get_object_or_404(category, pk=category_id)
         what=form_data.get('contact', None)
+        chart= request.FILES.get('size_chart', None)
         new_item = item(
             category = categorys,
             name = title,
@@ -1058,6 +1073,7 @@ def admin_add_item(request):
             title_description = title_description,
             subcategory=sb_cat,
             custom=what,
+            size_chart=chart,
         )
         new_item.save()
         subimg = request.FILES.getlist('sub_img[]')
@@ -1082,13 +1098,13 @@ def admin_add_item(request):
         else: 
             pass
 
-        subsize = request.FILES.getlist('sub_size[]')
+        subsize = request.POST.getlist('sub_size[]')
         if subsize:
             mappeds = zip(subsize)
             mappeds=list(mappeds)
             for ele in mappeds:
             
-                created = sub_size.objects.get_or_create(color=ele[0], item=new_item)
+                created = sub_size.objects.get_or_create(size=ele[0], item=new_item)
         else: 
             pass
 
@@ -1106,6 +1122,10 @@ def edit_item(request,id):
     item_categories = category.objects.all()
     cat = sub_category.objects.all()
     items=item.objects.get(id=id)
+    color=sub_color.objects.filter(item=id)
+    size=sub_size.objects.filter(item=id)
+    print(size)
+
 
     sub_img=sub_images.objects.filter(item_id=items.id)
     
@@ -1122,6 +1142,12 @@ def edit_item(request,id):
         cat = form_data.get('categories', None)
         title_description = form_data.get('title_description', None)
         sb_cat = form_data.get('subcategories', None)
+        what=form_data.get('contact', None)
+        if request.FILES.get('size_chart', None) == "":
+                pass
+        else:
+            chart=request.FILES.get('size_chart', None) 
+
         sub_categoryies = sub_category.objects.get(subcategory=sb_cat)
     
   
@@ -1141,7 +1167,8 @@ def edit_item(request,id):
         items.sub_category=sub_categoryies
         items.title_description = title_description
         items.subcategory=sb_cat
-      
+        items.custom = what
+        items.size_chart=chart
         items.save()
         subimg = request.FILES.getlist('sub_img[]')
 
@@ -1156,7 +1183,29 @@ def edit_item(request,id):
                 created = sub_images.objects.get_or_create(image=ele[0], item=items)
         else: 
             pass
+        
 
+        subcolor = request.FILES.getlist('sub_clr[]')
+        if subcolor:
+            sub_color.objects.filter(item=items).delete()
+            mappeds = zip(subcolor)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_color.objects.get_or_create(color=ele[0], item=items)
+        else: 
+            pass
+
+        subsize = request.POST.getlist('sub_size[]')
+        if subsize:
+            sub_size.objects.filter(item=items).delete()
+            mappeds = zip(subsize)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_size.objects.get_or_create(size=ele[0], item=items)
+        else: 
+            pass
 
         return redirect('product')
     context={
@@ -1164,6 +1213,8 @@ def edit_item(request,id):
         'items':items,
         'sub_categories':cat,
         'sub_img':sub_img,
+        'color':color,
+        'size':size,
     }
 
     return render(request,'admin/edit_item.html',context)
@@ -1192,8 +1243,8 @@ def change_order_status(request):
     return JsonResponse({"status":" not"})
 
 def order_details(request,id):
-    orde = orders.objects.filter(status="delivery", id=id).order_by("-id")
-    ord_item=checkout_item.objects.filter(orders_id=id)
+    orde = orders.objects.filter(status="checkout", id=id).order_by("-id")
+    ord_item=checkout_item.objects.filter(orders=id)
     context={
         "orders":orde,
         "ord_item":ord_item,

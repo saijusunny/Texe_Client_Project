@@ -67,7 +67,7 @@ class item(models.Model):
     size_chart = models.FileField(upload_to='images/size', default='static/round_neck.jpg')
 
 class sub_color(models.Model):
-    color=  models.CharField(max_length=255,blank=True,null=True)
+    color=  models.FileField(upload_to='images/items', null=True, blank=True)
     item=models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
 
 class sub_size(models.Model):
@@ -90,6 +90,7 @@ class cart(models.Model):
     name= models.CharField(max_length=255,blank=True,null=True)
     number= models.CharField(max_length=255,blank=True,null=True)
     status= models.CharField(max_length=255,blank=True,null=True)
+    sub_color= models.ForeignKey(sub_color, on_delete=models.SET_NULL, null=True, blank=True)
 
 class orders(models.Model):
     regno= models.CharField(max_length=250, null=True, blank=True)

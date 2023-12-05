@@ -44,7 +44,7 @@ pip install matplotlib -->
                 data: {
                     labels: [{% for data in data %} '{{ data.name }}', {% endfor %}],
             datasets: [{
-                label: 'qty',
+                label: 'Quantity',
                 data: [{% for data in data %} {{ data.buying_count }}, {% endfor %}],
                 backgroundColor: gradient, // Set the gradient as the background color
 
@@ -86,7 +86,7 @@ pip install matplotlib -->
                 data: {
                     labels: [{% for data in sub_cat %} '{{ data.subcategory }}', {% endfor %}],
             datasets: [{
-                label: 'qty',
+                label: 'Quantity',
                 data: [{% for data in sub_cat %} {{ data.buying_count }}, {% endfor %}],
                 backgroundColor: gradient, // Set the gradient as the background color
                 borderColor: [
@@ -127,7 +127,7 @@ pip install matplotlib -->
                 data: {
                     labels: [{% for data in nm %} '{{data}}', {% endfor %}],
             datasets: [{
-                label: 'qty',
+                label: 'Quantity',
                 data: [{% for data in cnt %} {{ data }}, {% endfor %}],
                 backgroundColor: gradient, // Set the gradient as the background color
 

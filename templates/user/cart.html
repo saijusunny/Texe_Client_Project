@@ -19,11 +19,15 @@
                         <div class="row">
                           <div class="col-md-12 col-lg-2 col-xl-2 mb-4 mb-lg-0">
                             <div class="bg-image hover-zoom ripple rounded ripple-surface" >
-                                
-                                {% if crt.model %}
-                                <img src="{{crt.model.image.url}}" class="w-100" id="main_img"/>
+                                {% if crt.color %}
+                                <img src="{{crt.sub_color.color.url}}" class="w-100" id="main_img"/>
                                 {%else%}
-                                <img src="{{crt.item.image.url}}" class="w-100" id="main_img"/>
+                                    
+                                    {% if crt.model %}
+                                    <img src="{{crt.model.image.url}}" class="w-100" id="main_img"/>
+                                    {%else%}
+                                    <img src="{{crt.item.image.url}}" class="w-100" id="main_img"/>
+                                    {%endif%}
                                 {%endif%}
                               <a href="#!">
                                 <div class="hover-overlay">
@@ -48,12 +52,10 @@
                             </div>
                             <div class="">
                                 <div class="row mt-2">
-                                    <div class="col-sm-3 mt-1">
+                                    <div class="col-sm-4 mt-1">
                                         <span>Size : {{crt.size}}</span>
                                     </div> 
-                                    <div class="col-sm-3 mt-1">
-                                        <span><span class="">Color : <div class="btn btn-outline-dark" style='width: 30px; height: 30px; background-color: {{crt.color}}'></div></span></span>
-                                    </div>
+                                   
                                     <div class="col-sm-6 mt-1">
                                         <span class="">Meterial : {{crt.meterial}}</span>
                                     </div>

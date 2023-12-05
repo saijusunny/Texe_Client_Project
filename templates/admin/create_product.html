@@ -173,6 +173,11 @@
         <input id="offer_pricess" type="number" name="offer_price"  value=0 class="form-control text-light"/>
       </div>
 
+      <div class="form-item animate-fade-in">
+        <label for="">Upload Size Chart</label>
+        <input  type="file" name="size_chart" class="form-control text-light"/>
+      </div>
+
       <div class="form-item animate-fade-in main">
         <label for="image">Upload Image (resolution: 1335px*2000px)</label>
         <label for="file-upload" class="custom-file-upload" >
@@ -193,7 +198,7 @@
         <div class="row">
           <div class="col-sm-10">
             
-            <input id="" type="text" name='sub_clr[]' class="form-control text-light"/>
+            <input id="" type="file" name='sub_clr[]' class="form-control text-light"/>
           </div>
           <div class="col-sm-2">
             <div class="btn btn-light" onclick="add_admin_clr()">Add</div>
@@ -290,7 +295,7 @@
            `
            <div class="form-item animate-fade-in mt-4">
           
-           <input type="text" id="file-upload" name='sub_clr[]' class="form-control text-light" required/>
+           <input type="file" id="file-upload" name='sub_clr[]' class="form-control text-light" required/>
            <span id="image-size-info"></span>
          
          </div>
@@ -305,7 +310,7 @@
            `
            <div class="form-item animate-fade-in mt-4">
           
-           <input type="text" id="file-upload" name='sub_clr[]' class="form-control text-light" required/>
+           <input type="text" id="file-upload" name='sub_size[]' class="form-control text-light" required/>
            <span id="image-size-info"></span>
          
          </div>
