@@ -63,6 +63,16 @@ class item(models.Model):
     offer = models.IntegerField(default=0)
     image = models.FileField(upload_to='images/items', default='static/images/logo/noimage.jpg')
     subcategory=models.CharField(max_length=255,blank=True,null=True)
+    custom=models.CharField(max_length=255,blank=True,null=True)
+    size_chart = models.FileField(upload_to='images/size', default='static/round_neck.jpg')
+
+class sub_color(models.Model):
+    color=  models.CharField(max_length=255,blank=True,null=True)
+    item=models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
+
+class sub_size(models.Model):
+    size=  models.CharField(max_length=255,blank=True,null=True)
+    item=models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)
 
 class sub_images(models.Model):
     image=  models.FileField(upload_to='images/sub_items', default='static/images/logo/noimage.jpg')
@@ -106,7 +116,7 @@ class wishlist(models.Model):
 
 class events(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255,null=True,blank=True)
+    name = models.TextField(blank=True,null=True)
     start = models.DateTimeField(null=True,blank=True)
     end = models.DateTimeField(null=True,blank=True)
     user=models.ForeignKey(registration, on_delete=models.CASCADE, null=True, blank=True)

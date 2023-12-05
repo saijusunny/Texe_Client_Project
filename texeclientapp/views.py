@@ -25,8 +25,6 @@ import numpy as np
 from geopy.geocoders import Nominatim
 #pip install geopy
 
-from io import BytesIO
-import base64
 
 
 def index(request):
@@ -279,20 +277,26 @@ def all_item(request):
   
 
 def cust(request):
-    label_1 = [1,2,3,4]
-    data_1 = [1,2,3,4]
-    label_2=[1,2,3,4]
-    data_2=[1,2,3,4]
-    label_3 = [1,2,3,4]
-    data_3 = [1,2,3,4]
-    exp = "gfhfh"
-    inc = "fghgfh"
-    up="fghg"
-    p="fghg"
-    s="fghgfh"
-    
+    data = item.objects.all()
+    sub_cat=sub_category.objects.all()
 
-    context = {'label_1':label_1,'data_1':data_1,'label_2':label_2,'data_2':data_2,'label_3':label_3,'data_3':data_3,'exp':exp,'inc':inc,'up':up,'p':p,'s':s}
+    today = datetime.now()
+    sub=orders.objects.filter(date__month=today.month).values_list('date__day', flat=True).distinct()
+
+    nm=[]
+    cnt=[]
+    for i in sub:
+        
+        nm.append(i)
+        qty=orders.objects.filter(date__day=i).count()
+        cnt.append(qty)
+ 
+    context = {
+        'data': data,
+        'sub_cat':sub_cat,
+        'nm':nm,
+        'cnt':cnt,
+    }
     return render(request, 'user/cust.html', context)
 
 def carts(request):
@@ -755,114 +759,28 @@ def user_add_service(request):
 
 def admin_home(request):
     all_events = events.objects.all()
-    sub=sub_category.objects.all()
+    data = item.objects.all()
+    sub_cat=sub_category.objects.all()
+
+    today = datetime.now()
+    sub=orders.objects.filter(date__month=today.month).values_list('date__day', flat=True).distinct()
 
     nm=[]
     cnt=[]
     for i in sub:
-        nm.append(i.subcategory)
-        cnt.append(i.buying_count)
-
-    # Generate data for the line graph (replace this with your actual data)
-    x_data =nm 
-    y_data = cnt
-
-    
-    # Create a figure and plot the data
-    fig, ax = plt.subplots()
-
-    # Set the background color
-    fig.patch.set_facecolor('white')  # Change the color code as needed
-
-    # Plot the data with a specific line color
-    line, = ax.plot(x_data, y_data, label='Line Graph', color='red')  # Change the color name or code as needed
-
-    # Set the axis labels
-    ax.set_xlabel('X-axis Label')
-    ax.set_ylabel('Y-axis Label')
-
-    # Set the background color of the plot area
-    ax.set_facecolor('white')  # Change the color code as needed
-    fig.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1) 
-    # Customize the grid color (optional)
-    ax.grid(color='white', linestyle='--', linewidth=0.5)
-
-    # Customize the legend color (optional)
-    legend = ax.legend()
-    legend.get_frame().set_facecolor('#d9d9d9')  # Change the color code as needed
-
-    # Save the plot to a BytesIO object
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png', facecolor=fig.get_facecolor())  # Ensure the background color is included
-    buffer.seek(0)
-    plt.close()
-
-    # Convert the BytesIO object to a base64-encoded string
-    image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
-    img_tag = f'<img src="data:image/png;base64,{image_base64}" alt="Line Graph">'
-
-    # Render the HTML page with the line graph
-
-
-
-    # nm=[]
-    # cnt=[]
-    # for i in sub:
-    #     nm.append(i.subcategory)
-    #     cnt.append(i.buying_count)
-
-    # objects = nm
-    # y_pos = np.arange(len(objects))
-    # qty = cnt
-    # plt.bar(y_pos, qty, align='center', alpha=0.5)
-    # plt.xticks(y_pos, objects)
-    # plt.ylabel('Quantity')
-    # plt.title('Category')
-    # plt.xticks(rotation=15, ha='right')
-    # plt.savefig('media/cat.png')
-
-    # sub=item.objects.all()
-    # nm=[]
-    # cnt=[]
-    # for i in sub:
-    #     nm.append(i.name)
-    #     cnt.append(i.buying_count)
-    
-    # objects = nm
-    # y_pos = np.arange(len(objects))
-    # qty = cnt
-    # plt.bar(y_pos, qty, align='center', alpha=0.5)
-    # plt.xticks(y_pos, objects)
-    # plt.xticks(rotation=15, ha='right')
-    # plt.ylabel('Quantity')
-    # plt.title('Items')
-    # plt.savefig('media/item.png')
-
-    # today = datetime.now()
-    # sub=orders.objects.filter(date__month=today.month).values_list('date__day', flat=True).distinct()
-
-    # nm=[]
-    # cnt=[]
-    # for i in sub:
         
-    #     nm.append(i)
-    #     qty=orders.objects.filter(date__day=i).count()
-    #     cnt.append(qty)
+        nm.append(i)
+        qty=orders.objects.filter(date__day=i).count()
+        cnt.append(qty)
+ 
     
-
-    # objects = nm
-    # y_pos = np.arange(len(objects))
-    # qty = cnt
-    # plt.bar(y_pos, qty, align='center', alpha=0.5)
-    # plt.xticks(y_pos, objects)
-    # plt.xticks(rotation=0, ha='right')
-    # plt.ylabel('Quantity')
-    # plt.title('Orders')
-    # plt.savefig('media/orders.png')
    
     context={
         'all_events':all_events,
-        'img_tag': img_tag
+        'data': data,
+        'sub_cat':sub_cat,
+        'nm':nm,
+        'cnt':cnt,
     }
     return render(request, "admin/admin_home.html",context)
 
@@ -909,9 +827,18 @@ def update(request):
  
 def remove(request):
     id = request.GET.get("id", None)
-    event = events.objects.get(id=id)
-    event.delete()
-    data = {}
+    try:
+        event = events.objects.get(id=id)
+        spl=str(event.name).split(" ")
+        dt=spl[0]
+        or_nm=spl[1]
+        date=event.start
+        data = {'dt':dt,'date':date,'or_nm':or_nm}
+    except:
+        event = events.objects.get(id=id)
+        title=event.name
+        
+        data = {'title':title,}
     return JsonResponse(data)
 
 def create_banner(request):
@@ -1118,6 +1045,7 @@ def admin_add_item(request):
         sb_cat = form_data.get('subcategories', None)
         sub_categoryies = sub_category.objects.get(subcategory=sb_cat)
         categorys = get_object_or_404(category, pk=category_id)
+        what=form_data.get('contact', None)
         new_item = item(
             category = categorys,
             name = title,
@@ -1129,6 +1057,7 @@ def admin_add_item(request):
             sub_category=sub_categoryies,
             title_description = title_description,
             subcategory=sb_cat,
+            custom=what,
         )
         new_item.save()
         subimg = request.FILES.getlist('sub_img[]')
@@ -1140,6 +1069,26 @@ def admin_add_item(request):
             for ele in mappeds:
             
                 created = sub_images.objects.get_or_create(image=ele[0], item=new_item)
+        else: 
+            pass
+
+        subcolor = request.FILES.getlist('sub_clr[]')
+        if subcolor:
+            mappeds = zip(subcolor)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_color.objects.get_or_create(color=ele[0], item=new_item)
+        else: 
+            pass
+
+        subsize = request.FILES.getlist('sub_size[]')
+        if subsize:
+            mappeds = zip(subsize)
+            mappeds=list(mappeds)
+            for ele in mappeds:
+            
+                created = sub_size.objects.get_or_create(color=ele[0], item=new_item)
         else: 
             pass
 

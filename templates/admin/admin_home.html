@@ -7,23 +7,161 @@
 .fc-button{
     background-color: green;
 }
+.flash-message {
+    display: none;
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    background-color: #2596be;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
 </style>
 <!-- https://projectsplaza.com/how-to-create-bar-chart-image-with-matplotlib-in-django/
 pip install matplotlib -->
 <div class="row">
-    <div class="col-sm-12">
-        <h5>Category</h5>
-        <hr/>
-        {{ img_tag|safe }}
+   
+    <div class="col-md-4 card  text-light mt-2" style="background-color: black;">
+        <div class="flash-message" id="flashMessage"> 
+            <h4>Events</h4>
+            <p id="text_flash"></p>
+        </div>
+        <div class="">
+            <canvas id="myChart" class="p-2" style="background-color: rgb(20, 20, 20); border-radius: 8px;"></canvas>
+        </div>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var gradient = ctx.createLinearGradient(0, 100, 0, 0);
+            gradient.addColorStop(1, '#7479d5'); // transparent at the bottom
+            gradient.addColorStop(0, 'rgb(20, 20, 20)'); // orange color at the top
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [{% for data in data %} '{{ data.name }}', {% endfor %}],
+            datasets: [{
+                label: 'qty',
+                data: [{% for data in data %} {{ data.buying_count }}, {% endfor %}],
+                backgroundColor: gradient, // Set the gradient as the background color
+
+                borderColor: [
+                    '#7479d5',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                    borderWidth: 1
+            }]
+                },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+            });
+        </script>
     </div>
-    
+
+    <div class="col-md-4 card  text-light mt-2" style="background-color: black;">
+        <div class="ml-2">
+            <canvas id="myChart2" class="p-2" style="background-color: rgb(20, 20, 20);border-radius: 8px;"></canvas>
+        </div>
+        <script>
+            var ctx = document.getElementById('myChart2').getContext('2d');
+            var gradient = ctx.createLinearGradient(0, 100, 0, 0);
+            gradient.addColorStop(1, '#54cff0'); // transparent at the bottom
+            gradient.addColorStop(0, 'rgb(20, 20, 20)'); // orange color at the top
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [{% for data in sub_cat %} '{{ data.subcategory }}', {% endfor %}],
+            datasets: [{
+                label: 'qty',
+                data: [{% for data in sub_cat %} {{ data.buying_count }}, {% endfor %}],
+                backgroundColor: gradient, // Set the gradient as the background color
+                borderColor: [
+                    '#54cff0',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                ],
+                    borderWidth: 1
+            }]
+                },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+            });
+        </script>
+    </div>
+
+    <div class="col-md-4 card  text-light mt-2" style="background-color: black;">
+        <div class="ml-2 ">
+            <canvas id="myChart3" class="p-2"  style="background-color: rgb(20, 20, 20); border-radius: 8px; "></canvas>
+        </div>
+        <script>
+            var ctx = document.getElementById('myChart3').getContext('2d');
+            var gradient = ctx.createLinearGradient(0, 100, 0, 0);
+            gradient.addColorStop(1, '#077c5b'); // transparent at the bottom
+            gradient.addColorStop(0, 'rgb(20, 20, 20)'); // orange color at the top
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [{% for data in nm %} '{{data}}', {% endfor %}],
+            datasets: [{
+                label: 'qty',
+                data: [{% for data in cnt %} {{ data }}, {% endfor %}],
+                backgroundColor: gradient, // Set the gradient as the background color
+
+                borderColor: [
+                    '#077c5b',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                    borderWidth: 1
+            }]
+                },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+            });
+        </script>
+    </div>
+
 </div>
 
 <div class="row">
 
 </div>
-<div class="col-md-12">    
-    <div id='calendar' style="color: white;"></div> 
+<div class="col-md-12 p-4 mt-4" style="background-color: rgb(20, 20, 20); border-radius: 8px;">    
+    <div id='calendar' style=""></div> 
 </div>
 
 <div class="rowmt-5 modal fade" id="create_post">
@@ -45,19 +183,7 @@ pip install matplotlib -->
                                   </div>
                               </div>
   
-                              <div class="row mt-3" >
-                                  <div class="col-12 col-sm-12 col-xl-8 " style="margin: 0 auto;">
-                                      <div class="d-flex d-sm-block d-md-flex ">
-                                      
-                                          
-                                          <div>
-                                              <input type="file" name="" id="file" multiple>
-                                          </div>
-                                      
-                          
-                                      </div>
-                                  </div>
-                              </div>
+                              
                               <hr>
                               <div class="row mt-3" >
                                   <div class="col-sm-12" style="text-align: right;">
@@ -91,6 +217,9 @@ pip install matplotlib -->
   </div>
 </div>
 
+
+
+
 <script>
     $(document).ready(function () {
         var calendar = $('#calendar').fullCalendar({
@@ -109,11 +238,11 @@ pip install matplotlib -->
                 $('#create_post').modal('show');
                 $('#saveEvent').off('click').on('click', function() {
                 var title = $('#dsrptn').val();
-                var file = $('#file')[0].files[0];  // get the first selected file
+                
                 var formData = new FormData();
                 formData.append('title', title);
                 formData.append('start', start);
-                formData.append('file', file);
+                
                 
                 $.ajax({
                     type: "POST",
@@ -156,6 +285,7 @@ pip install matplotlib -->
             },
   
             eventDrop: function (event) {
+                
                 var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
                 var title = event.title;
@@ -176,7 +306,7 @@ pip install matplotlib -->
             },
   
             eventClick: function (event) {
-                if (confirm("Are you sure you want to remove it?")) {
+                    var flashMessage = document.getElementById("flashMessage");
                     var id = event.id;
                     $.ajax({
                         type: "GET",
@@ -185,13 +315,27 @@ pip install matplotlib -->
                         dataType: "json",
                         success: function (data) {
                             calendar.fullCalendar('refetchEvents');
-                            alert('Event Removed');
+                            // Show the flash message
+                            flashMessage.style.display = "block";
+                           
+                            if (data.title){
+                                document.getElementById("text_flash").innerHTML = `${data.title}`;
+                            }else{
+                                document.getElementById("text_flash").innerHTML= `Ordrer_id : ${data.dt} <br>Order Date : ${data.date} <br> Order Parson : ${data.or_nm}`
+                            }
+
+                            
+                            // Hide the flash message after 3 seconds (adjust as needed)
+                            setTimeout(function () {
+                                flashMessage.style.display = "none";
+                            }, 6000);
+                            
                         },
                         error: function (data) {
                             alert('There is a problem!!!');
                         }
                     });
-                }
+                
             },
   
         });

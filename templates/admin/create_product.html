@@ -187,6 +187,47 @@
 
       </div>
 
+
+      <div class="form-item animate-fade-in">
+        <label for="">Add available color</label>
+        <div class="row">
+          <div class="col-sm-10">
+            
+            <input id="" type="text" name='sub_clr[]' class="form-control text-light"/>
+          </div>
+          <div class="col-sm-2">
+            <div class="btn btn-light" onclick="add_admin_clr()">Add</div>
+          </div>
+        </div>
+        
+
+        <div id="add_more_color">
+
+        </div>
+        
+
+      </div>
+
+      <div class="form-item animate-fade-in">
+        <label for="">Add available size</label>
+        <div class="row">
+          <div class="col-sm-10">
+            
+            <input id="" type="text" name='sub_size[]' class="form-control text-light"/>
+          </div>
+          <div class="col-sm-2">
+            <div class="btn btn-light" onclick="add_admin_size()">Add</div>
+          </div>
+        </div>
+        
+
+        <div id="add_more_size">
+
+        </div>
+        
+
+      </div>
+
       
       <div class="form-item animate-fade-in">
         <!-- Add more form items here if needed... -->
@@ -241,6 +282,37 @@
               `
           );
       };
+
+
+      function add_admin_clr(){
+       
+       $(`#add_more_color`).append(
+           `
+           <div class="form-item animate-fade-in mt-4">
+          
+           <input type="text" id="file-upload" name='sub_clr[]' class="form-control text-light" required/>
+           <span id="image-size-info"></span>
+         
+         </div>
+                                           
+           `
+       );
+   };
+
+   function add_admin_size(){
+       
+       $(`#add_more_size`).append(
+           `
+           <div class="form-item animate-fade-in mt-4">
+          
+           <input type="text" id="file-upload" name='sub_clr[]' class="form-control text-light" required/>
+           <span id="image-size-info"></span>
+         
+         </div>
+                                           
+           `
+       );
+   };
 
   </script>
 {% endblock %}
