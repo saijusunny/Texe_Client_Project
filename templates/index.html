@@ -13,41 +13,7 @@
 
 <style>
 
-    /* livechat */
-    #live-chat-icon {
-      position: fixed;
-      bottom: 20px;
-      z-index: 5;
-      right: 20px;
-      background-color: red; /* Your preferred chat icon color */
-      color: #fff;
-      padding: 10px;
-      border-radius: 50%;
-      font-size: 20px;
-      text-align: center;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  #chat-container {
-      position: fixed;
-      z-index: 5;
-      bottom: 80px;
-      right: 20px;
-      max-width: 300px;
-      margin: 0;
-      background-color: white;
-      color: white;
-      padding: 10px;
-      border-top-right-radius: 10px;
-      border-top-left-radius: 10px;
-      display: none;
-  }
-
-  #chat-messages {
-      max-height: 200px;
-      overflow-y: auto;
-  }
+    
 
     /* Customize navigation buttons */
 
@@ -90,6 +56,7 @@
       .custom-nav2 {
       
       position: absolute;
+      z-index: 1;
       margin-top: 620px;
       transform: translateY(-50%);
       font-size: 24px;
@@ -111,6 +78,7 @@
 
     .custom-nav {
       position: absolute;
+      z-index: 1;
       margin-top: -50px;
       transform: translateY(-50%);
       font-size: 24px;
@@ -209,8 +177,6 @@
       margin-left: 0px;
       display: none;
     }
-  
-
       
     }
    
@@ -288,11 +254,51 @@
 
 
 </style>
-<div >
+<div style="margin-top: 5.5rem;">
+  
+  <div class="container-fluid">
+    <div class="row ">
+      <div class="col-sm-12">
+          <div id="category" data-aos="fade-up">
+  
+              <section id="pro" >
+                <div class=" pt-3 pl-5 pr-5 mr-2 ml-2" data-aos="fade-up">
+                  <div class="row g-4 py-1">
+                    <div class="owl-carousel owl-theme owl_nav">
+                      {%for i in cat%}
+                      <div class="item mb-4" >
+                        <select class="form-control" onchange="showSelectedValue(this.value)" style="  ">
+                          <option selected disabled style=" ">{{i.category_name}}</option>
+                          {%for k in sub%}
+                          {%if i.id == k.category_id%}
+                          <option value="{{k.id}}" style=" ">{{k.subcategory}}</option>
+                          {%else%}
+                          {%endif%}
+                          {% endfor %}
+                  
+                    
+                        </select>
+                      
+                      </div>
+                      {%endfor%}
+  
+                      
+  
+  
+                    </div>
+                  
+                    
+                  </div>
+                </div>
+              </section>
+              
+              
+      </div>
+  </div>
+  </div>
 
   
-
- 
+</div>
 
   <div>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -338,45 +344,7 @@
         <h2 style="font-weight: bold;">Product Categories</h2>
       </div>
     </div> 
-    <div class="row ">
-        <div class="col-sm-12">
-            <div id="category" data-aos="fade-up">
-
-                <section id="pro" >
-                  <div class=" pt-3 pl-5 pr-5 mr-2 ml-2" data-aos="fade-up">
-                    <div class="row g-4 py-1">
-                      <div class="owl-carousel owl-theme owl_nav">
-                        {%for i in cat%}
-                        <div class="item mb-4">
-                          <select class="form-control" onchange="showSelectedValue(this.value)" style="  ">
-                            <option selected disabled style=" ">{{i.category_name}}</option>
-                            {%for k in sub%}
-                            {%if i.id == k.category_id%}
-                            <option value="{{k.id}}" style=" ">{{k.subcategory}}</option>
-                            {%else%}
-                            {%endif%}
-                            {% endfor %}
-                    
-                      
-                          </select>
-                        
-                        </div>
-                        {%endfor%}
-
-                        
-
-
-                      </div>
-                    
-                      
-                    </div>
-                  </div>
-                </section>
-                
-                
-        </div>
-    </div>
-  </div>
+    
 
   </div>
 
@@ -625,63 +593,7 @@
 
 
      
- <!--  -->
- <div id="chat-container">
-     <div id="chat-messages">
-         <p><strong>TEXE:</strong> Welcome! </p>
-     </div>
-     <input type="text" id="user-input" placeholder="Type your message...">
-     <button onclick="sendMessage()">Send</button>
- </div>
  
- <!-- Add a floating live chat icon -->
- <div id="live-chat-icon">&#x1F4AC;</div>
- 
- <!-- JavaScript code to handle chat interactions -->
- <script>
-     const chatContainer = document.getElementById('chat-container');
-     const chatMessages = document.getElementById('chat-messages');
-     const userInputElement = document.getElementById('user-input');
- 
-     function addMessage(sender, message) {
-         const newMessage = document.createElement('p');
-         newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
-         chatMessages.appendChild(newMessage);
-         chatMessages.scrollTop = chatMessages.scrollHeight;
-     }
- 
-     function handleUserInput(userMessage) {
-         addMessage('User', userMessage);
- 
-         // Check for specific keywords in user's input
-         if (userMessage.toLowerCase().includes('hello')) {
-             addMessage('texe', 'Hello! How can I help you today?');
-         } else if (userMessage.toLowerCase().includes('how are you')) {
-             addMessage('texe', 'I\'m thanks for asking! How can I assist you?');
-         } else {
-             // Provide a link to connect to WhatsApp after the second default question
-             addMessage('texe', 'Sure! Click <a href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER" target="_blank">here</a> to connect on WhatsApp.');
-         }
- 
-         userInputElement.value = ''; // Clear the user input field
-     }
- 
-     function sendMessage() {
-         const userMessage = userInputElement.value.trim();
-         if (userMessage !== '') {
-             handleUserInput(userMessage);
-         }
-     }
- 
-     // Event listener for the live chat icon to toggle the chat box
-     document.getElementById('live-chat-icon').addEventListener('click', function() {
-         chatContainer.style.display = (chatContainer.style.display === 'none' || chatContainer.style.display === '') ? 'block' : 'none';
-     });
- 
-     // Display a welcome message on page load
-     addMessage('texe', 'Welcome! How can I assist you?');
- </script>  
-
 
 <!-- Start of Async Drift Code -->
 
@@ -777,10 +689,10 @@ function whish(id){
           items:1
         },
         600:{
-          items:5
+          items:6
         },
         1000:{
-          items:5
+          items:6
         }
       },
     });

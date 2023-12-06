@@ -252,6 +252,8 @@ def product_view(request,id):
             'user':None,
             'items':items,
             'sub':sub,
+            'color':color,
+            'size':size,
         }
     return render(request, 'user/product_view.html',context)
     

@@ -30,12 +30,13 @@
       font-family: 'Montserrat', sans-serif;
     }
     .base .navbar{
-      position: relative;
+      position: fixed;
+      
+      z-index: 20;
       width: 100%;
       top: 0;
       left: 0;
       background-color:red;
-      z-index: 1;
       padding-left: 5rem;
       padding-right: 5rem;
       padding-top: 1.5rem;
@@ -441,7 +442,7 @@
     background: #FA6742;
     border-color: #FA6742; }
 
-  #navbarSupportedContent svg{
+  #crt{
     margin-left: 20px;
   }
   #log2{
@@ -449,7 +450,7 @@
   }
   @media (max-width:992px) {
 
-    .base svg{
+    #crt{
     margin-left: 2px;
     margin-top: 20px;
   }
@@ -457,6 +458,60 @@
     margin-top: 20px;
     margin-left: 0px;
   }
+  }
+  /* livechat */
+  #live-chat-icon {
+      position: fixed;
+      bottom: 20px;
+      z-index: 5;
+      right: 20px;
+      background-color: red; /* Your preferred chat icon color */
+      color: #fff;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 20px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #chat-container {
+      position: fixed;
+      z-index: 5;
+      bottom: 80px;
+      right: 20px;
+      max-width: 400px;
+      height: 450px;
+      margin: 0;
+      background-color: red;
+      color: white;
+      padding: 10px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      display: none;
+  }
+
+  #chat-messages {
+      max-height:326px;
+      overflow-y: auto;
+      
+  }
+  #chat-container input{
+        width: 250px;
+        height: 38px;
+
+      }
+  @media (max-width:992px) {
+    #chat-container{
+      right: 10px;
+      
+    }
+    #chat-container input{
+        width: 250px;
+      }
+    #chat-container svg{
+      margin-top: -5px;
+    }
   }
 </style>
 </head>
@@ -481,7 +536,7 @@
           <!-- Button to trigger the input field -->
           <div id="searchButton" class="search-button" onclick="expandSearch()">
             
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: white;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: white;" id="crt">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
             </svg>
           </div>
@@ -491,7 +546,7 @@
       
           <!-- Submit button (initially hidden) -->
           
-          <div type="submit" id="submitButton" class="submit-button" onclick="submitForm()"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: white;">
+          <div type="submit" id="submitButton" class="submit-button" onclick="submitForm()"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: white;" id="crt">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
           </svg></div>
       </form>
@@ -501,7 +556,7 @@
 
           {% if user %}
           <a href="{% url 'carts' %}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16" style="color: white;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16" style="color: white;" id="crt">
               <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
             </svg>
 
@@ -509,7 +564,7 @@
           </a>
           
           {%else%}
-          <a href="{% url 'login' %}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16" style="color: white;">
+          <a href="{% url 'login' %}"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16" style="color: white;" id="crt">
             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
           </svg></a>
           {%endif%}
@@ -517,7 +572,7 @@
           {% if user %}
           <div class="dropdown" >
             {% if user.profile == "static\images\static_image\icon.svg"%}
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: white;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: white;" id="crt">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
             </svg>
@@ -543,7 +598,7 @@
           {%else%}
 
           <div>
-          <a href="{% url 'login'%}"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: white;">
+          <a href="{% url 'login'%}"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: white;"  id="crt">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
           </svg></a>
@@ -557,6 +612,76 @@
     
 
     {% endblock %}
+
+    <!--  -->
+ <div id="chat-container" style="color: red;">
+  <div class="row">
+    <div class="col-sm-12" style="text-align: center;">
+      <img src="{% static 'images\logo.png'%}" alt="" width="150">
+    </div>
+  </div>
+  <div id="chat-messages" style="background-color: white; border-radius: 15px; height: 300px;" class="mt-3 pt-4 pr-4">
+      <p style="color: red;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: red;" id="crt">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+      </svg></strong> Welcome! </p>
+  </div>
+  <input type="text" id="user-input" class="mt-5" place  holder="Type your message..." style="position: absolute; bottom: 20px; ">
+  <button onclick="sendMessage()" class="btn btn-light" style="position: absolute; bottom: 20px; right: 10px;">Send</button>
+</div>
+
+<!-- Add a floating live chat icon -->
+<div id="live-chat-icon">&#x1F4AC;</div>
+
+<!-- JavaScript code to handle chat interactions -->
+<script>
+  const chatContainer = document.getElementById('chat-container');
+  const chatMessages = document.getElementById('chat-messages');
+  const userInputElement = document.getElementById('user-input');
+
+  function addMessage(sender, message) {
+      const newMessage = document.createElement('p');
+      newMessage.innerHTML = `
+      <strong><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: red;" id="crt">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg> </strong> <span class="mt-2">${message}</span>`;
+      chatMessages.appendChild(newMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function handleUserInput(userMessage) {
+      addMessage('User', userMessage);
+
+      // Check for specific keywords in user's input
+      if (userMessage.toLowerCase().includes('hello')) {
+          addMessage('texe', 'Hello! How can I help you today?');
+      } else if (userMessage.toLowerCase().includes('how are you')) {
+          addMessage('texe', 'I\'m thanks for asking! How can I assist you?');
+      } else {
+          // Provide a link to connect to WhatsApp after the second default question
+          addMessage('texe', 'Sure! Click <a href="https://wa.me/+918848937577" target="_blank">here</a> to connect on WhatsApp.');
+      }
+
+      userInputElement.value = ''; // Clear the user input field
+  }
+
+  function sendMessage() {
+      const userMessage = userInputElement.value.trim();
+      if (userMessage !== '') {
+          handleUserInput(userMessage);
+      }
+  }
+
+  // Event listener for the live chat icon to toggle the chat box
+  document.getElementById('live-chat-icon').addEventListener('click', function() {
+      chatContainer.style.display = (chatContainer.style.display === 'none' || chatContainer.style.display === '') ? 'block' : 'none';
+  });
+
+  // Display a welcome message on page load
+  addMessage('texe', 'Welcome! How can I assist you?');
+</script>  
+
 
 
   <footer id="dk-footer" class="dk-footer mt-5">
@@ -658,7 +783,8 @@
                                   
                               </ul>
                               <div data-aos="fade-up">
-                                <iframe style="border:0; width: 80%; height: 160px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1007651.9392093343!2d75.8130740130398!3d9.40907810062908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05fc4fc5db81cd%3A0x14490dc4c5866323!2sMalieakal%20Electronics%20(Kollam)!5e0!3m2!1sen!2sin!4v1699527448355!5m2!1sen!2sin"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </iframe>
+                                <iframe style="border:0; width: 80%; height: 160px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.056331784635!2d76.21048637421909!3d10.496225664301281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7efe19b816bbb%3A0x6de9eabda04e452c!2sTexe%20Fabric%20Printing%20%26%20Apparels!5e0!3m2!1sen!2sin!4v1701861547145!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         
                             </div>
                         </div>
