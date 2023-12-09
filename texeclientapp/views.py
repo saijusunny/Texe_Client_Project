@@ -15,7 +15,8 @@ from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.serializers import serialize
-
+import random
+import string
 
 from django.shortcuts import render
 import matplotlib
@@ -103,14 +104,26 @@ def signup(request):
                     sign.latitude = latitude
                     sign.longitude = longitude
 
+                    digits = string.digits
+                    otp = ''.join(random.choices(digits, k=6))
+                    subject = "Greetings From Malieakal"
+                    message =f'Hi {email},\nYour Email Verification OTP is: {otp}'
+                    sign.otp=otp
+
                     sign.save()
-                    return redirect('login')
+                    return redirect('otp')
         else:
           
             messages.error(request, 'Check password and confirm password')
         
         return render(request, 'signup.html') 
     return render(request, 'signup.html')
+
+def otp(request):
+    digits = string.digits
+    otp = ''.join(random.choices(digits, k=6))
+    print(otp)
+    return render(request, 'otp.html')
 
 def get_location(request):
     pin = request.GET.get('pin')

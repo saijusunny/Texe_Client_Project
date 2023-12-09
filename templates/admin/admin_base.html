@@ -40,8 +40,15 @@
             margin-right: 15px;
         }
     }
-    
+    .collapsible {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
 
+.collapsible.active {
+  max-height: 200px; /* Adjust the value based on your content height */
+}
    
 </style>
 
@@ -148,33 +155,7 @@
                     </a>
                 </li>
                 
-                <li class="nav-item menu-items dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                        <span class="menu-icon">
-                        <i class="mdi mdi-sitemap"></i>
-                        </span>
-                        <span class="menu-title">Order Management</span>
-                        
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>              
-            
-                        <div class="dropdown-item">
-                            <a class="d-inline-block" style="color: white; text-decoration: none;" href="{%url 'order'%}" >Orders</a>
                 
-                        </div>                                                    
-                        </li>   
-                        
-                        <li>              
-            
-                            <div class="dropdown-item">
-                                <a class="d-inline-block" style="color: white; text-decoration: none;" href="{%url 'delivery_orders'%}" >Delivered</a>
-                    
-                            </div>                                                    
-                            </li>  
-                    </ul>
-        
-                </li>
 
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="{% url 'user_list_view'%}">
@@ -185,8 +166,34 @@
                     </a>
                 </li>
 
+                <li class="nav-item menu-items">
+                    <a class="nav-link"  onclick="show_nav()">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-file-document-box"></i>
+                        </span>
+                        <span class="menu-title">Orders</span>
+                    </a>
+                </li>
 
-            
+                    <li class="nav-item menu-items" id="myTopnav1" style="display: none;">
+                        <a class="nav-link" href="{% url 'order'%}">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-file-document-box"></i>
+                            </span>
+                            <span class="menu-title">Orders</span>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-items" id="myTopnav2" style="display: none;">
+                        <a class="nav-link" href="{% url 'delivery_orders'%}">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-file-document-box"></i>
+                            </span>
+                            <span class="menu-title">Delivered</span>
+                        </a>
+                    </li>
+               
+
+                
                
             </ul>
         </nav>
@@ -294,6 +301,24 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
   
+<script>
+    function show_nav(){
+        var x = document.getElementById("myTopnav1");
+        var x2 = document.getElementById("myTopnav2");
+        
+        if (x.style.display == "block"){
+            x.style.display="none"
+            x2.style.display="none"
+            
+        }else{
+            x.style.display="block"
+            x2.style.display="block"
+            
+        }
+        
+    }
+</script>
+
 </body>
 
 </html>

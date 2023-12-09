@@ -3,49 +3,65 @@
 {%load static%}
 {%block content%}
 
-<style>
-body {
-    font-family: Arial, sans-serif;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Top-to-Bottom Expandable Transition</title>
+  <style>
+    .collapsible {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
 }
 
-.flash-message {
-    display: none;
-    position: fixed;
-    bottom: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.collapsible.active {
+  max-height: 200px; /* Adjust the value based on your content height */
 }
 
-
-</style>
-
-
-
-<div class="flash-message" id="flashMessage">This is a flash message!</div>
-
-<button onclick="showFlashMessage()">Show Flash Message</button>
-
-
-
-
-
-<script>
-function showFlashMessage() {
-    var flashMessage = document.getElementById("flashMessage");
-
-    // Show the flash message
-    flashMessage.style.display = "block";
-
-    // Hide the flash message after 3 seconds (adjust as needed)
-    setTimeout(function () {
-        flashMessage.style.display = "none";
-    }, 3000);
+.content {
+  padding: 15px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
 }
 
-</script>
+  </style>
+</head>
+<body>
+  <button id="toggleButton">Toggle Content</button>
+  <div id="hiddenDiv" class="collapsible">
+    <div class="content">
+      <!-- Your content goes here -->
+      <p>This is some expandable content.</p>
+    </div>
+  </div>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  var toggleButton = document.getElementById("toggleButton");
+  var hiddenDiv = document.getElementById("hiddenDiv");
+
+  toggleButton.addEventListener("click", function() {
+    hiddenDiv.classList.toggle("active");
+  });
+});
+
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+         AOS.init({
+             duration: 2000,
+             easing: 'ease-in-out',
+             once: true,
+             mirror: false
+         })
+     });
+  </script>
+</body>
+</html>
+
 {% endblock %}

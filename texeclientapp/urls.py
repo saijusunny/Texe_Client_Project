@@ -35,6 +35,7 @@ urlpatterns = [
     path('get_location',views.get_location, name='get_location'),
     path('about',views.about, name='about'),
     path('user_add_service',views.user_add_service, name='user_add_service'),
+    path('otp',views.otp, name='otp'),
     #--------------------------------------------------------------------------admin Module
     path('admin_home',views.admin_home, name='admin_home'),
     path('create_banner',views.create_banner, name='create_banner'),

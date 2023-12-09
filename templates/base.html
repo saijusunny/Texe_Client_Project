@@ -501,6 +501,10 @@
         height: 38px;
 
       }
+  #searchInput{
+    margin-right: 10px;
+    margin-top: -8px;
+  }
   @media (max-width:992px) {
     #chat-container{
       right: 10px;
@@ -512,6 +516,11 @@
     #chat-container svg{
       margin-top: -5px;
     }
+    #searchInput{
+    margin-right: 10px;
+    margin-top: 20px;
+    width: 80%;
+  }
   }
 </style>
 </head>
@@ -542,11 +551,11 @@
           </div>
       
           <!-- Input field (initially hidden) -->
-          <input type="text" id="searchInput" class="search-input pl-3" name="search" placeholder="search here..." onblur="collapseSearch()">
+          <input type="text" id="searchInput" class="search-input" name="search" placeholder="search here..." onblur="collapseSearch()">
       
           <!-- Submit button (initially hidden) -->
           
-          <div type="submit" id="submitButton" class="submit-button" onclick="submitForm()"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: white;" id="crt">
+          <div type="submit" id="submitButton" class="submit-button" onclick="submitForm()"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: white;" >
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
           </svg></div>
       </form>
@@ -579,7 +588,7 @@
             
               
             {%else%}
-            <img class="rounded-circle article-img dropdown-toggle bg-dark" id="log2" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{{user.profile.url}}"  width="35" height="35">
+            <img class="rounded-circle article-img dropdown-toggle bg-dark" id="log2" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{{user.profile.url}}"  width="38" height="38">
             {%endif%}
             
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position: absolute;">

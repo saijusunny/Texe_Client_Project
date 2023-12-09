@@ -51,6 +51,26 @@
       margin-left: 41%;
     }
 
+    .custom-nav-yt {
+  
+      position: absolute;
+     
+      transform: translateY(-50%);
+      font-size: 24px;
+      cursor: pointer;
+      color: #333; /* Customize the color */
+    }
+    .custom-nav-yt.prevyt {
+      position: absolute;
+      left: 46%;
+   
+    }
+
+    .custom-nav-yt.nextyt {
+      position: absolute;
+      left: 49.2%;
+    }
+
 
     @media (max-width:992px) {
       .custom-nav2 {
@@ -74,6 +94,18 @@
       
       display: none;
     }
+
+    .custom-nav-yt.prevyt {
+      position: absolute;
+      left: 40%;
+   
+    }
+
+    .custom-nav-yt.nextyt {
+      position: absolute;
+      left: 49.2%;
+    }
+
     }
 
     .custom-nav {
@@ -565,7 +597,7 @@
 </div >
 
 <div style="background-color: rgb(230, 228, 228);">
-  <div class="container mt-5 pt-4" >
+  <div class="container mt-5 pt-4 pb-5" >
 
     <div class="owl-carousel owl-theme owl_views_youtube">
           
@@ -580,11 +612,20 @@
       <div class="item mb-4">
         <iframe  src="https://www.youtube.com/embed/yv656WAmi9Q?si=vFwwQIsutjp1zgYc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen width="350"></iframe>
       </div>
-  
-  
+      <div class="item mb-4">
+        <iframe  src="https://www.youtube.com/embed/yv656WAmi9Q?si=vFwwQIsutjp1zgYc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen width="350"></iframe>
+      </div>
+
+     
       
       <!--  -->  
     </div>
+    <div class="custom-nav-yt prevyt ml-2 pl-2 pr-2" style="border: 2px solid red;box-sizing: 2px; color: red; font-weight: bolder; width: 40px; height: 40px;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left " viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+    </svg></div>
+    <div class="custom-nav-yt nextyt ml-2 pl-2 pr-2" style="border: 2px solid red;background-color: red; color: white; width: 40px; height: 40px;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+    </svg></div>
   
   
   </div>
@@ -711,11 +752,11 @@ function whish(id){
 <script>
   $(document).ready(function(){
     $('.owl_views_youtube').owlCarousel({
-      loop:false,
+      loop:true,
       margin:30,
-      autoplay: false,
+      autoplay: true,
       nav:false,
-      navigation: true,
+      navigation: false,
       dots:false,
       responsive:{
           0:{
@@ -731,13 +772,15 @@ function whish(id){
     });
 
     // Custom navigation
-    $('.custom-nav3.next3').click(function() {
-      $('.owl_views').trigger('next.owl.carousel');
+    $('.custom-nav-yt.nextyt').click(function() {
+      $('.owl_views_youtube').trigger('next.owl.carousel');
     });
 
-    $('.custom-nav3.prev3').click(function() {
-      $('.owl_views').trigger('prev.owl.carousel');
+    $('.custom-nav-yt.prevyt').click(function() {
+      $('.owl_views_youtube').trigger('prev.owl.carousel');
     });
+
+   
   });
 </script>
 

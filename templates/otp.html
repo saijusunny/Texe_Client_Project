@@ -60,10 +60,22 @@ font-family: 'Poppins', sans-serif;;
     }
 
     
-    input{
-        border-radius: 20px;
-    }
+    .ap-otp-input{
+    border: 3px solid red;
+    border-radius: 18px;
+    width: 15%;
+    height: 80px;
+    margin: 4px;
+    text-align: center;
+    font-size: 35px;
+}
 
+
+.ap-otp-input:focus{
+    outline: none !important;
+    border: 3px solid green;
+    transition: 0.12s ease-in;
+}
 </style>
 
 <section class="section-content padding-y" style="min-height:84vh; padding-top:100px;">
@@ -78,7 +90,7 @@ font-family: 'Poppins', sans-serif;;
               </div> 
               <div class="row">
                 <div class="col-sm-12 mt-4" style="text-align: center;">
-                  <h4 class="text-danger">Forgot Password</h4>
+                  <h4 class="" style="color: red;">Enter OTP</h4>
                 </div>
               </div>
             {% if messages %}
@@ -92,27 +104,27 @@ font-family: 'Poppins', sans-serif;;
     </div>
     {% endfor %}
     {% endif %}
-    {% comment %} {% include 'includes/alerts.html' %} {% endcomment %}
+
     <form action = "{% url 'forgotPassword' %}" method = 'POST'>
         {% csrf_token %}
         <div class="row mt-3">
             <div class="col-sm-12 pl-5 pr-5">
-                <input type="email" class="form-control" placeholder="Email Address"  name='email'>
-                <a href="{% url 'login' %}" class="float-right">Got password? Login</a> 
+                <div class="ap-otp-inputs" data-username="otibij" data-channel="email" data-nonce="0-8bf87e338f" data-length="6" data-form="registration">
+  
+  
+                    <input class="ap-otp-input" type="tel" maxlength="1" data-index="0"><input class="ap-otp-input" type="tel" maxlength="1" data-index="1"><input class="ap-otp-input" type="tel" maxlength="1" data-index="2"><input class="ap-otp-input" type="tel" maxlength="1" data-index="3"><input class="ap-otp-input" type="tel" maxlength="1" data-index="4"><input class="ap-otp-input" type="tel" maxlength="1" data-index="5"></div>
+                
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-sm-12" style="text-align: center;">
-                <button type="submit" class="btn btn-danger w-50" > Submit  </button>
+                <button type="submit" class="btn btn-danger w-50" style="background-color: red ; color: white;" > Submit  </button>
 
             </div>
         </div>
     </form>
 
 
-
-    
-    <p class="text-center mt-2">Don't have account? <a href="{% url 'signup' %}">Sign up</a></p>
     <br><br>
 
     
