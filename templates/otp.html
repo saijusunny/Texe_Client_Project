@@ -105,14 +105,15 @@ font-family: 'Poppins', sans-serif;;
     {% endfor %}
     {% endif %}
 
-    <form action = "{% url 'forgotPassword' %}" method = 'POST'>
+    <form action ="{% url 'otp' ids%}" method = "POST">
         {% csrf_token %}
         <div class="row mt-3">
             <div class="col-sm-12 pl-5 pr-5">
+                <h1>{{ids}}</h1>
                 <div class="ap-otp-inputs" data-username="otibij" data-channel="email" data-nonce="0-8bf87e338f" data-length="6" data-form="registration">
   
   
-                    <input class="ap-otp-input" type="tel" maxlength="1" data-index="0"><input class="ap-otp-input" type="tel" maxlength="1" data-index="1"><input class="ap-otp-input" type="tel" maxlength="1" data-index="2"><input class="ap-otp-input" type="tel" maxlength="1" data-index="3"><input class="ap-otp-input" type="tel" maxlength="1" data-index="4"><input class="ap-otp-input" type="tel" maxlength="1" data-index="5"></div>
+                    <input class="ap-otp-input" type="tel" maxlength="1" data-index="0" name="otp0"><input class="ap-otp-input" type="tel" maxlength="1" data-index="1" name="otp1"><input class="ap-otp-input" type="tel" maxlength="1" data-index="2"  name="otp2"><input class="ap-otp-input" type="tel" maxlength="1" data-index="3"  name="otp3"><input class="ap-otp-input" type="tel" maxlength="1" data-index="4"  name="otp4"><input class="ap-otp-input" type="tel" maxlength="1" data-index="5"  name="otp5"></div>
                 
             </div>
         </div>

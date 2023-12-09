@@ -25,7 +25,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from geopy.geocoders import Nominatim
 #pip install geopy
-
+# from requests import request
 
 
 def index(request):
@@ -106,12 +106,23 @@ def signup(request):
 
                     digits = string.digits
                     otp = ''.join(random.choices(digits, k=6))
-                    subject = "Greetings From Malieakal"
-                    message =f'Hi {email},\nYour Email Verification OTP is: {otp}'
+          
+                    # url = "https://www.fast2sms.com/dev/bulkV2"
+                    # message = f'Greetings From TEXE APPARELS \n\n Hello {sign.name}! Thank you for using TEXE APPARELS. Your OTP for verification is: {otp}. Please use it within the next 5 minutes.'
+                    # number='8848937577'
+                    # payload=f'sender_id=TXTIND&message={message}&route=v3&language=english&number={number}'
+                    # headers={
+                    #     'authorization':'UJNTeLt8dQ2SbkHvZoxIC7Ocs3fwXpD4FRngBVmqrGhWM5KYPamH7QP8jBgEN5JOita3Cp9cAUZnu1LR',
+                    #     'Content-Type':'application/x-www-form-urlencoded'
+                    # }
+
+                
+                    # response = requests.request("POST", url=url, data=payload, headers=headers)
+              
                     sign.otp=otp
 
                     sign.save()
-                    return redirect('otp')
+                    return render(request, 'otp.html', {'ids':sign.id})
         else:
           
             messages.error(request, 'Check password and confirm password')
@@ -119,10 +130,21 @@ def signup(request):
         return render(request, 'signup.html') 
     return render(request, 'signup.html')
 
-def otp(request):
-    digits = string.digits
-    otp = ''.join(random.choices(digits, k=6))
-    print(otp)
+def otp(request,id):
+    if request.method=="POST":
+        otp_0 = request.POST.get('otp0')
+        otp_1 = request.POST.get('otp1')
+        otp_2 = request.POST.get('otp2')
+        otp_3 = request.POST.get('otp3')
+        otp_4 = request.POST.get('otp4')
+        otp_5 = request.POST.get('otp5')
+        otps2=otp_0+otp_1+otp_2+otp_3+otp_4+otp_5
+        otps=registration.objects.get(id=id)
+        if otps.otp == otps2:
+            
+            return redirect('login')
+        else:
+            messages.error(request, 'Invalid OTP')
     return render(request, 'otp.html')
 
 def get_location(request):
