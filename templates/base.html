@@ -527,7 +527,10 @@
 <body>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,900&display=swap" rel="stylesheet">
-  <div class="base">
+  <div id="loading">
+    <p>Loading</p>
+  </div>
+  <div class="base" id="success">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <a href="{% url 'index'%}" ><img src="{% static 'images\logo.png'%}" alt="" width="150"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -862,6 +865,28 @@
         document.getElementById('searchForm').submit();
     }
 </script>
-  
+<script>
+
+  // Function for adding User data and removing loading animation
+  var replace_data = function(data){
+      $('#success').append(data.data);
+      $('#loading').remove();
+  }
+
+  // AJAX call when page has loaded
+  $(document).ready(function(){
+      $.ajax({
+          url: '/test2/',
+          data: {
+              'name': 'FOO'
+          },
+          data_type: 'html',
+          success: function(data){
+              replace_data(data);
+          }
+      });
+  });
+
+</script>
 </body>
 </html>

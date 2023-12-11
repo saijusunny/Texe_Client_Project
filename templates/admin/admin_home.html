@@ -21,6 +21,7 @@
     z-index: 2;
 }
 
+
 </style>
 <!-- https://projectsplaza.com/how-to-create-bar-chart-image-with-matplotlib-in-django/
 pip install matplotlib -->
@@ -31,7 +32,10 @@ pip install matplotlib -->
             <h4>Events</h4>
             <p id="text_flash"></p>
         </div>
+
+       
         <div class="">
+            <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #7479d5; text-align: center;" class="p-2" >Item Overview</h5>
             <canvas id="myChart" class="p-2" style="background-color: rgb(20, 20, 20); border-radius: 8px;"></canvas>
         </div>
         <script>
@@ -43,6 +47,7 @@ pip install matplotlib -->
                 type: 'line',
                 data: {
                     labels: [{% for data in data %} '{{ data.name }}', {% endfor %}],
+                
             datasets: [{
                 label: 'Quantity',
                 data: [{% for data in data %} {{ data.buying_count }}, {% endfor %}],
@@ -74,6 +79,7 @@ pip install matplotlib -->
 
     <div class="col-md-4 card  text-light mt-2" style="background-color: black;">
         <div class="ml-2">
+            <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #54cff0; text-align: center;" class="p-2" >Category Overview</h5>
             <canvas id="myChart2" class="p-2" style="background-color: rgb(20, 20, 20);border-radius: 8px;"></canvas>
         </div>
         <script>
@@ -115,6 +121,7 @@ pip install matplotlib -->
 
     <div class="col-md-4 card  text-light mt-2" style="background-color: black;">
         <div class="ml-2 ">
+            <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #077c5b; text-align: center;" class="p-2" >Orders Overview</h5>
             <canvas id="myChart3" class="p-2"  style="background-color: rgb(20, 20, 20); border-radius: 8px; "></canvas>
         </div>
         <script>
