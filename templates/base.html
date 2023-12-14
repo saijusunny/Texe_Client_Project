@@ -29,7 +29,7 @@
     body{
       font-family: 'Montserrat', sans-serif;
     }
-    .base .navbar{
+    .base .main_nav{
       position: fixed;
       
       z-index: 20;
@@ -43,12 +43,12 @@
       padding-bottom: 1.5rem;
     }
     @media (max-width:992px) {
-      .base .navbar{
+      .base .main_nav{
       padding-left: 2rem;
       padding-right: 2rem;
       }
     }
-    .base .navbar-nav{
+    .base .main_nav .navbar-nav{
       margin: 0 auto;
       font-size: 20px;
     }
@@ -60,7 +60,7 @@
 
     
     @media (max-width:992px) {
-      .navbar{
+      .main_nav{
         background-color: rgb(255, 255, 255);
         padding-left: 1rem;
         padding-right: 1rem;
@@ -477,10 +477,10 @@
 
   #chat-container {
       position: fixed;
-      z-index: 5;
+      z-index: 19;
       bottom: 80px;
       right: 20px;
-      max-width: 400px;
+      width: 400px;
       height: 450px;
       margin: 0;
       background-color: red;
@@ -497,7 +497,7 @@
       
   }
   #chat-container input{
-        width: 250px;
+        width: 84%;
         height: 38px;
 
       }
@@ -505,13 +505,15 @@
     margin-right: 10px;
     margin-top: -8px;
   }
+
   @media (max-width:992px) {
     #chat-container{
       right: 10px;
+      width: 95%;
       
     }
     #chat-container input{
-        width: 250px;
+        width: 81%;
       }
     #chat-container svg{
       margin-top: -5px;
@@ -519,19 +521,98 @@
     #searchInput{
     margin-right: 10px;
     margin-top: 20px;
-    width: 80%;
+    width: 84%;
   }
+ 
   }
+
+
+
+  #preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat';
+  font-size: 900;
+  min-height: 100vh;
+  background: #000;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+ 
+
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
+}
+
+
+.content-preload {
+  position: relative;
+}
+
+.content-preload h2 {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 8em;
+}
+
+
+.content-preload h2:nth-child(1) {
+  color: transparent;
+  -webkit-text-stroke: 2px red;
+}
+
+.content-preload h2:nth-child(2) {
+  color: red;
+  animation: animate 5s ease-in-out infinite;
+}
+
+@keyframes animate 
+{
+  0%, 100% 
+  {
+    clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%)
+  }
+  50%
+  {
+    clip-path: polygon(0 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 40%, 100% 100%, 0% 100%)
+  }
+}
+
 </style>
 </head>
 <body>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,900&display=swap" rel="stylesheet">
-  <div id="loading">
-    <p>Loading</p>
+    
+
+  <div id="preloader" style="text-align: center;">
+    <div class="content-preload">
+      <h2>Texe</h2>
+      <h2>Texe</h2>
+    </div>
   </div>
-  <div class="base" id="success">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+
+  <!-- end preloader  -->
+  <div class="base">
+    <nav class="navbar navbar-expand-lg navbar-dark main_nav">
       <a href="{% url 'index'%}" ><img src="{% static 'images\logo.png'%}" alt="" width="150"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -619,6 +700,7 @@
      
       </div>
     </nav>
+  </div>
     
     {% block content %}
     
@@ -638,12 +720,19 @@
         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
       </svg></strong> Welcome! </p>
   </div>
-  <input type="text" id="user-input" class="mt-5" place  holder="Type your message..." style="position: absolute; bottom: 20px; ">
-  <button onclick="sendMessage()" class="btn btn-light" style="position: absolute; bottom: 20px; right: 10px;">Send</button>
+  <form action="">
+    <input type="text" id="user-input" class="mt-5 chat_input" place  holder="Type your message..." style="position: absolute; bottom: 20px;">
+    
+    <button type="submit" onclick="sendMessage()" class="btn btn-light" style="position: absolute; bottom: 20px; right: 10px;color: red;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+      <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+    </svg></button>
+  </form>
 </div>
 
 <!-- Add a floating live chat icon -->
-<div id="live-chat-icon">&#x1F4AC;</div>
+<div id="live-chat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
+  <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
+</svg></div>
 
 <!-- JavaScript code to handle chat interactions -->
 <script>
@@ -654,6 +743,7 @@
   function addMessage(sender, message) {
       const newMessage = document.createElement('p');
       newMessage.innerHTML = `
+      
       <strong><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: red;" id="crt">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
@@ -691,7 +781,7 @@
   });
 
   // Display a welcome message on page load
-  addMessage('texe', 'Welcome! How can I assist you?');
+  addMessage('texe', ' How can I assist you?');
 </script>  
 
 
@@ -823,7 +913,7 @@
 <div class="container-fluid">
 <div class="row" style="background-color: #151414; color: white;">
   <div class=" col-sm-12 pt-2 pb-2" style="text-align: center;">
-      <h6><span style="font-size: 14px;">Copyright © 2023, All Right Reserved Qninfo Technologies</span></h6>
+      <p><span style="font-size: 11px;">© 2023 by Texe Apparels, Designed By Qninfo Technologies</span></p>
   </div>
   <!-- End Col -->
   
@@ -866,27 +956,28 @@
     }
 </script>
 <script>
+(function() {
+  "use strict";
 
-  // Function for adding User data and removing loading animation
-  var replace_data = function(data){
-      $('#success').append(data.data);
-      $('#loading').remove();
+  const select = (el, all = false) => {
+    el = el.trim()
+    if (all) {
+      return [...document.querySelectorAll(el)]
+    } else {
+      return document.querySelector(el)
+    }
   }
 
-  // AJAX call when page has loaded
-  $(document).ready(function(){
-      $.ajax({
-          url: '/test2/',
-          data: {
-              'name': 'FOO'
-          },
-          data_type: 'html',
-          success: function(data){
-              replace_data(data);
-          }
-      });
-  });
-
+  /**
+   * Preloader
+   */
+  let preloader = select('#preloader'); 
+  if (preloader) {
+    window.addEventListener('load', () => {
+      preloader.remove()
+    });
+  }
+})()
 </script>
 </body>
 </html>

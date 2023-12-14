@@ -1,67 +1,106 @@
-{% extends 'admin/admin_base.html' %}
+{% extends 'base.html' %}
 <!-- DEVprojects -->
 {%load static%}
 {%block content%}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Top-to-Bottom Expandable Transition</title>
-  <style>
-    .collapsible {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.3s ease-out;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-.collapsible.active {
-  max-height: 200px; /* Adjust the value based on your content height */
-}
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
 
-.content {
-  padding: 15px;
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-}
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: #444;
+        }
 
-  </style>
+        li {
+            position: relative;
+            flex: 1 0 auto;
+        }
+
+        a {
+            display: block;
+            padding: 15px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        ul.submenu {
+          position: static;
+          width: 100%;
+          display: none;
+        }
+
+        li:hover > ul.submenu {
+            display: block;
+        }
+
+        /* Media Query for Small Screens */
+        @media only screen and (max-width: 600px) {
+            ul {
+                flex-direction: column;
+            }
+
+            li {
+                width: 100%;
+            }
+
+            ul.submenu {
+                position: absolute;
+                z-index: 9;
+                width: 100%;
+                display: none;
+            }
+
+            li:hover > ul.submenu {
+                display: none;
+            }
+
+            /* Mobile Menu Toggle Button */
+            .menu-toggle {
+                display: block;
+                background-color: #333;
+                color: #fff;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+            }
+        }
+    </style>
 </head>
 <body>
-  <button id="toggleButton">Toggle Content</button>
-  <div id="hiddenDiv" class="collapsible">
-    <div class="content">
-      <!-- Your content goes here -->
-      <p>This is some expandable content.</p>
-    </div>
-  </div>
+<ul style="color: white; margin-top: 8rem;">
+  <li>
+    <a href="#">Products</a>
+    <ul class="submenu">
+        <li><a href="#">Category 1</a></li>
+        <li><a href="#">Category 2</a></li>
+        <li><a href="#">Category 3</a></li>
+    </ul>
+  </li>
+</ul>
+    
 
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-  var toggleButton = document.getElementById("toggleButton");
-  var hiddenDiv = document.getElementById("hiddenDiv");
-
-  toggleButton.addEventListener("click", function() {
-    hiddenDiv.classList.toggle("active");
-  });
-});
-
-  </script>
-
-  <script>
-    window.addEventListener('load', () => {
-         AOS.init({
-             duration: 2000,
-             easing: 'ease-in-out',
-             once: true,
-             mirror: false
-         })
-     });
-  </script>
 </body>
 </html>
+
 
 {% endblock %}

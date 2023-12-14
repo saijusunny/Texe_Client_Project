@@ -234,39 +234,7 @@
         line-height: normal;
         letter-spacing: 1.2px;
     }
-    #category select{
-     
-      font-weight: bolder;
-      background-color: transparent;
-      border: none;
-      text-decoration: none;
-      border-bottom: 2px solid transparent; /* Initial border style */
-      transition: border-bottom 0.3s ease; /* Smooth transition for the border */
-      outline: none; /* Remove default focus outline */
-    }
-    #category select:hover{
-      color: red;
-      border-bottom: 2px solid red; 
-      outline: none;
-    }
-    #category select:active{
-      color: red; 
-      background-color: red;
-      border-bottom: 2px solid red;
-      outline: none;
-    }
-    #category select:after{
-      color: red; 
-      outline: none;
-      border-bottom: 2px solid red;
-    }
-    #category select:focus {
-      color: white; 
-      outline: none;
-      background-color: black;
-      border-bottom: 2px solid red; /* Change border color on focus/clicked */
-    }
-
+    
     #products{
       height: 30rem;
     }
@@ -284,56 +252,129 @@
       
     }
 
+  
+    .item{
+
+       ul {
+            
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: transparent;
+        }
+        ul:hover{
+          background-color: black;
+        }
+
+         li {
+          position: relative;
+            flex: 1 0 auto;
+        }
+        li:hover{
+          background-color: black;
+        }
+
+         a {
+            display: block;
+            padding: 10px;
+            color: black;
+            text-decoration: none;
+        }
+        a:hover{
+          color: white;
+        }
+
+         ul.submenu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          padding: 10px;
+          background-color: red;
+        }
+
+         li:hover >  ul.submenu {
+            display: block;
+            
+        }
+        li:hover{
+          a{
+            color: white;
+          }
+        }
+        
+      }
+      
+
 
 </style>
-<div style="margin-top: 5.5rem;">
+<div style="margin-top: 5rem;">
   
-  <div class="container-fluid">
-    <div class="row ">
-      <div class="col-sm-12">
-          <div id="category" data-aos="fade-up">
-  
-              <section id="pro" >
-                <div class=" pt-3 pl-5 pr-5 mr-2 ml-2" data-aos="fade-up">
-                  <div class="row g-4 py-1">
-                    <div class="owl-carousel owl-theme owl_nav">
-                      {%for i in cat%}
-                      <div class="item mb-4" >
-                        <select class="form-control" onchange="showSelectedValue(this.value)" style="  ">
-                          <option selected disabled style=" ">{{i.category_name}}</option>
-                          {%for k in sub%}
-                          {%if i.id == k.category_id%}
-                          <option value="{{k.id}}" style=" ">{{k.subcategory}}</option>
-                          {%else%}
-                          {%endif%}
-                          {% endfor %}
-                  
+  <div class="container">
+      <div class="row">
+        <div class="col-sm-12 pt-3">
+          <div class="owl-carousel owl-theme owl_nav " style="position: absolute;z-index: 19; left: 0;" >
+            <!-- {%for i in cat%}
+            <div class="item mb-4" >
+              <select class="form-control" onchange="showSelectedValue(this.value)" style="  ">
+                <option selected disabled style=" ">{{i.category_name}}</option>
+                {%for k in sub%}
+                {%if i.id == k.category_id%}
+                <option value="{{k.id}}" style=" ">{{k.subcategory}}</option>
+                {%else%}
+                {%endif%}
+                {% endfor %}
+        
+          
+              </select>
+            
+            </div>
+            {%endfor%} -->
+            {%for i in cat%}
+            <div class="item">
+              <ul style="text-align: center;">
+                <li>
+                  <a href="#">{{i.category_name}} &nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                  </svg></a>
+                  <ul class="submenu" style="position: sticky;">
                     
-                        </select>
-                      
-                      </div>
-                      {%endfor%}
-  
-                      
-  
-  
-                    </div>
+                    {%for k in sub%}
+                    {%if i.id == k.category_id%}
+               
+                        <li ><a href="{% url 'show_category' k.id%}" value="{{k.id}}">{{k.subcategory}}</a></li>
                   
+                    {%else%}
+                    {%endif%}
+                    {% endfor %}
                     
-                  </div>
-                </div>
-              </section>
-              
-              
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            {%endfor%}
+
+            
+
+            
+
+          </div>
+        </div>
       </div>
-  </div>
+    
+          
+      
   </div>
 
   
 </div>
 
   <div>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide pt-5" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>

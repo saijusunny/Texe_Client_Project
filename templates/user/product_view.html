@@ -357,6 +357,8 @@ function changesize(val){
 
 function change_color(val, id){
     var cart_id = document.getElementById("cart_id").value;
+    itm=document.getElementById('main_img')
+    itm.src="/media/"+val
     $.ajax({
         type: "GET",
         url: "{% url 'cart_change_color' %}",
