@@ -812,6 +812,7 @@ def admin_home(request):
     all_events = events.objects.all()
     data = item.objects.all()
     sub_cat=sub_category.objects.all()
+    event=events.objects.filter(start=date.today())
 
     today = datetime.now()
     sub=orders.objects.filter(date__month=today.month).values_list('date__day', flat=True).distinct()
@@ -832,6 +833,7 @@ def admin_home(request):
         'sub_cat':sub_cat,
         'nm':nm,
         'cnt':cnt,
+        'event':event
     }
     return render(request, "admin/admin_home.html",context)
 

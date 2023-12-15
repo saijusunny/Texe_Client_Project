@@ -57,11 +57,13 @@
     text-align: right;
     
 }
+
 @media screen and (max-width: 960px) {  
     #button_area{
         text-align: center;
         margin-left: 10px;
     }
+    
 }
 </style>
 <!-- https://projectsplaza.com/how-to-create-bar-chart-image-with-matplotlib-in-django/
@@ -75,6 +77,7 @@ pip install matplotlib -->
         </div>
     </div>
     <script>
+        
         function show_item(){
             document.getElementById('chart1').style.display="block"
             document.getElementById('chart2').style.display="none"
@@ -88,7 +91,7 @@ pip install matplotlib -->
             document.getElementById('chart1').style.display="none"
             document.getElementById('chart2').style.display="block"
             document.getElementById('chart3').style.display="none";
-            document.getElementById('cat').style="background-image:linear-gradient(#077c5b, rgb(20, 20, 20));color:white;border: none;";
+            document.getElementById('cat').style="background-image:linear-gradient(#54cff0, rgb(20, 20, 20));color:white;border: none;";
             document.getElementById('item').style="border: 2px solid #7479d5;color: #7479d5;";
             document.getElementById('orders').style="border: 2px solid #077c5b;color: #077c5b;";
         }
@@ -101,7 +104,7 @@ pip install matplotlib -->
             document.getElementById('cat').style="border: 2px solid #54cff0;color: #54cff0;";
         }
     </script>
-    <div class="col-md-12 card  text-light mt-2" style="background-color: black;">
+    <div class="col-md-12 card  text-light mt-4" style="background-color: black;">
         <div class="flash-message" id="flashMessage"> 
             <h4>Events</h4>
             <p id="text_flash"></p>
@@ -110,9 +113,18 @@ pip install matplotlib -->
        
         <div class="" id="chart1" >
             <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #7479d5; text-align: center;" class="p-2" >Item Overview</h5>
-            <canvas id="myChart" class="p-2" style="background-color: rgb(20, 20, 20); border-radius: 8px;height: 400px; width: 100%;"></canvas>
+            <canvas id="myChart" class="p-2" style="background-color: rgb(20, 20, 20);border-radius: 8px;display: block;"></canvas>
         </div>
         <script>
+            var canvas = document.getElementById('myChart');
+            var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            // Set different heights based on the screen width
+            if (screenWidth < 768) {
+                canvas.height = 440; // Adjust the height for smaller screens
+            } else {
+                canvas.height = 125; // Default height for larger screens
+            }
             var ctx = document.getElementById('myChart').getContext('2d');
             var gradient = ctx.createLinearGradient(0, 600, 0, 0);
             gradient.addColorStop(1, '#7479d5'); // transparent at the bottom
@@ -154,9 +166,20 @@ pip install matplotlib -->
     <div class="col-md-12 card  text-light mt-2" style="background-color: black;display: none;" id="chart2">
         <div class="ml-2">
             <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #54cff0; text-align: center;" class="p-2" >Category Overview</h5>
-            <canvas id="myChart2" class="p-2" style="background-color: rgb(20, 20, 20); border-radius: 8px;height: 400px; width: 100%;"></canvas>
+            <canvas id="myChart2" class="p-2" style="background-color: rgb(20, 20, 20);border-radius: 8px;display: block;" ></canvas>
         </div>
         <script>
+            var canvas = document.getElementById('myChart2');
+            var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            // Set different heights based on the screen width
+            if (screenWidth < 768) {
+                canvas.height = 440; // Adjust the height for smaller screens
+            } else {
+                canvas.height = 125; // Default height for larger screens
+            }
+
+
             var ctx = document.getElementById('myChart2').getContext('2d');
             var gradient = ctx.createLinearGradient(0, 600, 0, 0);
             gradient.addColorStop(1, '#54cff0'); // transparent at the bottom
@@ -196,9 +219,20 @@ pip install matplotlib -->
     <div class="col-md-12 card  text-light mt-2" style="background-color: black;display: none;" id="chart3">
         <div class="ml-2 ">
             <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #077c5b; text-align: center;" class="p-2" >Orders Overview</h5>
-            <canvas id="myChart3" class="p-2"  style="background-color: rgb(20, 20, 20); border-radius: 8px;height: 400px; width: 100%;"></canvas>
+            <canvas id="myChart3" class="p-2"  style="background-color: rgb(20, 20, 20);border-radius: 8px;display: block;"></canvas>
         </div>
         <script>
+
+            var canvas = document.getElementById('myChart3');
+            var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            // Set different heights based on the screen width
+            if (screenWidth < 768) {
+                canvas.height = 440; // Adjust the height for smaller screens
+            } else {
+                canvas.height = 125; // Default height for larger screens
+            }
+
             var ctx = document.getElementById('myChart3').getContext('2d');
             var gradient = ctx.createLinearGradient(0, 600, 0, 0);
             gradient.addColorStop(1, '#077c5b'); // transparent at the bottom
@@ -238,12 +272,41 @@ pip install matplotlib -->
 
 </div>
 
-<div class="row">
+<div class="row p-3">
+    <div class="col-md-8 p-4 mt-4" style="background-color: rgb(20, 20, 20); border-radius: 8px;">    
+        <div id='calendar' style="" height="500"></div> 
+    </div>
+    <div class="col-md-4 mt-4 ml-5 p-3" style="background-color: rgb(20, 20, 20); border-radius: 8px; text-align: center;">
+        <div class="row">
+            <div class="col-3 card pt-3">
+                <p>Start</p>
+            </div>
+            <div class="col-6 card pt-3">
+                <p>Event</p>
+            </div>
+            <div class="col-3 card pt-3">
+                <p>End</p>
+            </div>
+        </div>
+        {% for i in event%}
+        <div class="row">
+            <div class="col-3 card pt-3">
+                <p>{{i.start|date:"H"}}</p>
+            </div>
+            <div class="col-6 card pt-3">
+                <p>{{i.name}}</p>
+            </div>
+            <div class="col-3 card pt-3">
+                <p>{{i.end|date:"H"}}</p>
+            </div>
+        </div>
+        {%endfor%}
+        
+        
 
+    </div>
 </div>
-<div class="col-md-12 p-4 mt-4" style="background-color: rgb(20, 20, 20); border-radius: 8px;">    
-    <div id='calendar' style=""></div> 
-</div>
+
 
 <div class="rowmt-5 modal fade" id="create_post">
   <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
@@ -315,7 +378,9 @@ pip install matplotlib -->
             editable: true,
             eventLimit: true,
             select: function (start, end, allDay) {
+                
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+                
                 $('#create_post').modal('show');
                 $('#saveEvent').off('click').on('click', function() {
                 var title = $('#dsrptn').val();
