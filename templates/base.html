@@ -499,8 +499,16 @@
   #chat-container input{
         width: 84%;
         height: 38px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
 
       }
+
+  #chat-container input:focus{
+    outline: navy;
+
+  }
   #searchInput{
     margin-right: 10px;
     margin-top: -8px;
@@ -714,16 +722,17 @@
       <img src="{% static 'images\logo.png'%}" alt="" width="150">
     </div>
   </div>
+
+
   <div id="chat-messages" style="background-color: white; border-radius: 15px; height: 300px;" class="mt-3 pt-4 pr-4">
-      <p style="color: red;"><strong><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: red;" id="crt">
-        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-      </svg></strong> Welcome! </p>
+    
   </div>
-  <form action="">
+
+
+  <form onsubmit="sendMessage()" action="">
     <input type="text" id="user-input" class="mt-5 chat_input" place  holder="Type your message..." style="position: absolute; bottom: 20px;">
     
-    <button type="submit" onclick="sendMessage()" class="btn btn-light" style="position: absolute; bottom: 20px; right: 10px;color: red;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+    <button onclick="sendMessage()" class="btn btn-light" style="position: absolute; bottom: 20px; right: 10px;color: red; "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
       <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
     </svg></button>
   </form>
@@ -741,13 +750,42 @@
   const userInputElement = document.getElementById('user-input');
 
   function addMessage(sender, message) {
-      const newMessage = document.createElement('p');
-      newMessage.innerHTML = `
+      const newMessage = document.createElement('row');
+
+      if (sender=='User'){
+        newMessage.innerHTML = `
       
-      <strong><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: red;" id="crt">
+        <div class="col-sm-12">
+        <div class="row">
+          <div class="col-2 pt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: red;border-radius: 15px;" id="crt">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-            </svg> </strong> <span class="mt-2">${message}</span>`;
+            </svg>
+          </div>
+          <div class="col-10 ">
+            <p style="color: red; background-color: rgb(202, 202, 202);color:black; border-radius: 5px 5px 5px 5px;" class="p-2" id="user">${message}</p>
+          </div>
+        </div>
+      </div>
+      `;
+      }else{
+        newMessage.innerHTML = `
+      
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-2 pt-1">
+            <img class="rounded-circle article-img dropdown-toggle" id="log2" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{% static 'text_title_logo.png'%}"  width="30" height="30">
+            
+          </div>
+          <div class="col-10 ">
+            <p style="color: red; background-color: rgb(243, 163, 163); color:black;border-radius: 5px 5px 5px 5px;" class="p-2" id="seder">${message}</p>
+          </div>
+        </div>
+      </div>
+      `;
+      }
+      
       chatMessages.appendChild(newMessage);
       chatMessages.scrollTop = chatMessages.scrollHeight;
   }
@@ -781,6 +819,7 @@
   });
 
   // Display a welcome message on page load
+  addMessage('texe', 'Welcome!');
   addMessage('texe', ' How can I assist you?');
 </script>  
 

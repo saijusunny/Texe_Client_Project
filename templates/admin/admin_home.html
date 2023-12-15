@@ -20,27 +20,101 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 2;
 }
+#item{
 
+    border: 2px solid #7479d5;
+    color: #7479d5;
+}
 
+#cat{
+    border: 2px solid #54cff0;
+    color: #54cff0;
+    /* background-image: linear-gradient(#54cff0, rgb(20, 20, 20));
+    border: none; */
+}
+
+#orders{
+    border: 2px solid #077c5b;
+    color: #077c5b;
+   
+}
+
+#item:hover{
+  background-image: linear-gradient(#7479d5, rgb(20, 20, 20));
+  color: white;
+}
+
+#cat:hover{
+  background-image: linear-gradient(#54cff0, rgb(20, 20, 20));
+  color: white;
+}
+
+#orders:hover{
+  background-image: linear-gradient(#077c5b, rgb(20, 20, 20));
+  color: white;
+}
+#button_area{
+    text-align: right;
+    
+}
+@media screen and (max-width: 960px) {  
+    #button_area{
+        text-align: center;
+        margin-left: 10px;
+    }
+}
 </style>
 <!-- https://projectsplaza.com/how-to-create-bar-chart-image-with-matplotlib-in-django/
 pip install matplotlib -->
 <div class="row">
-   
-    <div class="col-md-4 card  text-light mt-2" style="background-color: black;">
+    <div class="row">
+        <div class="col-sm-12"  id="button_area">
+            <button class="btn btn-outline" id="item"  onclick="show_item()" >Items</button>
+            <button class="btn btn-outline"  onclick="show_cat()" id="cat">Category</button>
+            <button class="btn btn-outline" onclick="show_orders()" id="orders">Orders</button>
+        </div>
+    </div>
+    <script>
+        function show_item(){
+            document.getElementById('chart1').style.display="block"
+            document.getElementById('chart2').style.display="none"
+            document.getElementById('chart3').style.display="none"
+            document.getElementById('item').style="background-image:linear-gradient(#7479d5, rgb(20, 20, 20));color:white;border: none;";
+            document.getElementById('cat').style="border: 2px solid #54cff0;color: #54cff0;";
+            document.getElementById('orders').style="border: 2px solid #077c5b;color: #077c5b;";
+         
+        }
+        function show_cat(){
+            document.getElementById('chart1').style.display="none"
+            document.getElementById('chart2').style.display="block"
+            document.getElementById('chart3').style.display="none";
+            document.getElementById('cat').style="background-image:linear-gradient(#077c5b, rgb(20, 20, 20));color:white;border: none;";
+            document.getElementById('item').style="border: 2px solid #7479d5;color: #7479d5;";
+            document.getElementById('orders').style="border: 2px solid #077c5b;color: #077c5b;";
+        }
+        function show_orders(){
+            document.getElementById('chart1').style.display="none"
+            document.getElementById('chart2').style.display="none"
+            document.getElementById('chart3').style.display="block";
+            document.getElementById('orders').style="background-image:linear-gradient(#077c5b, rgb(20, 20, 20));color:white;border: none;";
+            document.getElementById('item').style="border: 2px solid #7479d5;color: #7479d5;";
+            document.getElementById('cat').style="border: 2px solid #54cff0;color: #54cff0;";
+        }
+    </script>
+    <div class="col-md-12 card  text-light mt-2" style="background-color: black;">
         <div class="flash-message" id="flashMessage"> 
             <h4>Events</h4>
             <p id="text_flash"></p>
         </div>
 
        
-        <div class="">
+        <div class="" id="chart1" >
             <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #7479d5; text-align: center;" class="p-2" >Item Overview</h5>
-            <canvas id="myChart" class="p-2" style="background-color: rgb(20, 20, 20); border-radius: 8px;"></canvas>
+            <canvas id="myChart" class="p-2" style="background-color: rgb(20, 20, 20); border-radius: 8px;height: 400px; width: 100%;"></canvas>
         </div>
         <script>
             var ctx = document.getElementById('myChart').getContext('2d');
-            var gradient = ctx.createLinearGradient(0, 100, 0, 0);
+            var gradient = ctx.createLinearGradient(0, 600, 0, 0);
             gradient.addColorStop(1, '#7479d5'); // transparent at the bottom
             gradient.addColorStop(0, 'rgb(20, 20, 20)'); // orange color at the top
             var myChart = new Chart(ctx, {
@@ -77,14 +151,14 @@ pip install matplotlib -->
         </script>
     </div>
 
-    <div class="col-md-4 card  text-light mt-2" style="background-color: black;">
+    <div class="col-md-12 card  text-light mt-2" style="background-color: black;display: none;" id="chart2">
         <div class="ml-2">
             <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #54cff0; text-align: center;" class="p-2" >Category Overview</h5>
-            <canvas id="myChart2" class="p-2" style="background-color: rgb(20, 20, 20);border-radius: 8px;"></canvas>
+            <canvas id="myChart2" class="p-2" style="background-color: rgb(20, 20, 20); border-radius: 8px;height: 400px; width: 100%;"></canvas>
         </div>
         <script>
             var ctx = document.getElementById('myChart2').getContext('2d');
-            var gradient = ctx.createLinearGradient(0, 100, 0, 0);
+            var gradient = ctx.createLinearGradient(0, 600, 0, 0);
             gradient.addColorStop(1, '#54cff0'); // transparent at the bottom
             gradient.addColorStop(0, 'rgb(20, 20, 20)'); // orange color at the top
             var myChart = new Chart(ctx, {
@@ -119,14 +193,14 @@ pip install matplotlib -->
         </script>
     </div>
 
-    <div class="col-md-4 card  text-light mt-2" style="background-color: black;">
+    <div class="col-md-12 card  text-light mt-2" style="background-color: black;display: none;" id="chart3">
         <div class="ml-2 ">
             <h5 style="background-color: rgb(20, 20, 20); border-radius: 8px; color: #077c5b; text-align: center;" class="p-2" >Orders Overview</h5>
-            <canvas id="myChart3" class="p-2"  style="background-color: rgb(20, 20, 20); border-radius: 8px; "></canvas>
+            <canvas id="myChart3" class="p-2"  style="background-color: rgb(20, 20, 20); border-radius: 8px;height: 400px; width: 100%;"></canvas>
         </div>
         <script>
             var ctx = document.getElementById('myChart3').getContext('2d');
-            var gradient = ctx.createLinearGradient(0, 100, 0, 0);
+            var gradient = ctx.createLinearGradient(0, 600, 0, 0);
             gradient.addColorStop(1, '#077c5b'); // transparent at the bottom
             gradient.addColorStop(0, 'rgb(20, 20, 20)'); // orange color at the top
             var myChart = new Chart(ctx, {
