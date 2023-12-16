@@ -274,33 +274,43 @@ pip install matplotlib -->
 
 <div class="row p-3">
     <div class="col-md-8 p-4 mt-4" style="background-color: rgb(20, 20, 20); border-radius: 8px;">    
-        <div id='calendar' style="" height="500"></div> 
+        <div id='calendar' style=""></div> 
     </div>
     <div class="col-md-4 mt-4 ml-5 p-3" style="background-color: rgb(20, 20, 20); border-radius: 8px; text-align: center;">
         <div class="row">
+            <div class="col-sm-12" style="text-align: right;">
+                <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-light">Create Event</a>
+
+            </div>
+        </div>
+        <div class="row mt-2">
             <div class="col-3 card pt-3">
-                <p>Start</p>
+                <p >Start <br>(hr)</p>
             </div>
             <div class="col-6 card pt-3">
                 <p>Event</p>
             </div>
             <div class="col-3 card pt-3">
-                <p>End</p>
+                <p>End <br>(hr)</p>
             </div>
         </div>
-        {% for i in event%}
-        <div class="row">
-            <div class="col-3 card pt-3">
-                <p>{{i.start|date:"H"}}</p>
+        <div id="creqtes">
+            <div  id="list_event">
+            {% for i in event%}
+            <div class="row">
+                <div class="col-3 card pt-3">
+                    <p>{{i.start|date:"H"}}</p>
+                </div>
+                <div class="col-6 card pt-3">
+                    <p>{{i.name}}</p>
+                </div>
+                <div class="col-3 card pt-3">
+                    <p>{{i.end|date:"H"}}</p>
+                </div>
             </div>
-            <div class="col-6 card pt-3">
-                <p>{{i.name}}</p>
+            {%endfor%}
             </div>
-            <div class="col-3 card pt-3">
-                <p>{{i.end|date:"H"}}</p>
-            </div>
-        </div>
-        {%endfor%}
+        </div>  
         
         
 
@@ -308,59 +318,69 @@ pip install matplotlib -->
 </div>
 
 
-<div class="rowmt-5 modal fade" id="create_post">
-  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-    <div class="modal-content modal-xl" style="background-color: #191c24;">
-      <div class="card ">
-        <div class="card-body">
-          <div class="row">
-              <div class="col-lg-10 col-md-12 col-sm-12 mt-2" style="margin: 0 auto;">
-                  <div class="card">
-                      
-                      <div class="card-body">
-                         
-                              
-                              <div class="row" >
-                                  <div class="col-12 col-sm-12 col-xl-12 my-auto" style="margin: 0 auto;">
-                                      
-                                      <textarea class=" form-control text-light" style="border:0px solid #6C7293 ;height:400px; width: 100%; font-size: 16px;" placeholder="Type something else..." id="dsrptn"></textarea>
-                                  </div>
-                              </div>
+<form action="{% url 'add_event'%}" method="POST">
+{% csrf_token %}
+<div class="rowmt-5 modal fade" id="myModal">
+    <div class="modal-dialog bd-example-modal-xl modal-dialog-centered" role="document" tabindex="-1" role="dialog"
+      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-content modal-xl" style="background-color: #191c24;">
+        <div class="card ">
+          <div class="card-body">
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
+              style="background-color: #191c24;border:none;float: right;font-size: 20px;">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="text-info" style="font-size: 19px;font-weight: 600;">Create Evenet</div>
+
   
-                              
-                              <hr>
-                              <div class="row mt-3" >
-                                  <div class="col-sm-12" style="text-align: right;">
-                                      <div>
-                                          
+              <div class="row mt-5">
+                
+                <div class="col-md-6 ">
+                    <div>
+                        <label for="">Start date & time</label>
+                    </div>
+                    <div>
+                    <input type="datetime-local" class="drop form-control ml-3 mt-2 text-light" name="str_dt" style="border:1px solid #6C7293 ;height:40px;"  required>
+                    </div>
+
+                    
   
-                                          <button  class="btn btn-outline-primary mt-4 ml-4" id="saveEvent" >Save</button>
-                                 
-                                      
-                                      
-                                      </div>
-                                  </div>
-                                  
-                          
-                                    
-                              </div>
-                         
-                          
-  
-                  
-                      </div>
-                     
-                  </div>
-              </div>
-          
-          </div>
-      </div>
       
-      <br><br>
+                </div>
+                <div class="col-md-6 ">
+                    <div>
+                        <label for=""> End date & time</label>
+                    </div>
+                    <div>
+                       
+                        <input type="datetime-local" name="end_dt" id="time" class="drop form-control ml-3 mt-2 text-light" style="border:1px solid #6C7293 ;height:40px;"  required>
+                    </div>
+  
+      
+                </div>
+  
+              </div>
+              <div class="row mt-2">
+                <div class="col-sm-12">
+                    <textarea name="des" id="" class="form-control text-light" placeholder="Event..." required></textarea>
+                </div>
+              </div>
+  
+              <div class="row mt-4 ">
+                <div class="col-md-12" style="text-align: center;">
+                    
+                        <button type="submit" name="submit" id="alert2" class="btn-primary Search" >Save</button>
+                    
+                </div>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
+</form>
 
 
 
@@ -378,36 +398,55 @@ pip install matplotlib -->
             editable: true,
             eventLimit: true,
             select: function (start, end, allDay) {
-                
-                var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                
-                $('#create_post').modal('show');
-                $('#saveEvent').off('click').on('click', function() {
-                var title = $('#dsrptn').val();
-                
-                var formData = new FormData();
-                formData.append('title', title);
-                formData.append('start', start);
-                
+                // display the click date
                 
                 $.ajax({
-                    type: "POST",
-                    url: "{% url 'add_event' %}",
-                    data: formData,
-                    dataType: "json",
-                    processData: false,
-                    contentType: false,
-                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-                        success: function (data) {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Added Successfully");
-                            $('#create_post').modal('hide');
-                        },
-                        error: function (data) {
-                            alert('There is a problem!!!');
+                    type: "GET",
+                    url: "{% url 'get_date_event' %}",
+                    data: {
+                        day : $.fullCalendar.formatDate(start, "DD"),
+                        month : $.fullCalendar.formatDate(start, "MM"),
+                        year : $.fullCalendar.formatDate(start, "Y"),
+            
+                    },
+                    success:function(response){
+                        names = response.names  
+                        starts=response.strt  
+                        ends=response.ends  
+                        document.getElementById('list_event').style.display="none"
+                        $(`#crack`).remove()
+                        for (var i = 0; i < names.length; i++) {
+                            
+                            $(`#creqtes`).append(
+                                `
+                                <div class="row" id="crack">
+                                    <div class="col-3 card pt-3">
+                                        <p>${starts[i]}</p>
+                                    </div>
+                                    <div class="col-6 card pt-3">
+                                        <p>${names[i]}</p>
+                                    </div>
+                                    <div class="col-3 card pt-3">
+                                        <p>${ends[i]}</p>
+                                    </div>
+                                </div>
+                                                                
+                                `
+                            );
                         }
-                    });
-                });
+                    
+                    }});
+
+                
+               
+            },
+
+            dayRightclick: function(date, jsEvent, view) {
+            // This function is triggered when a user right-clicks on a day in the calendar
+            // You can show a context menu or perform any other action
+
+            // Example: Show an alert with the clicked date
+            alert('Right-clicked on ' + date.format());
             },
 
             eventResize: function (event) {
@@ -450,6 +489,8 @@ pip install matplotlib -->
                     }
                 });
             },
+
+
   
             eventClick: function (event) {
                     var flashMessage = document.getElementById("flashMessage");

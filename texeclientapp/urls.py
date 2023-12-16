@@ -73,6 +73,6 @@ urlpatterns = [
     path('filter_delivery',views.filter_delivery, name='filter_delivery'),
     path('filter_order_id',views.filter_order_id, name='filter_order_id'),
     path('filter_delivery_id',views.filter_delivery_id, name='filter_delivery_id'),
-    
+    path('get_date_event',views.get_date_event, name='get_date_event'),
     
 ]

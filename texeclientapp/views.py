@@ -812,7 +812,7 @@ def admin_home(request):
     all_events = events.objects.all()
     data = item.objects.all()
     sub_cat=sub_category.objects.all()
-    event=events.objects.filter(start=date.today())
+    event=events.objects.filter(start__day=date.today().day)
 
     today = datetime.now()
     sub=orders.objects.filter(date__month=today.month).values_list('date__day', flat=True).distinct()
@@ -837,6 +837,17 @@ def admin_home(request):
     }
     return render(request, "admin/admin_home.html",context)
 
+def get_date_event(request):
+    day = request.GET.get('day')
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+    all_event = events.objects.filter(start__day=day, start__month=month, start__year=year)
+    names = [obj.name for obj in all_event]
+    strt = [obj.start.hour for obj in all_event]
+    ends = [obj.end.hour for obj in all_event]
+   
+    return JsonResponse({"status":" not","strt": strt,"ends":ends,"names":names})
+
 
 def all_events(request):
     all_events = events.objects.all()
@@ -853,17 +864,16 @@ def all_events(request):
 def add_event(request):
     
     if request.method == 'POST':
-        start = request.POST.get('start', None)
-        title = request.POST.get('title', None)
+        start = request.POST.get('str_dt', None)
+        end = request.POST.get('end_dt', None)
+        title = request.POST.get('des', None)
        
-        date_obj = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
-        one_hour = timedelta(hours=1)
-        new_date_obj = date_obj + one_hour
-        end = new_date_obj.strftime("%Y-%m-%d %H:%M:%S.%f")
+
         event = events(name=title, start=start,end=end, user=None) 
         event.save()
         data = {}
-        return JsonResponse(data)
+        return redirect('admin_home')
+    return redirect('admin_home')
  
 def update(request):
     start = request.GET.get("start", None)
