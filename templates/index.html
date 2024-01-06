@@ -253,61 +253,74 @@
     }
 
   
-    .item{
 
-       ul {
-            
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            background-color: transparent;
-        }
-        ul:hover{
-          background-color: black;
-        }
 
-         li {
-          position: relative;
-            flex: 1 0 auto;
-        }
-        li:hover{
-          background-color: black;
-        }
+    .item ul {
+          
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        background-color: transparent;
+    }
+    
+    .item ul:hover{
+      background-color: black;
+      color: white;
+      
+    }
 
-         a {
-            display: block;
-            padding: 10px;
-            color: black;
-            text-decoration: none;
-        }
-        a:hover{
-          color: white;
-        }
-
-         ul.submenu {
-          display: none;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          width: 100%;
-          padding: 10px;
-          background-color: red;
-        }
-
-         li:hover >  ul.submenu {
-            display: block;
-            
-        }
-        li:hover{
-          a{
-            color: white;
-          }
-        }
+    .item li {
+      position: relative;
+        flex: 1 0 auto;
+    }
+    .item li:hover{
+      background-color: black;
         
+    }
+
+    .item a {
+        display: block;
+        padding: 10px;
+        color: black;
+        text-decoration: none;
+    }
+    .item a:hover{
+      color: white;
+    }
+
+    .item ul.submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      padding: 10px;
+      background-color: red;
+    }
+
+    .item li:hover >  ul.submenu {
+        display: block;
+        color: white;
+        
+    }
+    .item li:hover{
+      a{
+        color: white;
       }
+
+      
+    }
+
+      /* select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+} */
       
 
 
@@ -338,7 +351,7 @@
             <div class="item">
               <ul style="text-align: center;">
                 <li>
-                  <a href="#">{{i.category_name}} &nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                  <a href="#" style="text-decoration: none;" id="cat_heads">{{i.category_name}} &nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                   </svg></a>
                   <ul class="submenu" style="position: sticky;">

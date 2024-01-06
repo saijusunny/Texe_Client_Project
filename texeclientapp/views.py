@@ -98,6 +98,7 @@ def signup(request):
                     sign.dob = request.POST.get('dob')
                     sign.location = request.POST.get('location')
                     sign.pin = request.POST.get('pin')
+                    sign.profile= request.FILES.get('prop')
                   
                     sign.role = "user1"
                     sign.regno=numb
@@ -538,6 +539,7 @@ def checkout(request):
         chk.total_amount=total_amount
         chk.date=datetime.now()
         chk.status="checkout"
+        chk.stage="pending"
         chk.regno=numb
         chk.save()
         item_id =request.POST.getlist('item_id[]') 

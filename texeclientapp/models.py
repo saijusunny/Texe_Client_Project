@@ -100,7 +100,8 @@ class orders(models.Model):
     total_amount=models.FloatField(default=0,null=True, blank=True)
     date=models.DateTimeField(null=True, blank=True)
     stage_count=models.IntegerField(default=0,null=True, blank=True)
-
+    stage =models.CharField(max_length = 255,blank=True,null=True)
+    delivery_date=models.DateField(null=True, blank=True)
 class checkout_item(models.Model):
     orders = models.ForeignKey(orders, on_delete=models.SET_NULL, null=True, blank=True)
     item = models.ForeignKey(item, on_delete=models.SET_NULL, null=True, blank=True)

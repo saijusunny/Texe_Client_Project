@@ -74,21 +74,27 @@
           <h4 style="text-align: center;">Sign Up</h4>
           <div class="form-group">
             <label class="login_label">Name</label>
-            <input type="name" name="name" placeholder="" class="form-control"> 
+            <input type="name" name="name" placeholder="" class="form-control" required> 
+          </div>
+          
+          <div class="form-group">
+            <label class="login_label">Profile Image</label>
+            <input type="file" name="prop" placeholder="" class="form-control" id="eyeIcon" required>
+            
           </div>
 
           <div class="form-group">
             <label class="login_label">D O B</label>
-            <input type="date" name="dob" placeholder="" class="form-control" id="eyeIcon">
+            <input type="date" name="dob" placeholder="" class="form-control" id="eyeIcon" required>
             
           </div>
           <div class="form-group">
             <label class="login_label">Email</label>
-            <input type="email" placeholder="" class="form-control" name="email"> 
+            <input type="email" placeholder="" class="form-control" name="email required"> 
           </div>
           <div class="form-group">
             <label class="login_label">Whatsapp Number</label>
-            <input type="phonenumber" placeholder="" class="form-control" name="num"> 
+            <input type="phonenumber" placeholder="" class="form-control" name="num" required> 
           </div>
           <div class="form-group">
             <label class="login_label">Pin</label>
@@ -104,12 +110,12 @@
 
           <div class="form-group">
             <label class="login_label">Password</label>
-            <input type="password" placeholder="" class="form-control" name="pass" id="eyeIcon">
+            <input type="password" placeholder="" class="form-control" name="pass" id="eyeIcon" required>
             
           </div>
           <div class="form-group">
             <label class="login_label">Confirm Password</label>
-            <input type="password" name="cn_pass" placeholder="" class="form-control" id="eyeIcon">
+            <input type="password" name="cn_pass" placeholder="" class="form-control" id="eyeIcon" required>
             <input type="hidden" name="latitude" id="latitude" value="">
             <input type="hidden" name="longitude" id="longitude" value="">
           </div>
